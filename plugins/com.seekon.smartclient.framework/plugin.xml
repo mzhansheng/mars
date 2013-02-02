@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="com.seekon.smartclient.framework.startups" name="com.seekon.smartclient.framework.startups" schema="schema/com.seekon.smartclient.framework.startups.exsd"/>
+   <extension-point id="com.seekon.smartclient.framework.menus" name="com.seekon.smartclient.framework.menus" schema="schema/com.seekon.smartclient.framework.menus.exsd"/>
+   <extension-point id="com.seekon.smartclient.framework.toolbarDocks" name="com.seekon.smartclient.framework.toolbarDocks" schema="schema/com.seekon.smartclient.framework.toolbarDocks.exsd"/>
+   <extension-point id="com.seekon.smartclient.framework.statusbarPanes" name="com.seekon.smartclient.framework.statusbarPanes" schema="schema/com.seekon.smartclient.framework.statusbarPanes.exsd"/>
+   <extension-point id="com.seekon.smartclient.framework.perspectives" name="com.seekon.smartclient.framework.perspectives" schema="schema/com.seekon.smartclient.framework.perspectives.exsd"/>
+   <extension-point id="com.seekon.smartclient.framework.navigationFilters" name="com.seekon.smartclient.framework.navigationFilters" schema="schema/com.seekon.smartclient.framework.navigationFilters.exsd"/>
+   <extension
+         point="com.seekon.smartclient.framework.menus">
+      <menu
+            class="com.seekon.smartclient.framework.internal.menu.JHelpMenu"
+            key="help">
+      </menu>
+   </extension>
+   <extension
+         point="com.seekon.smartclient.framework.menus">
+      <menu
+            before="true"
+            class="com.seekon.smartclient.framework.internal.menu.JOptionMenu"
+            key="option"
+            refkey="help">
+      </menu>
+   </extension>
+   <extension
+         point="com.seekon.smartclient.framework.toolbarDocks">
+      <dockable
+            class="com.seekon.smartclient.framework.internal.toolbar.JHelpButton"
+            id="com.seekon.smartclient.framework.dockable.help">
+      </dockable>
+   </extension>
+   <extension
+         point="com.seekon.smartclient.framework.statusbarPanes">
+      <pane
+            class="com.seekon.smartclient.framework.internal.statusbar.WelcomePane"
+            index="-1">
+      </pane>
+   </extension>
+   <extension
+         point="com.seekon.smartclient.module.resourceRegistry">
+      <resource
+            class="com.seekon.smartclient.framework.internal.module.FrameworkResourceRegistry">
+      </resource>
+   </extension>
+
+</plugin>

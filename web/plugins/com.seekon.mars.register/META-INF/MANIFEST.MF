@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Register
+Bundle-SymbolicName: com.seekon.mars.register
+Bundle-Version: 1.0.0
+Bundle-Vendor: UFGOV
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.apache.commons.logging,
+ org.osgi.framework;version="1.5.0"
+Export-Package: com.seekon.mars.register

@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Bridge
+Bundle-SymbolicName: com.seekon.mars.http.bridge
+Bundle-Version: 1.0.0
+Bundle-Vendor: UFGOV
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.seekon.mars.osgi.bridge,
+ javax.servlet,
+ javax.servlet.http,
+ org.osgi.framework,
+ org.osgi.service.http;version="1.2.0"
+Export-Package: org.eclipse.equinox.http.helper,
+ org.eclipse.equinox.http.servlet,
+ org.osgi.service.http;version="1.2.0"
+Bundle-Activator: org.eclipse.equinox.http.servlet.internal.Activator

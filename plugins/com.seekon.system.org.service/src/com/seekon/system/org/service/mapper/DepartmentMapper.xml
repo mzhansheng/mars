@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.system.org.service.mapper.DepartmentMapper">
+  
+  <resultMap type="Department" id="resultMap_dept">
+  	<id property="id" column="id"/>
+  	<result property="code" column="dept_code"/>
+  	<result property="name" column="dept_name"/>
+  	<result property="year" column="year"/>
+  	<!-- 
+  	<association property="belongedEnt" column="ent_id" javaType="Enterprise" 
+  		select="com.seekon.system.org.service.mapper.EnterpriseMapper.getEnterpriseById">
+  	</association>
+  	 -->
+  </resultMap>
+  
+  <select id="getDepartmentById" resultMap="resultMap_dept" parameterType="java.lang.String">
+  	select * from m_ele_department where id = #{id}
+  </select>
+  <select id="getDepartmentListByEntId" resultMap="resultMap_dept" parameterType="java.lang.String">
+  	select * from m_ele_department where ent_id = #{id}
+  </select>
+  
+  <insert id="addDepartment" parameterType="Department">
+  	insert into m_ele_department(id, dept_code, dept_name, year, ent_id)
+  		values(#{department.id}, #{department.code}, #{department.name}, #{department.year}, #{department.belongedEnt.id})
+  </insert> 
+	
+  <update id="updateDepartment" parameterType="Department">
+  	update m_ele_department set
+  		dept_code = #{department.code}, dept_name = #{department.name}
+  		, year = #{department.year}, ent_id = #{department.belongedEnt.id}
+  	where id = #{department.id}
+  </update>
+  
+  <delete id="deleteDepartment" parameterType="Department">
+  	delete from m_ele_department where id = #{department.id}
+  </delete>
+</mapper>

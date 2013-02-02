@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Rule
+Bundle-SymbolicName: com.seekon.mars.rule.engine
+Bundle-Version: 1.0.0
+Bundle-Vendor: seekon
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.seekon.mars.context.http,
+ com.seekon.mars.dictionary.model,
+ org.osgi.framework;version="1.3.0"
+Export-Package: com.seekon.mars.rule.engine,
+ com.seekon.mars.rule.engine.entity,
+ com.seekon.mars.rule.engine.specification,
+ com.seekon.mars.rule.engine.specification.ext,
+ com.seekon.mars.rule.engine.specification.visitor
+Bundle-Type: share

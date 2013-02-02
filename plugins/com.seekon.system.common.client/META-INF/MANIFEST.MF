@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Client
+Bundle-SymbolicName: com.seekon.system.common.client
+Bundle-Version: 1.0.0
+Bundle-Vendor: seekon
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: com.seekon.smartclient.component;bundle-version="1.0.0",
+ com.seekon.system.common;bundle-version="1.0.0",
+ com.jgoodies.binding;bundle-version="2.7.0",
+ com.jgoodies.common;bundle-version="1.4.0",
+ com.jgoodies.validation;bundle-version="2.4.2",
+ net.miginfocom.miglayout;bundle-version="4.3.0"
+Export-Package: com.seekon.system.common.client.category,
+ com.seekon.system.common.client.category.tree
+Import-Package: org.pietschy.wizard,
+ org.pietschy.wizard.models;version="0.1.2"

@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Loader
+Bundle-SymbolicName: com.seekon.smartclient.loader
+Bundle-Version: 1.0.0
+Bundle-Activator: com.seekon.smartclient.loader.internal.Activator
+Bundle-Vendor: UFGOV
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.seekon.smartclient.launcher.web;resolution:=optional,
+ org.osgi.framework;version="1.3.0",
+ org.osgi.service.packageadmin;version="1.2.0",
+ org.osgi.util.tracker;version="1.4.0"
+Export-Package: com.seekon.smartclient.loader

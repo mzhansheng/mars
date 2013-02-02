@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="com.seekon.smartclient.module.resourceRegistry">
+      <resource
+            class="com.seekon.system.auth.client.module.AuthResourceRegistry">
+      </resource>
+   </extension>
+   <extension
+         point="com.seekon.smartclient.framework.navigationFilters">
+      <navFilter
+            class="com.seekon.system.auth.client.internal.AuthNavigationResourceFilter">
+      </navFilter>
+   </extension>
+   <extension
+         point="com.seekon.system.common.elementRegistry">
+      <registry
+            class="com.seekon.system.auth.client.module.AuthElementRegistry">
+      </registry>
+   </extension>
+
+</plugin>

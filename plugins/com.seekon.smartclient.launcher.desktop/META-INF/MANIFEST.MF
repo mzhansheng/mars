@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Desktop
+Bundle-SymbolicName: com.seekon.smartclient.launcher.desktop;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: seekon
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.seekon.smartclient.launcher.web,
+ org.eclipse.equinox.app,
+ org.osgi.framework;version="1.5.0"
+Bundle-Activator: com.seekon.smartclient.launcher.desktop.internal.Activator
+Bundle-ActivationPolicy: lazy

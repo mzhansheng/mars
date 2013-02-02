@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Browser
+Bundle-SymbolicName: com.seekon.smartclient.browser
+Bundle-Version: 1.0.0
+Bundle-Vendor: seekon
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: chrriis.dj.nativeswing.swtimpl,
+ chrriis.dj.nativeswing.swtimpl.components
+Export-Package: com.seekon.smartclient.browser

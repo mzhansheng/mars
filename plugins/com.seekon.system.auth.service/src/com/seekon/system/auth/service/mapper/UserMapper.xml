@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.system.auth.service.mapper.UserMapper">
+  
+  <resultMap type="User" id="resultMap_user">
+  	<id property="id" column="id"/>
+  	<result property="userCode" column="user_code"/>
+  	<result property="userName" column="user_name"/>
+  	<result property="password" column="password"/>
+  	<association property="belongedOrgItem" column="{orgId=belonged_org_id,orgType=belonged_org_type}"
+  		select="getUserBelongedOrgItem">
+  	</association>
+  	<collection property="roleList" column="id" 
+  		select="com.seekon.system.auth.service.mapper.RoleMapper.getRoleListByUserId">
+  	</collection>
+  	<collection property="datascopeRuleList" column="id" 
+  		select="com.seekon.system.rule.service.mapper.RuleMapper.getRuleListByUserId">
+  	</collection>
+  </resultMap>
+   
+  <select id="getUserList" resultMap="resultMap_user">
+  	select * from m_sys_user
+  </select>
+  
+  <select id="getUserBelongedOrgItem" parameterType="map" resultType="AbstractOrgItem">
+  	<choose>
+  		<when test="orgType == '008'">
+  			select distinct '-999' as id, 'other' as code, '组织外人员' as name, '008' as type
+  			from m_ele_department where 1 = 1
+  		</when>
+  		<when test="orgType == '004'">
+  			select id, ent_code as code, ent_name as name, year, '004' as type 
+  				from m_ele_enterprise where id = #{orgId}
+  		</when>
+  		<otherwise>
+  			select id, dept_code as code, dept_name as name, year, '002' as type
+  				from m_ele_department where id = #{orgId}
+  		</otherwise>
+  	</choose>
+  </select>
+    
+  <select id="getUser" resultMap="resultMap_user" parameterType="java.lang.String">
+  	select * from m_sys_user where user_code = #{userId}
+  	<!-- 
+  	<choose>
+  		<when test="datascopeSql != null">
+  			and ${datascopeSql}
+  		</when>
+  	</choose>
+  	 -->
+  </select>
+  
+  <insert id="addUserBasicInfo" parameterType="User">
+  	insert into m_sys_user(id, user_code, user_name, password, belonged_org_id, belonged_org_type)
+  		values(#{user.id}, #{user.userCode}, #{user.userName}, #{user.password}
+  		,#{user.belongedOrgItem.id}, #{user.belongedOrgItem.type})
+  </insert>
+  <insert id="addUserRole" parameterType="map">
+  	insert into m_sys_user_role(id, user_id, role_id)
+  		values(#{userRole.id}, #{userRole.userId}, #{userRole.roleId})
+  </insert>
+  <insert id="addUserRule" parameterType="map">
+  	insert into m_sys_user_rule(id, user_id, rule_id)
+  		values(#{userRule.id}, #{userRule.userId}, #{userRule.ruleId})
+  </insert>
+  
+  <delete id="deleteUserBasicInfo" parameterType="User">
+  	delete from m_sys_user where id = #{user.id}
+  </delete>
+  <delete id="deleteUserRoleInfo" parameterType="User">
+  	delete from m_sys_user_role where user_id = #{user.id}
+  </delete>
+  <delete id="deleteUserRuleInfo" parameterType="User">
+  	delete from m_sys_user_rule where user_id = #{user.id}
+  </delete>
+  
+  <update id="updateUserBasicInfo" parameterType="User">
+  	update m_sys_user set user_code = #{user.userCode}, user_name = #{user.userName}
+  		, password = #{user.password}, belonged_org_id = #{user.belongedOrgItem.id}
+  		, belonged_org_type = #{user.belongedOrgItem.type}
+  		where id = #{user.id}
+  </update>
+
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="com.seekon.smartclient.framework.perspectives">
+      <perspective
+            class="com.seekon.smartclient.layout.split.TwoColumnsPerspective"
+            default="true">
+      </perspective>
+   </extension>
+   <extension
+         point="com.seekon.smartclient.framework.perspectives">
+      <perspective
+            class="com.seekon.smartclient.layout.grid.GridPerspective"
+            default="false">
+      </perspective>
+   </extension>
+
+</plugin>

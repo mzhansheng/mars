@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Component
+Bundle-SymbolicName: com.seekon.smartclient.component
+Bundle-Version: 1.0.0
+Bundle-Vendor: seekon
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: com.seekon.smartclient.common,
+ com.seekon.smartclient.component.tree,
+ com.seekon.smartclient.component.viewedit,
+ com.seekon.smartclient.component.viewedit.callback,
+ com.seekon.smartclient.component.viewedit.event
+Bundle-ClassPath: .

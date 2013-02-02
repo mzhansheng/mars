@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.system.common.mapper.OptionMapper">
+  
+  <resultMap type="Option" id="resultMap_option">
+  	<id property="id" column="id"/>
+  	<result property="optCode" column="opt_code"/>
+  	<result property="optValue" column="opt_value" 
+  		typeHandler="com.seekon.system.common.type.OptionTypeHandler"/>
+  </resultMap>
+   
+  <select id="getOptionByCode" resultMap="resultMap_option" parameterType="java.lang.String">
+    select * from m_sys_option where opt_code = #{id}
+  </select>
+   
+  <insert id="addOption" parameterType="Option">
+    insert into m_sys_option(id, opt_code, opt_value)
+			 values(#{id}, #{optCode}, #{optValue, typeHandler=OptionTypeHandler})
+  </insert>
+  
+  <update id="updateOption" parameterType="Option">
+  	update m_sys_option set opt_value = #{optValue, typeHandler=OptionTypeHandler}
+		where id = #{id}
+  </update>
+  
+  <delete id="deleteOption" parameterType="Option">
+  	delete from m_sys_option where id = #{id}
+  </delete>
+</mapper>

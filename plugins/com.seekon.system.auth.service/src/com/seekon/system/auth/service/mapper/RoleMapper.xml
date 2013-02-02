@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.system.auth.service.mapper.RoleMapper">
+  
+  <resultMap type="Role" id="resultMap_role">
+  	<id property="id" column="id"/>
+  	<result property="roleCode" column="role_code"/>
+  	<result property="roleName" column="role_name"/>
+  	<association property="category" column="category_id" javaType="Category" 
+  		select="com.seekon.system.common.mapper.CategoryMapper.getCategoryById">
+  	</association>
+  	<association property="resource" column="id" javaType="ResourceWrapper" typeHandler="ResourceTypeHandler" 
+  		select="com.seekon.system.auth.service.mapper.RoleMapper.getResourceByRoleId">
+  	</association>
+  	<collection property="datascopeRuleList" column="id" 
+  		select="com.seekon.system.rule.service.mapper.RuleMapper.getRuleListByRoleId">
+  	</collection>
+  </resultMap>
+  
+  <select id="getRoleList" resultMap="resultMap_role" >
+    select * from m_sys_role
+  </select> 
+  <select id="getRoleByRoleCode" resultMap="resultMap_role" parameterType="java.lang.String">
+  	select * from m_sys_role where role_code = #{roleCode}
+  </select> 
+  <select id="getResourceByRoleId" resultType="ResourceWrapper" parameterType="java.lang.String">
+  	select res_val from m_sys_role_resource where role_id = #{id}
+  </select> 
+  <select id="getRoleListByUserId" parameterType="string" resultMap="resultMap_role">
+  	select t.* from m_sys_role t, m_sys_user_role r
+  		where t.id = r.role_id and r.user_id = #{id}
+  </select>
+  
+  <insert id="addRoleBasicInfo" parameterType="Role">
+    insert into m_sys_role(id, role_code, role_name, category_id) 
+		values(#{role.id},#{role.roleCode}, #{role.roleName}, #{role.category.id})
+  </insert>
+  <insert id="addRoleResource" parameterType="Role">
+  	insert into m_sys_role_resource(id, role_id, res_val) values(#{role.id},#{role.id}, #{role.resource, typeHandler=ResourceTypeHandler})
+  </insert>
+  <insert id="addRoleRule" parameterType="map">
+  	insert into m_sys_role_rule(id, role_id, rule_id)
+  		values(#{roleRule.id}, #{roleRule.roleId}, #{roleRule.ruleId})
+  </insert>
+  
+  <update id="updateRoleBasicInfo" parameterType="Role">
+  	update m_sys_role set role_code = #{role.roleCode}, role_name = #{role.roleName}
+		 where id = #{role.id}
+  </update>
+  <update id="updateRoleResource" parameterType="Role">
+  	update m_sys_role_resource set res_val = #{role.resource, typeHandler=ResourceTypeHandler}
+  		where role_id = #{role.id}
+  </update>
+  
+  <delete id="deleteRoleBasicInfo" parameterType="Role">
+  	delete from m_sys_role where id = #{role.id}
+  </delete> 
+  <delete id="deleteRoleResource" parameterType="Role">
+  	delete from m_sys_role_resource where role_id = #{role.id}
+  </delete>
+  <delete id="deleteUserRole" parameterType="Role">
+  	delete from m_sys_user_role where role_id = #{role.id}
+  </delete>
+  <delete id="deleteRoleRuleList" parameterType="Role">
+  	delete from m_sys_role_rule where role_id = #{role.id}
+  </delete>
+  <delete id="deleteRoleBasicInfoByCategory" parameterType="Category">
+  	delete from m_sys_role where category_id = #{category.id}
+  </delete>
+  <delete id="deleteRoleResourceByCategory" parameterType="Category">
+  	delete from m_sys_role_resource where role_id in 
+  		( select id from m_sys_role where category_id = #{category.id})
+  </delete>
+  <delete id="deleteUserRoleByCategory" parameterType="Category">
+  	delete from m_sys_user_role where role_id in 
+  		( select id from m_sys_role where category_id = #{category.id})
+  </delete>
+  <delete id="deleteRoleRuleByCategory" parameterType="Category">
+  	delete from m_sys_role_rule where role_id in 
+  		( select id from m_sys_role where category_id = #{category.id})
+  </delete>
+</mapper>

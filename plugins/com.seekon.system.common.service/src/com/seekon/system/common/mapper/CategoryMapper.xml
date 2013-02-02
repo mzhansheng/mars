@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.system.common.mapper.CategoryMapper">
+  
+  <resultMap type="Category" id="resultMap_category">
+  	<id property="id" column="id"/>
+  	<result property="displayName" column="display_name"/>
+  	<association property="parent" column="parent_id" select="getCategoryById"></association>
+  	<collection property="children" column="id" select="getCategoriesByParentId">
+  	</collection>
+  </resultMap>
+   
+  <select id="getCategoriesByParentId" resultMap="resultMap_category" parameterType="java.lang.String">
+    select * from m_sys_category where parent_id = #{id}
+  </select>
+  
+  <select id="getCategoryById" resultMap="resultMap_category" parameterType="java.lang.String">
+    select * from m_sys_category where id = #{id}
+  </select>
+  
+  <insert id="addCategory" parameterType="Category">
+    insert into m_sys_category(id, display_name, parent_id)
+			 values(#{id}, #{displayName}, #{parent.id})
+  </insert>
+  
+  <update id="updateCategory" parameterType="Category">
+  	update m_sys_category set display_name = #{displayName}
+		where id = #{id}
+  </update>
+  
+  <delete id="deleteCategory" parameterType="Category">
+  	delete from m_sys_category where id = #{id}
+  </delete>
+</mapper>

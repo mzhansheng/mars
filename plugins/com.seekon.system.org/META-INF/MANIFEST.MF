@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Org
+Bundle-SymbolicName: com.seekon.system.org
+Bundle-Version: 1.0.0
+Bundle-Vendor: UFGOV
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: com.seekon.system.org.model,
+ com.seekon.system.org.spi
+Bundle-Type: share

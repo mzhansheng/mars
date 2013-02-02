@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Extend
+Bundle-SymbolicName: com.seekon.mars.equinox.extend
+Bundle-Version: 6.0.2
+Bundle-Vendor: UFGOV
+Fragment-Host: org.eclipse.osgi;bundle-version="3.5.0"
+Bundle-RequiredExecutionEnvironment: J2SE-1.4
+Export-Package: com.seekon.mars.equinox.hooks.extend.patch
+Bundle-Type: share

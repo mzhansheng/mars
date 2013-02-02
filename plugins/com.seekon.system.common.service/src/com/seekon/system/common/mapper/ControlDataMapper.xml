@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.system.common.mapper.ControlDataMapper">
+  
+  <update id="updateTableControlData" parameterType="map">
+  	update ${table_name}
+  		set last_modifier = #{last_modifier}
+  			, last_modify_time = #{last_modify_time}
+  			<choose>
+  				<when test="creator != null">
+  					, creator = #{creator}
+  					, create_time = #{create_time}
+  				</when>
+  			</choose>
+  		where id = #{id}
+  </update>
+
+</mapper>

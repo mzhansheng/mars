@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.system.org.service.mapper.EnterpriseMapper">
+  
+  <resultMap type="Enterprise" id="resultMap_ent">
+  	<id property="id" column="id"/>
+  	<result property="code" column="ent_code"/>
+  	<result property="name" column="ent_name"/>
+  	<result property="entType" column="ent_type"/>
+  	<result property="address" column="address"/>
+  	<result property="postCode" column="post_code"/>
+  	<result property="year" column="year"/>
+  	<association property="parent" column="parent_id" javaType="Enterprise" 
+  		select="getEnterpriseById">
+  	</association>
+  </resultMap>
+  
+  <select id="getEnterpriseById" resultMap="resultMap_ent" parameterType="java.lang.String">
+    select * from m_ele_enterprise where id = #{id}
+  </select>
+  
+  <select id="getEnterpriseListByParentId" resultMap="resultMap_ent" parameterType="java.lang.String">
+  	select * from m_ele_enterprise
+  	<where>
+    	<choose>
+    		<when test="id == null">
+    			parent_id is null
+    		</when>
+    		<otherwise>
+    			parent_id = #{id}
+    		</otherwise>
+    	</choose>
+    </where>
+  </select>
+ 
+  <insert id="addEnterprise" parameterType="Enterprise">
+  	insert into m_ele_enterprise(id, ent_code, ent_name, ent_type, year, parent_id, address, post_code)
+  		values(#{enterprise.id}, #{enterprise.code}, #{enterprise.name}, #{enterprise.entType}, #{enterprise.year}
+  		, #{enterprise.parent.id}, #{enterprise.address}, #{enterprise.postCode})
+  </insert> 
+  
+  <update id="updateEnterprise" parameterType="Enterprise">
+  	update m_ele_enterprise set
+  		ent_code = #{enterprise.code}, ent_name = #{enterprise.name},
+  		ent_type = #{enterprise.entType}, year = #{enterprise.year}, 
+  		parent_id = #{enterprise.parent.id}, address = #{enterprise.address}, 
+  		post_code = #{enterprise.postCode}
+  	where id = #{enterprise.id}
+  </update>
+  
+  <delete id="deleteEnterprise" parameterType="Enterprise">
+  	delete from m_ele_enterprise where id = #{enterprise.id}
+  </delete>
+  
+</mapper>

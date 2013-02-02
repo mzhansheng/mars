@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.system.rule.service.mapper.RuleMapper">
+  
+  <resultMap type="Rule" id="resultMap_rule">
+  	<id property="id" column="id"/>
+  	<result property="ruleName" column="rule_name"/>
+  	<association property="category" column="category_id" javaType="Category" 
+  		select="com.seekon.system.common.mapper.CategoryMapper.getCategoryById">
+  	</association>
+  	<collection property="ruleElementList" column="id" 
+  		select="com.seekon.system.rule.service.mapper.RuleElementMapper.getRuleElementListByRuleId">
+  	</collection>
+  </resultMap>
+  
+  <select id="getRuleList" resultMap="resultMap_rule" >
+    select * from m_sys_rule
+  </select>
+  
+  <select id="getRuleListByUserId" resultMap="resultMap_rule" parameterType="string">
+  	select t.* from m_sys_rule t, m_sys_user_rule ur
+  		where t.id = ur.rule_id and ur.user_id = #{id}
+  </select>  
+
+  <select id="getRuleListByRoleId" resultMap="resultMap_rule" parameterType="string">
+  	select t.* from m_sys_rule t, m_sys_role_rule rr
+  		where t.id = rr.rule_id and rr.role_id = #{id}
+  </select> 
+    
+  <insert id="addRule" parameterType="Rule">
+  	insert into m_sys_rule(id, rule_name, category_id) values(#{rule.id}, #{rule.ruleName}, #{rule.category.id})
+  </insert>
+  
+  <update id="updateRule" parameterType="Rule">
+  	update m_sys_rule set rule_name = #{rule.ruleName} where id = #{rule.id}
+  </update>
+	 
+  <delete id="deleteRule" parameterType="Rule">
+  	delete from m_sys_rule where id = #{rule.id}
+  </delete>
+  <delete id="deleteUserRule" parameterType="Rule">
+  	delete from m_sys_user_rule where rule_id = #{rule.id}
+  </delete>
+  <delete id="deleteRoleRule" parameterType="Rule">
+  	delete from m_sys_role_rule where rule_id = #{rule.id}
+  </delete>
+  
+  <delete id="deleteRuleByCategory" parameterType="Category">
+  	delete from m_sys_rule where category_id = #{category.id}
+  </delete>
+  <delete id="deleteUserRuleByCategory" parameterType="Category">
+  	delete from m_sys_user_rule where rule_id in
+  	(select id from m_sys_rule where category_id = #{category.id}) 
+  </delete>
+  <delete id="deleteRoleRuleByCategory" parameterType="Category">
+  	delete from m_sys_role_rule where rule_id in
+  	(select id from m_sys_rule where category_id = #{category.id}) 
+  </delete>
+</mapper>

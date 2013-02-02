@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="com.seekon.smartclient.launcher.startups">
+      <startup
+            class="com.seekon.smartclient.login.internal.Startup"
+            index="5">
+      </startup>
+   </extension>
+   <extension
+         point="com.seekon.smartclient.framework.toolbarDocks">
+      <dockable
+            class="com.seekon.smartclient.login.internal.JLogoutButton"
+            groupId="login.plugin"
+            id="com.seekon.smartclient.login.logout">
+      </dockable>
+   </extension>
+   <extension
+         point="com.seekon.smartclient.framework.toolbarDocks">
+      <dockable
+            class="com.seekon.smartclient.login.internal.JReloginButton"
+            groupId="login.plugin"
+            id="com.seekon.smartclient.login.relogin">
+      </dockable>
+   </extension>
+   <extension
+         point="com.seekon.smartclient.framework.statusbarPanes">
+      <pane
+            class="com.seekon.smartclient.login.internal.LoginStatusPanel">
+      </pane>
+   </extension>
+
+</plugin>

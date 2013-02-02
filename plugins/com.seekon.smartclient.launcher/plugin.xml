@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="com.seekon.smartclient.launcher.startups" name="com.seekon.smartclient.launcher.startups" schema="schema/com.seekon.smartclient.launcher.startups.exsd"/>
+   <extension
+         id="com.seekon.smartclient.launcher"
+         point="org.eclipse.core.runtime.applications">
+         <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="com.seekon.smartclient.launcher.internal.DesktopProduct">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="smartclient_product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="com.seekon.smartclient.launcher"
+            name="smartclient">
+         <property
+               name="appName"
+               value="smartclient">
+         </property>
+      </product>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="com.seekon.smartclient.launcher"
+            name="com.seekon.smartclient.desktop">
+         <property
+               name="appName"
+               value="com.seekon.smartclient.desktop">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

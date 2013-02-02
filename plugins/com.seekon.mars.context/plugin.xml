@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="com.seekon.mars.context" name="shared guice context provider" schema="schema/com.seekon.mars.context.exsd"/>
+
+</plugin>

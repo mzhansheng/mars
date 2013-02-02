@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Auth
+Bundle-SymbolicName: com.seekon.system.auth
+Bundle-Version: 1.0.0
+Bundle-Vendor: seekon
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Type: share
+Export-Package: com.seekon.system.auth,
+ com.seekon.system.auth.model,
+ com.seekon.system.auth.spi
+Import-Package: com.seekon.smartclient.module,
+ com.seekon.system.common.model,
+ com.seekon.system.common.spi,
+ com.seekon.system.org.model
+Require-Bundle: com.seekon.system.rule;bundle-version="1.0.0"

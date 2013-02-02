@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: mars
+Bundle-SymbolicName: mars
+Bundle-Version: 1.0.0
+Export-Package: com.seekon.mars.osgi.bridge
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.system.rule.service.mapper.RuleElementMapper">
+  
+  <resultMap type="RuleElement" id="resultMap_ruleElement">
+  	<id property="id" column="id"/>
+  	<result property="elementCode" column="ele_code"/>
+  	<result property="ruleSpecification" column="rule_spec" typeHandler="RuleSpecificationTypeHandler"/>
+  </resultMap>
+ 
+  <select id="getRuleElementListByRuleId" resultMap="resultMap_ruleElement" parameterType="string">
+  	select * from m_sys_rule_element where rule_id = #{id}
+  </select>
+  
+  <update id="updateRuleElement" parameterType="RuleElement">
+  	update m_sys_rule_element set rule_spec = #{ruleSpecification, typeHandler=RuleSpecificationTypeHandler}
+  		where id = #{id}
+  </update>
+  
+  <insert id="addRuleElement" parameterType="RuleElement">
+  	insert into m_sys_rule_element(id, rule_id, ele_code, ele_name, rule_spec)
+  		values(#{id}, #{rule.id}, #{element.code}, #{element.name}
+  		, #{ruleSpecification, typeHandler=RuleSpecificationTypeHandler})
+  </insert>
+  
+  <delete id="deleteRuleElement" parameterType="RuleElement">
+  	delete from m_sys_rule_element where id = #{id}
+  </delete> 
+  <delete id="deleteRuleElementByCategory" parameterType="Category">
+  	delete from m_sys_rule_element where rule_id in
+  	(select id from m_sys_rule where category_id = #{id})
+  </delete>
+</mapper>

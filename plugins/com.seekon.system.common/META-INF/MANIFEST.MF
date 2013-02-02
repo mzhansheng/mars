@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Common
+Bundle-SymbolicName: com.seekon.system.common;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: seekon
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: com.seekon.system.common,
+ com.seekon.system.common.model,
+ com.seekon.system.common.spi,
+ com.seekon.system.common.util
+Import-Package: com.seekon.mars.dictionary.model,
+ com.seekon.mars.osgi.util,
+ org.eclipse.core.runtime;version="3.4.0"
