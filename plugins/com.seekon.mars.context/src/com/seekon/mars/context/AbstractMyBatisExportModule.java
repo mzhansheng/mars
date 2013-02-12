@@ -2,12 +2,16 @@ package com.seekon.mars.context;
 
 import static com.google.inject.util.Providers.guicify;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.Set;
 
 import static com.google.inject.internal.util.$Preconditions.checkArgument;
 
+import org.apache.ibatis.builder.xml.XMLMapperBuilder;
 import org.apache.ibatis.io.ResolverUtil;
+import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -107,8 +111,24 @@ public abstract class AbstractMyBatisExportModule extends AbstractExportModule {
     return new ResolverUtil<Object>().find(test, packageName).getClasses();
   }
 
-  protected void addInterceptorClass(
-    Class<? extends Interceptor> interceptorClass) {
+  protected final void addXmlMapperResource(String xmlResource,
+    ClassLoader classLoader) {
+    if (!configuration.isResourceLoaded(xmlResource)) {
+      InputStream inputStream = null;
+      try {
+        inputStream = Resources.getResourceAsStream(classLoader, xmlResource);
+      } catch (IOException e) {
+        // ignore, resource is not required
+      }
+      if (inputStream != null) {
+        XMLMapperBuilder xmlParser = new XMLMapperBuilder(inputStream,
+          configuration, xmlResource, configuration.getSqlFragments());
+        xmlParser.parse();
+      }
+    }
+  }
+
+  protected void addInterceptorClass(Class<? extends Interceptor> interceptorClass) {
     checkArgument(interceptorClass != null,
       "Parameter 'interceptorClass' must not be null");
     try {
@@ -117,4 +137,5 @@ public abstract class AbstractMyBatisExportModule extends AbstractExportModule {
       e.printStackTrace();
     }
   }
+
 }

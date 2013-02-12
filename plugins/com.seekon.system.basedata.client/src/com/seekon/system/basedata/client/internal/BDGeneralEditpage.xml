@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dialog id="editDialog" size="400,180" Modal="true" Title="新增通用基础数据">
+  <panel layout="BorderLayout">
+  	<panel constraints="BorderLayout.CENTER">
+  		<layout type="MigLayout" layoutConstraints="align center"></layout>
+  		<label text="代码"/>
+  		<textfield id="codeField" constraints="w 4cm:6cm:,wrap"></textfield>
+  		<label text="名称"/>
+  		<textfield id="nameField" constraints="growx,wrap"></textfield>
+  		<label text="物理表"/>
+  		<textfield id="tableField" constraints="growx,wrap"></textfield>			     
+  	</panel>
+  	<panel constraints="BorderLayout.SOUTH">
+  		<button id="saveButton" text="保存"></button>
+  	</panel>
+  </panel>
+</dialog>   

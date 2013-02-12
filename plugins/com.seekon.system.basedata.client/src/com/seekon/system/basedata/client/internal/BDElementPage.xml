@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+  <panel layout="BorderLayout">
+  	<panel layout="FlowLayout(FlowLayout.RIGHT)" constraints="BorderLayout.NORTH">
+  		<button id="settingButton" Text="设置">
+  		</button>
+  	</panel>
+  	<panel layout="BorderLayout" constraints="BorderLayout.CENTER">
+  		<scrollpane constraints="BorderLayout.CENTER">
+  			<JXTreeTable id="bdElementTable">
+  				<MDefaultTreeTableModel sqlid="getGeneralBaseData" params="" lazy="true"
+  							columns="code,代码;name,名称;is_used,是否启用,java.lang.Boolean">
+  				</MDefaultTreeTableModel>
+  			</JXTreeTable>
+  		</scrollpane>
+  	</panel>     
+  </panel> 

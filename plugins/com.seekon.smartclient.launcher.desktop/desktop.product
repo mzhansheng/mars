@@ -33,18 +33,21 @@
       <plugin id="com.google.inject.multibindings"/>
       <plugin id="com.jgoodies.binding"/>
       <plugin id="com.jgoodies.common"/>
+      <plugin id="com.jgoodies.forms"/>
       <plugin id="com.jgoodies.validation"/>
       <plugin id="com.jolbox.bonecp"/>
       <plugin id="com.seekon.mars.context"/>
       <plugin id="com.seekon.mars.db"/>
       <plugin id="com.seekon.mars.dictionary"/>
       <plugin id="com.seekon.mars.equinox.extend" fragment="true"/>
+      <plugin id="com.seekon.mars.gui.service"/>
       <plugin id="com.seekon.mars.logger"/>
       <plugin id="com.seekon.mars.osgi.monitor"/>
       <plugin id="com.seekon.mars.osgi.util"/>
       <plugin id="com.seekon.mars.rule.engine"/>
       <plugin id="com.seekon.smartclient.component"/>
       <plugin id="com.seekon.smartclient.framework"/>
+      <plugin id="com.seekon.smartclient.gui"/>
       <plugin id="com.seekon.smartclient.javadocking"/>
       <plugin id="com.seekon.smartclient.launcher"/>
       <plugin id="com.seekon.smartclient.launcher.web" fragment="true"/>
@@ -56,6 +59,8 @@
       <plugin id="com.seekon.system.auth"/>
       <plugin id="com.seekon.system.auth.client"/>
       <plugin id="com.seekon.system.auth.service"/>
+      <plugin id="com.seekon.system.basedata.client"/>
+      <plugin id="com.seekon.system.basedata.service"/>
       <plugin id="com.seekon.system.common"/>
       <plugin id="com.seekon.system.common.client"/>
       <plugin id="com.seekon.system.common.service"/>
@@ -99,6 +104,7 @@
       <plugin id="org.ops4j.peaberry"/>
       <plugin id="org.pietschy.wizard"/>
       <plugin id="org.sqlite.jdbc"/>
+      <plugin id="org.swixml"/>
    </plugins>
 
 

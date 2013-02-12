@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.system.basedata.service.mapper.GeneralBasedataMapper">
+  
+  <select id="getGeneralBaseData" resultType="java.util.HashMap" parameterType="map">
+  	<if test="physical_table != null">
+  		select * from ${physical_table} 
+  	</if>
+  	<where>
+  		<choose>
+  			<when test="parent_id != null">
+  				parent_id = #{parent_id}
+  			</when>
+  			<otherwise>
+  				parent_id is null
+  			</otherwise>
+  		</choose>
+  		<if test="is_used != null">
+  			is_used = #{is_used}
+  		</if>
+  	</where>
+  </select>
+  
+  <insert id="insertGeneralBaseData" parameterType="java.util.HashMap" keyProperty="id">
+  	insert into m_ele_config(id, code, name, type, physical_table)
+  		values(#{id}, #{code}, #{name}, #{type}, #{physical_table})
+  </insert>
+</mapper>

@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Client
+Bundle-SymbolicName: com.seekon.system.basedata.client;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: SEEKON
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: com.seekon.smartclient.module;bundle-version="1.0.0",
+ com.seekon.smartclient.gui;bundle-version="1.0.0",
+ org.swixml;bundle-version="2.0.0"
+Import-Package: com.seekon.smartclient.common

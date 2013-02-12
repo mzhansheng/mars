@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+  <panel layout="BorderLayout">
+  	<toolbar constraints="BorderLayout.NORTH">
+  		<button id="import" Text="导入">
+  		</button>
+  		<button id="export" Text="导出">
+  		</button>
+  	</toolbar>
+  	<tabbedpane constraints="BorderLayout.CENTER" Titles="通用基础数据">
+  		<splitpane Border="2">
+  			  <panel layout="BorderLayout">
+  			  	<panel layout="FlowLayout(FlowLayout.LEFT)" constraints="BorderLayout.NORTH">
+  					<combobox id="bdElementBox">
+  						<MDefaultComboBoxModel sqlid="getGeneralBDElements" params="">
+  						</MDefaultComboBoxModel>
+  					</combobox>
+  					<button id="addBasedataButton" Text="新增"></button>
+  					<button id="delBasedataButton" Text="删除"></button>
+  			  	</panel>
+  			  		<scrollpane constraints="BorderLayout.CENTER">
+  						<tree id="basedataTree">
+  							<MDefaultTreeModel sqlid="getGeneralBaseData" params="" lazy="true">
+  							</MDefaultTreeModel>
+  						</tree>
+  					</scrollpane>
+  			  </panel>
+  			  
+  			  <panel layout="BorderLayout">
+  			  	<panel layout="FlowLayout(FlowLayout.RIGHT)" constraints="BorderLayout.NORTH">
+  			  		<checkbox id="isUsedCheckBox" Text="是否启用 "></checkbox>
+  			  		<MSearchField id="searchField" emptyString="请输入代码或名称来搜索" size="200,20"></MSearchField>
+  			  		<button id="searchButton" Text="搜索"></button>
+  			  	</panel>
+  			  	
+  			  	<scrollpane constraints="BorderLayout.CENTER">
+  					<table id="basedataTable">
+  						<MDefaultTableModel sqlid="getGeneralBaseData" params="" lazy="true"
+  							columns="code,代码;name,名称;is_used,是否启用,java.lang.Boolean"></MDefaultTableModel>
+  					</table>
+  				</scrollpane>
+  				<panel layout="FlowLayout(FlowLayout.LEFT)" constraints="BorderLayout.SOUTH">
+  					<button id="addReord" text="新增记录"></button>
+  					<button id="delReord" text="删除记录"></button>
+  				</panel>  			  	
+  			  </panel>
+  			  
+  		</splitpane>  		
+  	</tabbedpane>     
+  </panel> 

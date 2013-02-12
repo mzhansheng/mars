@@ -62,7 +62,7 @@ public class DatabaseModuleProvider implements ISharedModuleProvider {
                     if (installArea != null && installArea.startsWith("file:/")) {
                       installArea = installArea.substring("file:/".length());
                     }
-                    return "jdbc:sqlite:" + installArea + "db/gmap.db";
+                    return "jdbc:sqlite:" + installArea + "db/mars.db";
                   }
                 }));
             }

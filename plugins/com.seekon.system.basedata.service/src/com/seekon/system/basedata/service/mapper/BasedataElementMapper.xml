@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.system.basedata.service.mapper.BasedataElementMapper">
+  
+  <select id="getGeneralBDElements" resultType="java.util.HashMap" parameterType="map">
+  	select * from m_ele_config
+  </select>
+</mapper>
