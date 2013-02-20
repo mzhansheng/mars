@@ -31,10 +31,6 @@ import com.seekon.smartclient.gui.tags.MSearchField;
 
 public class BDGeneralManager extends GuiEngine {
 
-  private Container dbGeneralContainer = null;
-
-  static BDGeneralManager dbGeneralManager = new BDGeneralManager();
-
   private JComboBox bdElementBox;
 
   private JTree basedataTree;
@@ -42,32 +38,29 @@ public class BDGeneralManager extends GuiEngine {
   private JTable basedataTable;
 
   private JCheckBox isUsedCheckBox;
-  
+
   private MSearchField searchField;
-  
+
   private JButton searchButton;
-  
+
   private JButton addBasedataButton;
-  
+
   private JButton delBasedataButton;
-  
+
   private JButton addReord;
-  
+
   private JButton delReord;
-  
-  private BDGeneralManager() {
-    super();
+
+  public Container getDbGeneralContainer() {
+    Container dbGeneralContainer = null;
     try {
       dbGeneralContainer = render(BDGeneralManager.class
         .getResource("BDGeneralListpage.xml"));
+      dbGeneralContainer.setVisible(true);
       initListeners();
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-
-  public Container getDbGeneralContainer() {
-    dbGeneralContainer.setVisible(true);
     return dbGeneralContainer;
   }
 
@@ -81,7 +74,8 @@ public class BDGeneralManager extends GuiEngine {
           MDefaultTreeModel treeModel = (MDefaultTreeModel) basedataTree.getModel();
           treeModel.addParam("physical_table", selectedItem.get("physical_table"));
           treeModel.addParam("parent_id", null);
-          treeModel.setRoot(new DefaultMutableTreeNode(new TreeNodeMap(selectedItem)));
+          treeModel
+            .setRoot(new DefaultMutableTreeNode(new TreeNodeMap(selectedItem)));
         }
       }
     });
@@ -104,47 +98,50 @@ public class BDGeneralManager extends GuiEngine {
         }
       }
     });
-    
-    final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(basedataTable.getModel());  
+
+    final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(
+      basedataTable.getModel());
     basedataTable.setRowSorter(sorter);
-    
+
     searchButton.addActionListener(new ActionListener() {
-      
+
       @Override
       public void actionPerformed(ActionEvent e) {
         isUsedCheckBox.isSelected();
-        sorter.setRowFilter(RowFilter.regexFilter(searchField.getText()));  
-        sorter.setSortKeys(null); 
+        sorter.setRowFilter(RowFilter.regexFilter(searchField.getText()));
+        sorter.setSortKeys(null);
       }
     });
-    
+
     addBasedataButton.addActionListener(new ActionListener() {
-      
+
       @Override
       public void actionPerformed(ActionEvent e) {
         BDGeneralEditPage page = new BDGeneralEditPage();
-        if(page.getReturnValue()){
-          MDefaultComboBoxModel model = (MDefaultComboBoxModel) bdElementBox.getModel();
+        if (page.getReturnValue()) {
+          MDefaultComboBoxModel model = (MDefaultComboBoxModel) bdElementBox
+            .getModel();
           model.refresh();
         }
       }
     });
-    
+
     delBasedataButton.addActionListener(new ActionListener() {
-      
+
       @Override
       public void actionPerformed(ActionEvent e) {
         if (JOptionPane.showConfirmDialog(bdElementBox, "确认删除选择的基础数据？", "请确认",
           JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.OK_OPTION) {
-          MDefaultComboBoxModel model = (MDefaultComboBoxModel) bdElementBox.getModel();
+          MDefaultComboBoxModel model = (MDefaultComboBoxModel) bdElementBox
+            .getModel();
           model.removeElementAt(bdElementBox.getSelectedIndex());
           ///model.delete();
         }
       }
     });
-    
+
     addReord.addActionListener(new ActionListener() {
-      
+
       @Override
       public void actionPerformed(ActionEvent e) {
         MDefaultTableModel tableModel = (MDefaultTableModel) basedataTable
@@ -152,25 +149,22 @@ public class BDGeneralManager extends GuiEngine {
         tableModel.addRow(new HashMap<String, Object>());
       }
     });
-    
+
     delReord.addActionListener(new ActionListener() {
-      
+
       @Override
       public void actionPerformed(ActionEvent e) {
         MDefaultTableModel tableModel = (MDefaultTableModel) basedataTable
           .getModel();
         int[] rows = basedataTable.getSelectedRows();
-        if(rows == null){
+        if (rows == null) {
           return;
         }
-        for(int row = rows.length - 1; row >= 0; row--){
+        for (int row = rows.length - 1; row >= 0; row--) {
           tableModel.removeRow(rows[row]);
         }
       }
     });
   }
 
-  public static void main(String[] args) {
-    BDGeneralManager.dbGeneralManager.getDbGeneralContainer();
-  }
 }

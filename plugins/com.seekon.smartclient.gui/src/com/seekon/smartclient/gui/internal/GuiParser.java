@@ -1,6 +1,10 @@
 package com.seekon.smartclient.gui.internal;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.lang.reflect.Method;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
@@ -14,6 +18,10 @@ import org.jdesktop.swingx.JXTreeTable;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 import org.swixml.Parser;
 import org.swixml.SwingEngine;
+import org.w3c.dom.Element;
+
+import com.seekon.smartclient.framework.util.AuthUtil;
+import com.seekon.smartclient.gui.tags.MResourcePanel;
 
 public class GuiParser extends Parser {
 
@@ -21,14 +29,7 @@ public class GuiParser extends Parser {
     super(engine);
   }
 
-  /**
-   * 
-   * 2013-02-03 add model child
-   * @param component
-   * @param model
-   */
-  protected void setModel(JComponent component, Object model,
-    boolean lazyRefresh) {
+  protected void setModel(JComponent component, Object model, boolean lazyRefresh) {
     if (!lazyRefresh) {
       try {
         Method method = model.getClass().getDeclaredMethod("refresh", null);
@@ -51,4 +52,37 @@ public class GuiParser extends Parser {
       ((JXTreeTable) component).setTreeTableModel((TreeTableModel) model);
     }
   }
+
+  @Override
+  protected Component addButtonChild(Container parent, Component component,
+    Object constrains, Element child) {
+    boolean isAuthed = false;
+    String actionId = child.getAttribute("actionId");
+    if (actionId == null || actionId.trim().length() == 0) {
+      isAuthed = true;
+    } else {
+      String resourceId = null;
+      Iterator<Entry<String, Object>> iterator = this.engine.getIdMap().entrySet()
+        .iterator();
+      while (iterator.hasNext()) {
+        Entry<String, Object> entry = iterator.next();
+        if (entry.getValue() instanceof MResourcePanel) {
+          resourceId = entry.getKey();
+          break;
+        }
+      }
+      if (resourceId == null || resourceId.trim().length() == 0) {
+        isAuthed = true;
+      } else {
+        isAuthed = AuthUtil.isActionAuthorizedToUser(resourceId, actionId);
+      }
+    }
+
+    if (!isAuthed) {
+      component.setVisible(false);
+    }
+
+    return super.addButtonChild(parent, component, constrains, child);
+  }
+
 }

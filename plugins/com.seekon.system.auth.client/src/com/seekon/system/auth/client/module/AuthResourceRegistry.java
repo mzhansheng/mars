@@ -49,32 +49,32 @@ public class AuthResourceRegistry implements ResourceRegistry {
   }
 
   private Resource getUserResource() {
-    Resource user = new Resource(KEY_USER_RESOURCE, "人员");
-    user.addChild(ActionHelper.getAddAction());
-    user.addChild(ActionHelper.getDeleteAction());
-    user.addChild(ActionHelper.getEditAction());
-    user.addChild(ActionHelper.getWatchAction());
-    user.addChild(ActionHelper.getHelpAction());
+    Resource user = new Resource(KEY_USER_RESOURCE, "人员", true);
+//    user.addChild(ActionHelper.getAddAction());
+//    user.addChild(ActionHelper.getDeleteAction());
+//    user.addChild(ActionHelper.getEditAction());
+//    user.addChild(ActionHelper.getWatchAction());
+//    user.addChild(ActionHelper.getHelpAction());
     return user;
   }
 
   private Resource getRoleResource() {
-    Resource role = new Resource(KEY_ROLE_RESOURCE, "角色");
-    role.addChild(ActionHelper.getAddAction());
-    role.addChild(ActionHelper.getDeleteAction());
-    role.addChild(ActionHelper.getEditAction());
-    role.addChild(ActionHelper.getWatchAction());
-    role.addChild(ActionHelper.getHelpAction());
+    Resource role = new Resource(KEY_ROLE_RESOURCE, "角色", true);
+//    role.addChild(ActionHelper.getAddAction());
+//    role.addChild(ActionHelper.getDeleteAction());
+//    role.addChild(ActionHelper.getEditAction());
+//    role.addChild(ActionHelper.getWatchAction());
+//    role.addChild(ActionHelper.getHelpAction());
     return role;
   }
 
   private Resource getDatasopeResource() {
-    Resource dataScope = new Resource(KEY_DATA_SCOPE_RESOURCE, "数据范围");
-    dataScope.addChild(ActionHelper.getAddAction());
-    dataScope.addChild(ActionHelper.getDeleteAction());
-    dataScope.addChild(ActionHelper.getEditAction());
-    dataScope.addChild(ActionHelper.getWatchAction());
-    dataScope.addChild(ActionHelper.getHelpAction());
+    Resource dataScope = new Resource(KEY_DATA_SCOPE_RESOURCE, "数据范围", true);
+//    dataScope.addChild(ActionHelper.getAddAction());
+//    dataScope.addChild(ActionHelper.getDeleteAction());
+//    dataScope.addChild(ActionHelper.getEditAction());
+//    dataScope.addChild(ActionHelper.getWatchAction());
+//    dataScope.addChild(ActionHelper.getHelpAction());
     return dataScope;
   }
 

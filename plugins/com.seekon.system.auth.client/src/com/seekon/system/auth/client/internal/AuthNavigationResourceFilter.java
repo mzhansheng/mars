@@ -22,7 +22,7 @@ public class AuthNavigationResourceFilter implements NavigationResourceFilter {
     }
 
     List<Role> roleList = user.getRoleList();
-    //checkResourceByRoleList(root, roleList);
+    checkResourceByRoleList(root, roleList);
     return root;
   }
 

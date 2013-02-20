@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<MResourcePanel id="bd.element.manager">
   <panel layout="BorderLayout">
   	<panel layout="FlowLayout(FlowLayout.RIGHT)" constraints="BorderLayout.NORTH">
-  		<button id="settingButton" Text="设置">
+  		<button id="settingButton" Text="设置" actionId="func.setting">
   		</button>
   	</panel>
   	<panel layout="BorderLayout" constraints="BorderLayout.CENTER">
@@ -13,4 +14,5 @@
   			</JXTreeTable>
   		</scrollpane>
   	</panel>     
-  </panel> 
+  </panel>
+</MResourcePanel> 

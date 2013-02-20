@@ -5,13 +5,16 @@ import java.awt.Container;
 import com.seekon.smartclient.gui.GuiEngine;
 
 public class BDElementManager extends GuiEngine{
-
-  static BDElementManager bdElementManager = new BDElementManager();
-  
+ 
   private Container bdElementContainer = null;
+
+  public Container getbdElementContainer() {
+    initComponents();
+    bdElementContainer.setVisible(true);
+    return bdElementContainer;
+  }
   
-  private BDElementManager() {
-    super();
+  private void initComponents(){
     try {
       bdElementContainer = render(BDGeneralManager.class
         .getResource("BDElementPage.xml"));
@@ -19,11 +22,6 @@ public class BDElementManager extends GuiEngine{
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-
-  public Container getbdElementContainer() {
-    bdElementContainer.setVisible(true);
-    return bdElementContainer;
   }
   
   public void initListeners(){

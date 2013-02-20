@@ -17,7 +17,17 @@ public class Resource extends AbstractResource {
   public Resource(String id, String name) {
     super(id, name);
   }
-
+  
+  public Resource(String id, String name, boolean addDefaultActionChildren){
+    super(id, name);
+    if(addDefaultActionChildren){
+      this.addChild(ActionHelper.getAddAction());
+      this.addChild(ActionHelper.getDeleteAction());
+      this.addChild(ActionHelper.getEditAction());
+      this.addChild(ActionHelper.getWatchAction());
+      this.addChild(ActionHelper.getHelpAction());
+    }
+  }
   public List<AbstractResource> getChildren() {
     return children;
   }

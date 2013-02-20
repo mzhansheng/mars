@@ -41,6 +41,11 @@ public class AuthUtil {
     return null;
   }
 
+  public static boolean isActionAuthorizedToUser(String resourceId, String actionId){
+    Action action = new Action(actionId, null);
+    return isActionAuthorizedToUser(resourceId, action);
+  }
+  
   public static boolean isActionAuthorizedToUser(String resourceId, Action action) {
     Resource resource = getUserAuthorizedResource(resourceId);
     return isActionAuthorizedToUser(resource, action);

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<MResourcePanel id="bd.general.manager">
   <panel layout="BorderLayout">
   	<toolbar constraints="BorderLayout.NORTH">
-  		<button id="import" Text="导入">
+  		<button id="import" Text="导入" actionId="func.import">
   		</button>
-  		<button id="export" Text="导出">
+  		<button id="export" Text="导出" actionId="func.export">
   		</button>
   	</toolbar>
   	<tabbedpane constraints="BorderLayout.CENTER" Titles="通用基础数据">
@@ -14,8 +15,8 @@
   						<MDefaultComboBoxModel sqlid="getGeneralBDElements" params="">
   						</MDefaultComboBoxModel>
   					</combobox>
-  					<button id="addBasedataButton" Text="新增"></button>
-  					<button id="delBasedataButton" Text="删除"></button>
+  					<button id="addBasedataButton" Text="新增" actionId="func.add"></button>
+  					<button id="delBasedataButton" Text="删除" actionId="func.delete"></button>
   			  	</panel>
   			  		<scrollpane constraints="BorderLayout.CENTER">
   						<tree id="basedataTree">
@@ -39,11 +40,12 @@
   					</table>
   				</scrollpane>
   				<panel layout="FlowLayout(FlowLayout.LEFT)" constraints="BorderLayout.SOUTH">
-  					<button id="addReord" text="新增记录"></button>
-  					<button id="delReord" text="删除记录"></button>
+  					<button id="addReord" text="新增记录" actionId="func.add"></button>
+  					<button id="delReord" text="删除记录" actionId="func.delete"></button>
   				</panel>  			  	
   			  </panel>
   			  
   		</splitpane>  		
   	</tabbedpane>     
-  </panel> 
+  </panel>
+</MResourcePanel> 

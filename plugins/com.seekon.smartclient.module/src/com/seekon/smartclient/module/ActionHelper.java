@@ -13,7 +13,11 @@ public class ActionHelper {
   private static final Action delAction = new Action("func.delete", "删除");
 
   private static final Action settingAction = new Action("func.setting", "设置");
-
+  
+  private static final Action importAction = new Action("func.import", "导入");
+  
+  private static final Action exportAction = new Action("func.export", "导出");
+  
   private ActionHelper() {
   }
 
@@ -69,5 +73,23 @@ public class ActionHelper {
       e.printStackTrace();
     }
     return settingAction;
+  }
+  
+  public static Action getImportAction() {
+    try {
+      return (Action) importAction.clone();
+    } catch (CloneNotSupportedException e) {
+      e.printStackTrace();
+    }
+    return importAction;
+  }
+  
+  public static Action getExportAction() {
+    try {
+      return (Action) exportAction.clone();
+    } catch (CloneNotSupportedException e) {
+      e.printStackTrace();
+    }
+    return exportAction;
   }
 }
