@@ -20,4 +20,5 @@ Export-Package: com.seekon.smartclient.framework,
  com.seekon.smartclient.framework.internal;x-friends:="com.seekon.smartclient.launcher.internal",
  com.seekon.smartclient.framework.nav,
  com.seekon.smartclient.framework.util
-Require-Bundle: com.seekon.smartclient.javadocking;bundle-version="1.5.0"
+Require-Bundle: com.seekon.smartclient.javadocking;bundle-version="1.5.0",
+ com.seekon.smartclient.laf;bundle-version="1.6.7"

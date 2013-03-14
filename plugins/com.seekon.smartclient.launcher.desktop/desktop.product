@@ -49,6 +49,7 @@
       <plugin id="com.seekon.smartclient.framework"/>
       <plugin id="com.seekon.smartclient.gui"/>
       <plugin id="com.seekon.smartclient.javadocking"/>
+      <plugin id="com.seekon.smartclient.laf"/>
       <plugin id="com.seekon.smartclient.launcher"/>
       <plugin id="com.seekon.smartclient.launcher.web" fragment="true"/>
       <plugin id="com.seekon.smartclient.layout"/>
