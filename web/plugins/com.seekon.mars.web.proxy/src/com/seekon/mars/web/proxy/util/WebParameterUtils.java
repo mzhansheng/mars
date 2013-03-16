@@ -24,6 +24,7 @@ public class WebParameterUtils {
 				"com.seekon.smartclient.module_1.0.0.jar",
 				"com.seekon.smartclient.updater_1.0.0.jar",
 				"com.seekon.smartclient.launcher_1.0.0.jar",
+				"com.seekon.smartclient.laf_1.6.7.jar",
 				"com.seekon.smartclient.framework_1.0.0.jar",
 				"com.seekon.smartclient.javadocking_1.5.0.jar",
 				"com.seekon.smartclient.login_1.0.0.jar",
