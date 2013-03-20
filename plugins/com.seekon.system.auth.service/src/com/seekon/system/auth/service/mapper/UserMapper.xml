@@ -10,6 +10,12 @@
   	<result property="userCode" column="user_code"/>
   	<result property="userName" column="user_name"/>
   	<result property="password" column="password"/>
+  	<result property="sex" column="sex"/>
+  	<result property="mobile" column="mobile"/>
+  	<result property="phone" column="phone"/>
+  	<result property="email" column="email"/>
+  	<result property="idCard" column="id_card"/>
+  	<result property="birthday" column="birthday"/>
   	<association property="belongedOrgItem" column="{orgId=belonged_org_id,orgType=belonged_org_type}"
   		select="getUserBelongedOrgItem">
   	</association>
@@ -79,8 +85,10 @@
   
   <update id="updateUserBasicInfo" parameterType="User">
   	update m_sys_user set user_code = #{user.userCode}, user_name = #{user.userName}
-  		, password = #{user.password}, belonged_org_id = #{user.belongedOrgItem.id}
-  		, belonged_org_type = #{user.belongedOrgItem.type}
+  		, password = #{user.password}, <!-- belonged_org_id = #{user.belongedOrgItem.id}
+  		, belonged_org_type = #{user.belongedOrgItem.type}, --> sex = #{user.sex}
+  		, phone = #{user.phone}, mobile = #{user.mobile}, email = #{user.email}
+  		, id_card = #{user.idCard}, birthday = #{user.birthday}
   		where id = #{user.id}
   </update>
 

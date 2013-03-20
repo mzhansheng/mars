@@ -18,4 +18,5 @@ public interface UserService {
 
   public void deleteUsers(List<User> userList);
 
+  public User getUser(String userId);
 }

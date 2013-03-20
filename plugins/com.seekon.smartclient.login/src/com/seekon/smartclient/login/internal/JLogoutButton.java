@@ -31,7 +31,7 @@ public class JLogoutButton extends ToolBarButton {
     this.setText("退出");
     this.setToolTipText("退出系统");
     this.setIcon(new ImageIcon(JLogoutButton.class
-      .getResource("/resources/logout.gif")));
+      .getResource("/resources/logout.png")));
   }
 
 }

@@ -39,7 +39,7 @@ public class JReloginButton extends ToolBarButton {
     this.setText("注销");
     this.setToolTipText("切换登录用户");
     this.setIcon(new ImageIcon(JReloginButton.class
-      .getResource("/resources/relogin.gif")));
+      .getResource("/resources/relogin.png")));
   }
 
 }

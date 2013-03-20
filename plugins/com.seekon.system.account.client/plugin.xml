@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="com.seekon.smartclient.framework.toolbarDocks">
+      <dockable
+            class="com.seekon.system.account.client.internal.UserProfileButton"
+            groupId="system.env"
+            id="com.seekon.system.account.client.userProfile">
+      </dockable>
+   </extension>
+
+</plugin>
