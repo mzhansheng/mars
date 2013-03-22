@@ -91,5 +91,7 @@
   		, id_card = #{user.idCard}, birthday = #{user.birthday}
   		where id = #{user.id}
   </update>
-
+  <update id="updatePassword" parameterType="User">
+  	update m_sys_user set password = #{user.password} where id = #{user.id}
+  </update>	
 </mapper>

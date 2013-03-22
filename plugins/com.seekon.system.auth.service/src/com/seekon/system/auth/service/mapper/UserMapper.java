@@ -34,4 +34,7 @@ public interface UserMapper {
 
   public void deleteUserRuleInfo(@Param("user")
   User user);
+
+  public void updatePassword(@Param("user")
+  User user);
 }

@@ -19,4 +19,6 @@ public interface UserService {
   public void deleteUsers(List<User> userList);
 
   public User getUser(String userId);
+  
+  public void updatePassword(String userId, String pwd);
 }

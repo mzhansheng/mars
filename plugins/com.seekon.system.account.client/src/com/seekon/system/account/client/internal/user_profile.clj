@@ -37,8 +37,32 @@
       (alert (str "保存失败，原因：" e) ))
     )
     ))
-(defn- update-pwd [user user-map]
-  ()
+(defn- check-new-pwd [ae]
+ (let [v-new-pwd-re (value (select (to-root ae) [:#new-pwd-re]))
+       v-new-pwd (value (select (to-root ae) [:#new-pwd]))
+       pwd-tip (select (to-root ae) [:#pwd-tip])
+       not-equals (not= v-new-pwd-re v-new-pwd)
+      ]                  
+      (if not-equals
+        (do (.setText pwd-tip "新密码设置的不一致.")
+          (.setEnabled (select (to-root ae) [:#b-update-button]) false)
+        ) 
+        (do (.setText pwd-tip "")
+          (.setEnabled (select (to-root ae) [:#b-update-button]) true) 
+        )
+      )
+    ) 
+  )
+
+(defn- update-pwd [user-map]
+  (let [user-id (user-map :user-id)
+        pwd (user-map :new-pwd)]
+  (try (.updatePassword (ServiceFacade/getUserService) user-id pwd)
+    (catch Exception e
+      (.printStackTrace e)
+      (alert (str "保存失败，原因：" e) ))
+    )
+  )
   )
 
 (defn get-user-profile [user-id]
@@ -110,9 +134,43 @@
               (mig-panel
                 :constraints ["align center top", "[right]"]
                 :items [
-                    ["当前密码"] [(password  :id :old-pwd) "span, w 3cm:5cm:, growx, wrap"]
-                    ["设置新密码"] [(password  :id :new-pwd) "span, growx, wrap"]
-                    ["重复新密码"] [(password  :id :new-pwd-re) "span, growx, wrap"]
+                    ["当前密码"] [(password  :id :old-pwd
+                                         :listen [
+                                                  :focus (fn [ae] (let [pwd-w (to-widget ae)
+                                                                        pwd (.getPassword user)
+                                                                        pwd-tip (select (to-root ae) [:#pwd-tip])
+                                                                        c-pwd (value pwd-w)
+                                                                        is-quals (or (and (not pwd) (= c-pwd ""))(= c-pwd pwd))]
+                                                                    (if (== (.getID ae) java.awt.event.FocusEvent/FOCUS_LOST)
+                                                                      (if (not is-quals)  
+                                                                      (do (.setText pwd-tip "当前密码输入不对.")
+                                                                        (.setEnabled (select (to-root ae) [:#b-update-button]) false)
+                                                                        (.setEditable (select (to-root ae) [:#new-pwd]) false)
+                                                                        (.setEditable (select (to-root ae) [:#new-pwd-re]) false)
+                                                                        ) 
+                                                                      (do (.setText pwd-tip "")
+                                                                        (.setEnabled (select (to-root ae) [:#b-update-button]) true)
+                                                                        (.setEditable (select (to-root ae) [:#new-pwd]) true)
+                                                                        (.setEditable (select (to-root ae) [:#new-pwd-re]) true)
+                                                                        ) 
+                                                                      )
+                                                                      ;(do (.setEditable (select (to-root ae) [:#new-pwd]) true)
+                                                                      ;  (.setEditable (select (to-root ae) [:#new-pwd-re]) true)
+                                                                       ; )
+                                                                      )
+                                                                    ) 
+                                                           )
+                                                  ]) 
+                              "span, w 3cm:5cm:, growx, wrap"]
+                    ["设置新密码"] [(password  :id :new-pwd :editable? true
+                                          :listen [
+                                                   :key (fn [ae] (check-new-pwd ae))
+                                                   ]) "span, growx, wrap"]
+                    ["重复新密码"] [(password  :id :new-pwd-re :editable? true
+                                          :listen [
+                                                   :key (fn [ae] (check-new-pwd ae))
+                                                   ]) "span, growx, wrap"]
+                    [(label :id :pwd-tip :foreground  :red) "span 2"] 
                         ]
                 )
               :south
@@ -120,8 +178,10 @@
                 :align :right
                 :items [
                     (button :text "确定"
+                            :id :b-update-button
+                            :enabled? false
                             :listen [
-                                     :action (fn [ae] (update-pwd user (value (to-root (to-widget ae)))))
+                                     :action (fn [ae] (update-pwd (assoc (value (to-root (to-widget ae))) :user-id (.getId user))))
                                      ])
                         ]
                 )
