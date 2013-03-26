@@ -1,4 +1,4 @@
-package com.seekon.mars.dictionary.model;
+package com.seekon.mars.dictionary;
 
 import java.io.Serializable;
 
@@ -13,17 +13,7 @@ public class TableMeta implements Serializable, Cloneable {
   private TableMeta masterTable;
 
   private boolean isTable;
-  
-  public TableMeta() {
-    super();
-  }
-
-  public TableMeta(String tableCode, String tableName) {
-    super();
-    this.tableCode = tableCode;
-    this.tableName = tableName;
-  }
-
+    
   public String getTableCode() {
     return tableCode;
   }

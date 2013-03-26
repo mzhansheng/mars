@@ -40,6 +40,7 @@
       <plugin id="com.seekon.mars.context"/>
       <plugin id="com.seekon.mars.db"/>
       <plugin id="com.seekon.mars.dictionary"/>
+      <plugin id="com.seekon.mars.dictionary.service"/>
       <plugin id="com.seekon.mars.equinox.extend" fragment="true"/>
       <plugin id="com.seekon.mars.gui.service"/>
       <plugin id="com.seekon.mars.logger"/>

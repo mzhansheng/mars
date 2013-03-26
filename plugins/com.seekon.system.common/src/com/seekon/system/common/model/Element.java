@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.seekon.mars.dictionary.model.FieldMeta;
-import com.seekon.mars.dictionary.model.TableMeta;
+import com.seekon.mars.dictionary.FieldMeta;
+import com.seekon.mars.dictionary.TableMeta;
 
 public class Element implements Serializable, Cloneable {
 

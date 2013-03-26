@@ -1,4 +1,4 @@
-package com.seekon.mars.dictionary.model;
+package com.seekon.mars.dictionary;
 
 import java.io.Serializable;
 
@@ -13,23 +13,6 @@ public class FieldMeta implements Serializable {
   private String colType;//text/number/reference/list
 
   private TableMeta belongedTable;
-
-  public FieldMeta() {
-    super();
-  }
-
-  public FieldMeta(String colCode, String colName, String colType) {
-    this(colCode, colName, colType, null);
-  }
-
-  public FieldMeta(String colCode, String colName, String colType,
-    TableMeta belongedTable) {
-    super();
-    this.colCode = colCode;
-    this.colName = colName;
-    this.colType = colType;
-    this.belongedTable = belongedTable;
-  }
 
   public String getColCode() {
     return colCode;

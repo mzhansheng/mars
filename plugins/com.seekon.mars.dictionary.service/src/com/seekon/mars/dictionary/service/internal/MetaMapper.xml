@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.mars.dictionary.service.internal.MetaMapper">
+  	
+  	<select id="getTableMeta" resultType="TableMeta" parameterType="string">
+  		select * from m_sys_table where table_code = #{tabCode}
+  	</select>
+  	
+  	<select id="getFieldMeta" resultType="FieldMeta" parameterType="java.util.Map">
+  		select * from m_sys_tab_col where col_code = #{colCode} and tab_code = #{tabCode}
+  	</select>
+</mapper>

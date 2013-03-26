@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.jdesktop.swingx.treetable.AbstractTreeTableModel;
 
-import com.seekon.mars.dictionary.model.FieldMeta;
+import com.seekon.mars.dictionary.FieldMeta;
 import com.seekon.system.common.model.Element;
 
 public class ElementTreeTableModel extends AbstractTreeTableModel {

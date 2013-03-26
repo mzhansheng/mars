@@ -43,7 +43,7 @@ public class UserBasicInfoDetail extends AbstractDetail<User> {
   }
 
   private JPanel layoutComponents() {
-    JPanel pane = new JPanel(new MigLayout("align center"));
+    JPanel pane = new JPanel(new MigLayout("align center", "[right]"));
     pane.add(userCodeLable);
     pane.add(UIUtil.newColonLable());
     pane.add(userCode, "w 4cm:6cm:,wrap");

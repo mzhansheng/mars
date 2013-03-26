@@ -67,7 +67,7 @@
 
 (defn get-user-profile [user-id]
   (let [dialog-w 400
-        dialog-h 300
+        dialog-h 315
         [center-x center-y] (get-screen-center-point dialog-w dialog-h)
         sex-bg (button-group)
         user (get-user user-id)

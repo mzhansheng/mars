@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
-import com.seekon.mars.dictionary.model.FieldMeta;
+import com.seekon.mars.dictionary.FieldMeta;
 import com.seekon.mars.rule.engine.specification.IRuleSpecification;
 import com.seekon.mars.rule.engine.specification.ext.AbstractCustomRuleSpecification;
 import com.seekon.mars.rule.engine.specification.ext.EqualsRuleSpecification;

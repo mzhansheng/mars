@@ -104,7 +104,7 @@ public class UserBasicInfoForm extends AbstractForm<User> {
     validateResultView = ValidationResultViewFactory
       .createReportIconAndTextPane(userModel.getValidationResultModel());
 
-    JPanel pane = new JPanel(new MigLayout("align center"));
+    JPanel pane = new JPanel(new MigLayout("align center", "[right]"));
     pane.add(validateResultView, "span 3,growx,wrap");
     pane.add(new JLabel("用户编码"));
     pane.add(UIUtil.newColonLable());

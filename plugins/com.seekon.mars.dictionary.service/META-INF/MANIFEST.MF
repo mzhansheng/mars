@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Service
+Bundle-SymbolicName: com.seekon.mars.dictionary.service
+Bundle-Version: 1.0.0
+Bundle-Activator: com.seekon.mars.dictionary.service.internal.Activator
+Bundle-Vendor: SEEKON
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.google.inject;version="1.3.0",
+ com.seekon.mars.context,
+ com.seekon.mars.dictionary,
+ javax.inject;version="1.0.0",
+ org.ops4j.peaberry;version="1.1.0",
+ org.osgi.framework;version="1.3.0"

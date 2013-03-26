@@ -1,7 +1,7 @@
 package com.seekon.mars.rule.engine.specification.visitor;
 
 import com.seekon.mars.context.http.SessionContext;
-import com.seekon.mars.dictionary.model.FieldMeta;
+import com.seekon.mars.dictionary.FieldMeta;
 import com.seekon.mars.rule.engine.specification.AndRuleSpecification;
 import com.seekon.mars.rule.engine.specification.IRuleSpecification;
 import com.seekon.mars.rule.engine.specification.NotRuleSpecification;

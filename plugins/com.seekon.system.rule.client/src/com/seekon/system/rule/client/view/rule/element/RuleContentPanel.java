@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
-import com.seekon.mars.dictionary.model.FieldMeta;
+import com.seekon.mars.dictionary.FieldMeta;
 import com.seekon.mars.rule.engine.specification.AndRuleSpecification;
 import com.seekon.mars.rule.engine.specification.CompositeRuleSpecification;
 import com.seekon.mars.rule.engine.specification.IRuleSpecification;
@@ -37,7 +37,7 @@ public class RuleContentPanel extends JPanel {
   }
 
   private void initComponents() {
-    this.setLayout(new MigLayout("align center"));
+    this.setLayout(new MigLayout("align center", "[right]"));
 
     Element element = ruleElement.getElement();
     List<FieldMeta> fieldList = element.getFieldList();

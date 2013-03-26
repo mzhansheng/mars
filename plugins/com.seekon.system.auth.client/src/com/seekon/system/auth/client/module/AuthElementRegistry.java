@@ -3,7 +3,7 @@ package com.seekon.system.auth.client.module;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.seekon.mars.dictionary.model.FieldMeta;
+import com.seekon.mars.dictionary.MetaStore;
 import com.seekon.system.common.ElementRegistry;
 import com.seekon.system.common.model.Element;
 import com.seekon.system.common.model.ElementType;
@@ -19,9 +19,9 @@ public class AuthElementRegistry implements ElementRegistry {
 
   private void initElementList() {
     Element user = new Element("sys_user", "用户");
-    user.addField(new FieldMeta("creator", "创建者代码", "text"));
-    user.addField(new FieldMeta("user_code", "用户代码", "text"));
-    user.addField(new FieldMeta("user_name", "用户名称", "text"));
+    user.addField(MetaStore.getFieldMeta("m_sys_user", "creator"));
+    user.addField(MetaStore.getFieldMeta("m_sys_user", "user_code"));
+    user.addField(MetaStore.getFieldMeta("m_sys_user", "user_name"));
     elementList.add(user);
   }
 
