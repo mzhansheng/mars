@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Parser
+Bundle-SymbolicName: com.seekon.mars.sqlscript.parser
+Bundle-Version: 1.0.0
+Bundle-Vendor: SEEKON
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.antlr,
+ org.antlr.runtime
+Export-Package: com.seekon.mars.sqlscript.parser
