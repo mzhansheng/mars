@@ -4,7 +4,7 @@ options
 {
   language=Java;
   output=AST;
-  ASTLabelType=CommonTree;  
+  //ASTLabelType=SQLTree;  
   backtrack=true;
 }
 
@@ -923,7 +923,7 @@ datetypes_decl:
 
 // basic type definition -----------------------------------------------------------------------
 relational_op: 
-  EQ_SYM | LTH | GTH | NOT_EQ | LET | GET  ;
+  (EQ_SYM | LTH | GTH | NOT_EQ | LET | GET ) ^ ;
 
 charset_name:
     ARMSCII8
@@ -1237,42 +1237,42 @@ alias       : ( AS_SYM )? tmpName=ID {($tmpName.text.length()) <= 256}? {System.
 
 
 // expression statement -------  http://dev.mysql.com/doc/refman/5.6/en/expressions.html  -------------
-expression: exp_factor1 ( OR_SYM exp_factor1 )* ;
-exp_factor1:  exp_factor2 ( XOR exp_factor2 )* ;
-exp_factor2:  exp_factor3 ( AND_SYM exp_factor3 )* ;
-exp_factor3:  (NOT_SYM)? exp_factor4 ;
-exp_factor4:  bool_primary ( IS_SYM (NOT_SYM)? (boolean_literal|NULL_SYM) )? ;
+expression: exp_factor1 ( OR_SYM ^ exp_factor1 )* ;
+exp_factor1:  exp_factor2 ( XOR ^ exp_factor2 )* ;
+exp_factor2:  exp_factor3 ( AND_SYM ^ exp_factor3 )* ;
+exp_factor3:  (NOT_SYM ^)? exp_factor4 ;
+exp_factor4:  bool_primary ( IS_SYM ^ (NOT_SYM ^)? (boolean_literal|NULL_SYM) )? ;
 bool_primary:
-    ( predicate relational_op predicate ) 
-  | ( predicate relational_op ( ALL | ANY )? subquery )
-  | ( NOT_SYM? EXISTS subquery )
-  | predicate 
+    ( predicate relational_op predicate ) -> ^(relational_op predicate predicate)  
+  | ( predicate relational_op ( ALL | ANY )? subquery ) //-> ^( relational_op predicate ( ALL | ANY )? subquery )
+  | ( NOT_SYM? EXISTS ^ subquery )
+  | predicate
 ;
 predicate:
-    ( bit_expr (NOT_SYM)? IN_SYM (subquery | expression_list) )
-  | ( bit_expr (NOT_SYM)? BETWEEN bit_expr AND_SYM predicate ) 
-  | ( bit_expr SOUNDS_SYM LIKE_SYM bit_expr ) 
-  | ( bit_expr (NOT_SYM)? LIKE_SYM simple_expr (ESCAPE_SYM simple_expr)? )
-  | ( bit_expr (NOT_SYM)? REGEXP bit_expr ) 
+    ( bit_expr (NOT_SYM)? IN_SYM ^ (subquery | expression_list) )
+  | ( bit_expr (NOT_SYM)? BETWEEN ^ bit_expr AND_SYM ^ predicate ) 
+  | ( bit_expr SOUNDS_SYM LIKE_SYM ^ bit_expr ) 
+  | ( bit_expr (NOT_SYM)? LIKE_SYM ^ simple_expr (ESCAPE_SYM ^ simple_expr)? )
+  | ( bit_expr (NOT_SYM)? REGEXP ^ bit_expr ) 
   | ( bit_expr )  
 ;
 bit_expr:
-  factor1 ( VERTBAR factor1 )? ;
+  factor1 ( VERTBAR ^ factor1 )? ;
 factor1:
-  factor2 ( BITAND factor2 )? ;
+  factor2 ( BITAND ^ factor2 )? ;
 factor2:
-  factor3 ( (SHIFT_LEFT|SHIFT_RIGHT) factor3 )? ;
+  factor3 ( (SHIFT_LEFT|SHIFT_RIGHT) ^ factor3 )? ;
 factor3:
-  factor4 ( (PLUS|MINUS) factor4 )? ;
+  factor4 ( (PLUS|MINUS) ^ factor4 )? ;
 factor4:
-  factor5 ( (ASTERISK|DIVIDE|MOD_SYM|POWER_OP) factor5 )? ;
+  factor5 ( (ASTERISK|DIVIDE|MOD_SYM|POWER_OP) ^ factor5 )? ;
 factor5:
-  factor6 ( (PLUS|MINUS) interval_expr )? ;
+  factor6 ( (PLUS|MINUS) ^ interval_expr )? ;
 factor6:
-  (PLUS | MINUS | NEGATION | BINARY) simple_expr
+  (PLUS | MINUS | NEGATION | BINARY) ^ simple_expr
   | simple_expr ;
 factor7:
-  simple_expr (COLLATE_SYM collation_names)?;
+  simple_expr (COLLATE_SYM ^ collation_names)?;
 simple_expr:
   literal_value 
   | column_spec
@@ -1282,7 +1282,7 @@ simple_expr:
   | expression_list
   | (ROW_SYM expression_list)
   | subquery
-  | EXISTS subquery
+  | EXISTS ^ subquery
   //| {identifier expression}
   | match_against_statement
   | case_when_statement
@@ -1319,7 +1319,7 @@ match_against_statement:
 ;
 
 column_spec:
-  ( ( schema_name DOT )? table_name DOT )? column_name ;
+  ( ( schema_name DOT ^ )? table_name DOT ^ )? column_name ;
 
 expression_list:
   LPAREN expression ( COMMA expression )* RPAREN ;
@@ -1335,7 +1335,7 @@ interval_expr:
 
 // JOIN Syntax ----------  http://dev.mysql.com/doc/refman/5.6/en/join.html  ---------------
 table_references:
-        table_reference ( COMMA table_reference )*
+        table_reference ( COMMA ! table_reference )*
 ;
 table_reference:
   table_factor1 | table_atom
@@ -1475,7 +1475,7 @@ replication_statements:
 
 // select ------  http://dev.mysql.com/doc/refman/5.6/en/select.html  -------------------------------
 select_statement:
-        select_expression ( (UNION_SYM (ALL)?) select_expression )* 
+        select_expression ( (UNION_SYM (ALL)?) ^ select_expression )* 
 ;
 
 select_expression:
@@ -1514,16 +1514,16 @@ where_clause:
 ;
 
 groupby_clause:
-  GROUP_SYM BY_SYM ^ groupby_item (COMMA groupby_item)* (WITH ROLLUP_SYM)?
+  GROUP_SYM BY_SYM ^ groupby_item (COMMA ! groupby_item)* (WITH ROLLUP_SYM)?
 ;
 groupby_item: column_spec | INTEGER_NUM | bit_expr ;
 
 having_clause:
-  HAVING expression
+  HAVING ^ expression
 ;
 
 orderby_clause:
-  ORDER_SYM BY_SYM ^ orderby_item (COMMA orderby_item)*
+  ORDER_SYM BY_SYM ^ orderby_item (COMMA ! orderby_item)*
 ;
 orderby_item: groupby_item (ASC | DESC)? ;
 
@@ -1539,15 +1539,15 @@ select_list:
 ;
 
 column_list:
-  LPAREN column_spec (COMMA column_spec)* RPAREN
+  LPAREN ! column_spec (COMMA ! column_spec)* RPAREN !
 ;
 
 subquery:
-  LPAREN select_statement RPAREN
+  LPAREN ! select_statement RPAREN !
 ;
 
 table_spec:
-  ( schema_name DOT )? table_name
+  (( schema_name DOT )? table_name) ^
 ;
 
 displayed_column :

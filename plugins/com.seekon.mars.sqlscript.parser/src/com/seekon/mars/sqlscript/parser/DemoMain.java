@@ -2,6 +2,7 @@ package com.seekon.mars.sqlscript.parser;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.TokenRewriteStream;
+import org.antlr.runtime.tree.CommonTree;
 
 public class DemoMain {
   public static void main(String[] args) {
@@ -14,9 +15,9 @@ public class DemoMain {
   SQLParser parser = new SQLParser(tokenStream);
   
   try {
-    Object tree = parser.select_statement().getTree();
+    CommonTree tree = (CommonTree) parser.select_statement().getTree();
     tokenStream.insertAfter(2, "sss");
-    System.out.println(tree);
+    System.out.println(tree.toStringTree());
   } catch (Exception e) {
     // TODO Auto-generated catch block
     e.printStackTrace();

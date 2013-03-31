@@ -6,5 +6,6 @@ Bundle-Version: 1.0.0
 Bundle-Vendor: SEEKON
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.antlr,
- org.antlr.runtime
+ org.antlr.runtime,
+ org.antlr.runtime.tree
 Export-Package: com.seekon.mars.sqlscript.parser
