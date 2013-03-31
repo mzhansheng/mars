@@ -29,6 +29,7 @@
    </vm>
 
    <plugins>
+      <plugin id="antlr"/>
       <plugin id="clojure"/>
       <plugin id="com.google.inject"/>
       <plugin id="com.google.inject.multibindings"/>
@@ -47,6 +48,7 @@
       <plugin id="com.seekon.mars.osgi.monitor"/>
       <plugin id="com.seekon.mars.osgi.util"/>
       <plugin id="com.seekon.mars.rule.engine"/>
+      <plugin id="com.seekon.mars.sqlscript.parser"/>
       <plugin id="com.seekon.smartclient.component"/>
       <plugin id="com.seekon.smartclient.framework"/>
       <plugin id="com.seekon.smartclient.gui"/>
