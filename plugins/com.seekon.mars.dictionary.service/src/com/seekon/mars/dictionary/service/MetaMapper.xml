@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.seekon.mars.dictionary.service.internal.MetaMapper">
+<mapper namespace="com.seekon.mars.dictionary.service.MetaMapper">
   	
   	<select id="getTableMeta" resultType="TableMeta" parameterType="string">
   		select * from m_sys_table where table_code = #{tabCode}
@@ -11,5 +11,9 @@
   	
   	<select id="getFieldMeta" resultType="FieldMeta" parameterType="java.util.Map">
   		select * from m_sys_tab_col where col_code = #{colCode} and tab_code = #{tabCode}
+  	</select>
+  	
+  	<select id="getFiledMetaListByTableCode" resultType="FieldMeta" parameterType="string">
+  		select * from m_sys_tab_col where tab_code = #{tabCode} 
   	</select>
 </mapper>

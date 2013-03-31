@@ -7,6 +7,7 @@ import com.google.inject.Inject;
 import com.seekon.mars.dictionary.FieldMeta;
 import com.seekon.mars.dictionary.MetaService;
 import com.seekon.mars.dictionary.TableMeta;
+import com.seekon.mars.dictionary.service.MetaMapper;
 
 public class MetaServiceImpl implements MetaService{
 
