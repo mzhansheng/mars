@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.system.common.mapper.ElementMapper">
+  <resultMap type="Element" id="resultMap_element">
+  	<result property="code" column="code"/>
+  	<result property="name" column="name"/>
+  	<!-- 
+  	<result property="eleType" column="type"/>
+  	 -->
+  	<association property="table" column="physical_table" javaType="TableMeta" 
+  		select="com.seekon.mars.dictionary.service.MetaMapper.getTableMeta">
+  	</association>
+  	<collection property="fieldList" column="physical_table" 
+  		select="com.seekon.mars.dictionary.service.MetaMapper.getFiledMetaListByTableCode">
+  	</collection>
+  </resultMap>
+  
+	<select id="getElementByCode" resultMap="resultMap_element" parameterType="string">
+		select * from m_ele_config where code = #{code}	
+	</select>
+</mapper>
