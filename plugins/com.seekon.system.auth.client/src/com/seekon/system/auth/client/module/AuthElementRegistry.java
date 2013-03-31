@@ -19,6 +19,7 @@ public class AuthElementRegistry implements ElementRegistry {
 
   private void initElementList() {
     Element user = new Element("sys_user", "用户");
+    user.setTable(MetaStore.getTableMetaByCode("m_sys_user"));
     user.addField(MetaStore.getFieldMeta("m_sys_user", "creator"));
     user.addField(MetaStore.getFieldMeta("m_sys_user", "user_code"));
     user.addField(MetaStore.getFieldMeta("m_sys_user", "user_name"));

@@ -11,11 +11,10 @@ import com.seekon.system.org.model.Enterprise;
 
 public interface EnterpriseMapper {
 
+  @Datascope(actions = { @Action(id = "func.watch", resourceId = "system.org") })
   public List<Enterprise> getEnterpriseListByParentId(@Param("id")
   String parentId);
-  
-  //@Datascope(actions = { @Action(id = "func.watch", resourceId = "system.org") })
-  
+    
   @ControlDataUpdater(tableName = "m_ele_enterprise", keyField = "enterprise.id")
   public void addEnterprise(@Param("enterprise")
   Enterprise enterprise);
