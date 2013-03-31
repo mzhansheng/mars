@@ -18,12 +18,14 @@ public class OrgElementRegistry implements ElementRegistry {
   }
 
   private void initElementList() {
-    Element enterprise = new Element("ele_enterprise", "单位");    
+    Element enterprise = new Element("ele_enterprise", "单位");
+    enterprise.setTable(MetaStore.getTableMetaByCode("m_ele_enterprise"));
     enterprise.addField(MetaStore.getFieldMeta("m_ele_enterprise", "ent_code"));
     enterprise.addField(MetaStore.getFieldMeta("m_ele_enterprise", "ent_type"));
     elementList.add(enterprise);
 
     Element department = new Element("ele_department", "科处室");
+    department.setTable(MetaStore.getTableMetaByCode("m_ele_department"));
     department.addField(MetaStore.getFieldMeta("m_ele_department", "dept_code"));
     department.addField(MetaStore.getFieldMeta("m_ele_department", "dept_name"));
     elementList.add(department);

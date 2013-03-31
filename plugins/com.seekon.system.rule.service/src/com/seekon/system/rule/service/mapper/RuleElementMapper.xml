@@ -9,6 +9,9 @@
   	<id property="id" column="id"/>
   	<result property="elementCode" column="ele_code"/>
   	<result property="ruleSpecification" column="rule_spec" typeHandler="RuleSpecificationTypeHandler"/>
+  	<association property="element" column="ele_code" javaType="Element" 
+  		select="com.seekon.system.common.mapper.ElementMapper.getElementByCode">
+  	</association>
   </resultMap>
  
   <select id="getRuleElementListByRuleId" resultMap="resultMap_ruleElement" parameterType="string">
