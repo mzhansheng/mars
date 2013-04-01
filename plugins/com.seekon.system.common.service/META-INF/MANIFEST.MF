@@ -16,7 +16,8 @@ Import-Package: com.seekon.mars.context,
 Require-Bundle: com.seekon.system.common;bundle-version="1.0.0",
  org.mybatis.mybatis;bundle-version="3.1.1",
  com.springsource.org.aopalliance;bundle-version="1.0.0",
- com.google.inject;bundle-version="3.0.0"
+ com.google.inject;bundle-version="3.0.0",
+ com.seekon.mars.dictionary;bundle-version="1.0.0"
 Export-Package: com.seekon.system.common.mapper,
  com.seekon.system.common.service,
  com.seekon.system.common.type

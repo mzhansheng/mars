@@ -1,7 +1,7 @@
-package com.seekon.system.common.mapper;
+package com.seekon.system.common.spi;
 
 import com.seekon.system.common.model.Element;
 
-public interface ElementMapper {
+public interface ElementService {
   public Element getElementByCode(String eleCode);
 }

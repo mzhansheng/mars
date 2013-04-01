@@ -11,6 +11,7 @@ import com.seekon.system.auth.spi.AuthElementService;
 import com.seekon.system.auth.spi.DataScopeService;
 import com.seekon.system.auth.spi.RoleService;
 import com.seekon.system.auth.spi.UserService;
+import com.seekon.system.common.spi.ElementService;
 
 public class AuthPlugin implements BundleActivator {
 
@@ -25,6 +26,7 @@ public class AuthPlugin implements BundleActivator {
           importService(UserService.class);
           importService(DataScopeService.class);
           importService(AuthElementService.class);
+          importService(ElementService.class);
         }
       });
   }

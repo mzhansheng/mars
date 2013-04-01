@@ -7,6 +7,7 @@ import org.osgi.framework.BundleContext;
 import com.google.inject.Injector;
 import com.seekon.mars.context.AbstractImportModule;
 import com.seekon.mars.context.GuiceContext;
+import com.seekon.system.common.spi.ElementService;
 import com.seekon.system.org.spi.OrgService;
 
 public class OrgPlugin implements BundleActivator {
@@ -19,6 +20,7 @@ public class OrgPlugin implements BundleActivator {
         @Override
         protected void initialize() {
           importService(OrgService.class);
+          importService(ElementService.class);
         }
       });
   }

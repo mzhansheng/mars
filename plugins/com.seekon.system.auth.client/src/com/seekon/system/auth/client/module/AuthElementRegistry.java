@@ -3,7 +3,7 @@ package com.seekon.system.auth.client.module;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.seekon.mars.dictionary.MetaStore;
+import com.seekon.system.auth.client.internal.ServiceFacade;
 import com.seekon.system.common.ElementRegistry;
 import com.seekon.system.common.model.Element;
 import com.seekon.system.common.model.ElementType;
@@ -18,11 +18,12 @@ public class AuthElementRegistry implements ElementRegistry {
   }
 
   private void initElementList() {
-    Element user = new Element("sys_user", "用户");
-    user.setTable(MetaStore.getTableMetaByCode("m_sys_user"));
-    user.addField(MetaStore.getFieldMeta("m_sys_user", "creator"));
-    user.addField(MetaStore.getFieldMeta("m_sys_user", "user_code"));
-    user.addField(MetaStore.getFieldMeta("m_sys_user", "user_name"));
+    //    Element user = new Element("sys_user", "用户");
+    //    user.setTable(MetaStore.getTableMetaByCode("m_sys_user"));
+    //    user.addField(MetaStore.getFieldMeta("m_sys_user", "creator"));
+    //    user.addField(MetaStore.getFieldMeta("m_sys_user", "user_code"));
+    //    user.addField(MetaStore.getFieldMeta("m_sys_user", "user_name"));
+    Element user = ServiceFacade.getElementService().getElementByCode("sys_user");
     elementList.add(user);
   }
 
