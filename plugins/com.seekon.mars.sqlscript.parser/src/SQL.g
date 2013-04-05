@@ -19,7 +19,7 @@ tokens
 
 @members 
 {
-
+//protected TreeAdaptor adaptor = new SQLTreeAdaptor();
 }
 
 @lexer::header 
@@ -1335,28 +1335,40 @@ interval_expr:
 
 // JOIN Syntax ----------  http://dev.mysql.com/doc/refman/5.6/en/join.html  ---------------
 table_references:
-        table_reference ( COMMA ! table_reference )*
+        table_reference ( COMMA ^ table_reference )*
 ;
 table_reference:
   table_factor1 | table_atom
 ;
 table_factor1:
-  table_factor2 (  (INNER_SYM | CROSS)? JOIN_SYM ^ table_atom (join_condition)?  )?
+  table_factor2 (table_factor1_part)?
 ;
 table_factor2:
-  table_factor3 (  STRAIGHT_JOIN ^ table_atom (ON expression)?  )?
+  table_factor3 (table_factor2_part)?
 ;
 table_factor3:
-  table_factor4 (  (LEFT|RIGHT) (OUTER)? JOIN_SYM ^ table_factor4 join_condition  )?
+  table_factor4 (table_factor3_part)?
 ;
 table_factor4:
-  table_atom (  NATURAL ( (LEFT|RIGHT) (OUTER)? )? JOIN_SYM ^ table_atom )?
+  table_atom (table_factor4_part)?
 ;
 table_atom:
-    ( table_spec (partition_clause)? (alias)? (index_hint_list)? )
+    ( table_spec ^ (partition_clause)? (alias)? (index_hint_list)? )
   | ( subquery alias )
   | ( LPAREN table_references RPAREN )
   | ( OJ_SYM table_reference LEFT OUTER JOIN_SYM table_reference ON expression )
+;
+table_factor1_part:
+(  (INNER_SYM | CROSS)? JOIN_SYM ^ table_atom (join_condition)?  )
+;
+table_factor2_part:
+(  STRAIGHT_JOIN ^ table_atom (ON expression)?  )
+;
+table_factor3_part:
+(  (LEFT|RIGHT) (OUTER)? JOIN_SYM ^ table_factor4 join_condition  )
+;
+table_factor4_part:
+(  NATURAL ( (LEFT|RIGHT) (OUTER)? )? JOIN_SYM ^ table_atom )
 ;
 join_condition:
     (ON ^ expression) | (USING_SYM ^ column_list)
@@ -1514,7 +1526,7 @@ where_clause:
 ;
 
 groupby_clause:
-  GROUP_SYM BY_SYM ^ groupby_item (COMMA ! groupby_item)* (WITH ROLLUP_SYM)?
+  GROUP_SYM BY_SYM ^ groupby_item (COMMA ^ groupby_item)* (WITH ROLLUP_SYM)?
 ;
 groupby_item: column_spec | INTEGER_NUM | bit_expr ;
 
@@ -1523,7 +1535,7 @@ having_clause:
 ;
 
 orderby_clause:
-  ORDER_SYM BY_SYM ^ orderby_item (COMMA ! orderby_item)*
+  ORDER_SYM BY_SYM ^ orderby_item (COMMA ^ orderby_item)*
 ;
 orderby_item: groupby_item (ASC | DESC)? ;
 
@@ -1534,16 +1546,16 @@ offset:   INTEGER_NUM ;
 row_count:  INTEGER_NUM ;
 
 select_list:
-  ( ( displayed_column ( COMMA ! displayed_column )*)
+  ( ( displayed_column ( COMMA ^ displayed_column )*)
   | ASTERISK ) 
 ;
 
 column_list:
-  LPAREN ! column_spec (COMMA ! column_spec)* RPAREN !
+  LPAREN  column_spec (COMMA ^ column_spec)* RPAREN 
 ;
 
 subquery:
-  LPAREN ! select_statement RPAREN !
+  LPAREN ^ select_statement RPAREN 
 ;
 
 table_spec:
