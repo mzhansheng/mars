@@ -9,12 +9,10 @@
   	<id property="id" column="id"/>
   	<result property="code" column="dept_code"/>
   	<result property="name" column="dept_name"/>
-  	<result property="year" column="year"/>
-  	<!-- 
+  	<result property="year" column="year"/> 	
   	<association property="belongedEnt" column="ent_id" javaType="Enterprise" 
   		select="com.seekon.system.org.service.mapper.EnterpriseMapper.getEnterpriseById">
-  	</association>
-  	 -->
+  	</association>	 
   </resultMap>
   
   <select id="getDepartmentById" resultMap="resultMap_dept" parameterType="java.lang.String">
