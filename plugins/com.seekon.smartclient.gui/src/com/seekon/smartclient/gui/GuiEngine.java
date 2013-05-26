@@ -14,6 +14,7 @@ import com.seekon.smartclient.gui.tags.MDefaultDataModel;
 import com.seekon.smartclient.gui.tags.MDefaultTableModel;
 import com.seekon.smartclient.gui.tags.MDefaultTreeModel;
 import com.seekon.smartclient.gui.tags.MDefaultTreeTableModel;
+import com.seekon.smartclient.gui.tags.MJSONComboBoxModel;
 import com.seekon.smartclient.gui.tags.MResourcePanel;
 import com.seekon.smartclient.gui.tags.MSearchField;
 import com.seekon.smartclient.gui.tags.MTextField;
@@ -48,6 +49,7 @@ public class GuiEngine extends SwingEngine {
     registerTag(MResourcePanel.class);
     
     registerTag(MDefaultComboBoxModel.class);
+    registerTag(MJSONComboBoxModel.class);
     registerTag(MDefaultTreeModel.class);
     registerTag(MDefaultTableModel.class);
     registerTag(MDefaultTreeTableModel.class);

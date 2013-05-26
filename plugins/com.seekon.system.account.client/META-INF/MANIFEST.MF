@@ -22,5 +22,4 @@ Require-Bundle: clojure;bundle-version="1.5.0",
  seesaw;bundle-version="1.4.4",
  j18n;bundle-version="1.0.1",
  net.miginfocom.miglayout;bundle-version="4.3.0",
- com.seekon.system.auth.service;bundle-version="1.0.0",
  org.jdesktop.swingx;bundle-version="1.6.4"

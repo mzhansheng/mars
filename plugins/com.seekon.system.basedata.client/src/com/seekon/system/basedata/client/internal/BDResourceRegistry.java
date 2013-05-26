@@ -13,7 +13,7 @@ public class BDResourceRegistry implements ResourceRegistry {
 
   private String KEY_BD_ELEMENT = "bd.element.manager";
 
-  private String KEY_BD_REFERENCE = "bd.reference";
+  private String KEY_BD_REFERENCE = "bd.refer.view";
   
   private String KEY_BD_RELATION = "bd.relation";
   
@@ -34,7 +34,7 @@ public class BDResourceRegistry implements ResourceRegistry {
     } else if (KEY_BD_ELEMENT.equals(item.getId())) {
       return new BDElementManager().getbdElementContainer();
     } else if (KEY_BD_REFERENCE.equals(item.getId())) {
-      return null;
+      return new BDReferViewManager().getDbReferContainer();
     }
     return null;
   }

@@ -21,6 +21,12 @@ public class MDefaultTableModel extends AbstractTableModel {
   private Vector<Map> dataList = null;
 
   private List<TableColumn> columnList = new ArrayList<TableColumn>();
+  
+  private boolean editable = true;
+  
+  public void setEditable(boolean editable) {
+    this.editable = editable;
+  }
 
   public void setSqlid(String sqlid) {
     mDataModel.setSqlid(sqlid);
@@ -62,6 +68,10 @@ public class MDefaultTableModel extends AbstractTableModel {
     this.fireTableDataChanged();
   }
 
+  public Map getRowData(int rowIndex){
+    return this.dataList.get(rowIndex);
+  }
+  
   public void setColumns(String columnString) {
     if (columnString != null) {
       String[] columns = columnString.trim().split(";");
@@ -109,7 +119,7 @@ public class MDefaultTableModel extends AbstractTableModel {
 
   @Override
   public boolean isCellEditable(int rowIndex, int columnIndex) {
-    return true;
+    return editable;
   }
 
   public void addRow(Map<String, Object> rowData) {

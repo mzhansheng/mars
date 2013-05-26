@@ -58,6 +58,7 @@ public class BDGeneralManager extends GuiEngine {
         .getResource("BDGeneralListpage.xml"));
       dbGeneralContainer.setVisible(true);
       initListeners();
+      initDefaultData();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -69,13 +70,7 @@ public class BDGeneralManager extends GuiEngine {
       @Override
       public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
-          Map selectedItem = (Map) bdElementBox.getSelectedItem();
-
-          MDefaultTreeModel treeModel = (MDefaultTreeModel) basedataTree.getModel();
-          treeModel.addParam("physical_table", selectedItem.get("physical_table"));
-          treeModel.addParam("parent_id", null);
-          treeModel
-            .setRoot(new DefaultMutableTreeNode(new TreeNodeMap(selectedItem)));
+          fireBDElementSelected();
         }
       }
     });
@@ -167,4 +162,19 @@ public class BDGeneralManager extends GuiEngine {
     });
   }
 
+  private void initDefaultData() {
+    if (bdElementBox != null && bdElementBox.getItemCount() > 0) {
+      bdElementBox.setSelectedIndex(0);
+      fireBDElementSelected();
+    }
+  }
+
+  private void fireBDElementSelected() {
+    Map selectedItem = (Map) bdElementBox.getSelectedItem();
+
+    MDefaultTreeModel treeModel = (MDefaultTreeModel) basedataTree.getModel();
+    treeModel.addParam("physical_table", selectedItem.get("physical_table"));
+    treeModel.addParam("parent_id", null);
+    treeModel.setRoot(new DefaultMutableTreeNode(new TreeNodeMap(selectedItem)));
+  }
 }

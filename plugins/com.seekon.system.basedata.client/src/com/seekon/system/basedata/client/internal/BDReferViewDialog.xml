@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialog 
+size="400,200" title="参照视图编辑" Modal="true" id="editDialog">
+
+<MResourcePanel id="bd.refer.view">
+  <panel layout="BorderLayout">
+  	<panel constraints="BorderLayout.CENTER">
+  		<layout type="MigLayout" layoutConstraints="align center"></layout>
+  		<label text="代码" constraints="align right"/>
+  		<textfield id="codeField" constraints="w 4cm:6cm:,wrap"></textfield>
+  		<label text="名称" constraints="align right"/>
+  		<textfield id="nameField" constraints="growx,wrap"></textfield>
+  		<label text="类型" constraints="align right"/>
+  		<combobox id="typeField" constraints="growx,wrap">
+  			<MJSONComboBoxModel data='[{"code":"1", "name":"list_view"},{"code":"2", "name":"tree_view"}]'></MJSONComboBoxModel>
+  		</combobox>
+  		<label text="是否启用"/>
+  		<checkbox id="usedField" Selected="true" constraints="growx,wrap"></checkbox>				     
+  	</panel>
+  	<panel constraints="BorderLayout.SOUTH">
+  		<button id="saveButton" text="保存"></button>
+  	</panel>
+  </panel>
+</MResourcePanel>
+
+</dialog>

@@ -19,6 +19,7 @@ public class Activator implements BundleActivator {
           ClassLoader cl = Activator.class.getClassLoader();
           this.addXmlMapperResource(packageName + "BasedataElementMapper.xml", cl);
           this.addXmlMapperResource(packageName + "GeneralBasedataMapper.xml", cl);
+          this.addXmlMapperResource(packageName + "BasedataReferMapper.xml", cl);
         }
       });
     injector.injectMembers(this);

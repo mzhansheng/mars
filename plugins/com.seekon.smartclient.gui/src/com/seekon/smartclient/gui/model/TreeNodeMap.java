@@ -1,5 +1,6 @@
 package com.seekon.smartclient.gui.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,7 @@ public   class TreeNodeMap implements Map {
 
   private Map delegate;
 
-  private List<Map> children = null;
+  private List<Map> children = new ArrayList<Map>();
 
   public TreeNodeMap(Map delegate) {
     super();
@@ -94,7 +95,15 @@ public   class TreeNodeMap implements Map {
 
   @Override
   public String toString() {
-    return this.get("name") == null ? super.toString() : this.get("name")
-      .toString();
+    Object name = this.get("name");
+    if(name != null){
+      Object code = this.get("code");
+      if(code != null){
+        name = name.toString() + "[" + code.toString() + "]";
+      }
+    }else{
+      name = super.toString();
+    }
+    return name.toString();
   }
 }

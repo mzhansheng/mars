@@ -18,6 +18,7 @@ import org.jdesktop.swingx.JXTreeTable;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 import org.swixml.Parser;
 import org.swixml.SwingEngine;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.seekon.smartclient.framework.util.AuthUtil;
@@ -85,4 +86,25 @@ public class GuiParser extends Parser {
     return super.addButtonChild(parent, component, constrains, child);
   }
 
+  @Override
+  public Object parse(Document jdoc) throws Exception {
+    ClassLoader cl = Thread.currentThread().getContextClassLoader();
+    try{
+      Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
+      return super.parse(jdoc);
+    }finally{
+      Thread.currentThread().setContextClassLoader(cl);
+    }
+  }
+  
+  @Override
+  public void parse(Document jdoc, Container container) throws Exception {
+    ClassLoader cl = Thread.currentThread().getContextClassLoader();
+    try{
+      Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
+      super.parse(jdoc, container);
+    }finally{
+      Thread.currentThread().setContextClassLoader(cl);
+    }
+  }
 }

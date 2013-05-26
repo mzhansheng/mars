@@ -19,6 +19,8 @@ public class MDefaultTreeModel extends DefaultTreeModel {
 
   private MDataModel mDataModel = new MDefaultDataModel();
 
+  private boolean checkAndInitTreeNode = false;
+  
   public MDefaultTreeModel() {
     super(new DefaultMutableTreeNode(new TreeNodeMap(new HashMap())));
   }
@@ -95,7 +97,13 @@ public class MDefaultTreeModel extends DefaultTreeModel {
       return 0;
     }
     
-    checkAndInitTreeNodeChildren(userObj);
+    if(checkAndInitTreeNode){
+      checkAndInitTreeNodeChildren(userObj);
+    }
+    
+    if(userObj == null){
+      return 0;
+    }
     return userObj.getChildCount();
   }
 

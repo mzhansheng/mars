@@ -6,6 +6,9 @@
 <mapper namespace="com.seekon.system.basedata.service.mapper.BasedataElementMapper">
   
   <select id="getGeneralBDElements" resultType="java.util.HashMap" parameterType="map">
-  	select * from m_ele_config
+  	select * from m_ele_config where 1 = 1
+  	<if test="type != null">
+  		and type = #{type}
+  	</if>
   </select>
 </mapper>

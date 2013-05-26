@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<MResourcePanel id="bd.refer.view">
+  <panel layout="BorderLayout">
+  	<panel constraints="BorderLayout.CENTER" layout="BorderLayout">
+  		<splitpane Border="2">
+  			  <panel layout="BorderLayout">
+  			  	   <panel layout="FlowLayout(FlowLayout.LEFT)" constraints="BorderLayout.NORTH">
+  			  		  <label text="定位"></label>
+  					  <MSearchField id="eleSearchField" emptyString="请输入代码或名称来搜索" size="100,20"></MSearchField>
+  			  	   </panel>
+  			  		<scrollpane constraints="BorderLayout.CENTER">
+  						<tree id="basedataTree">
+  							<MDefaultTreeModel sqlid="getGeneralBDElements" params="" lazy="true" checkAndInitTreeNode="false">
+  							</MDefaultTreeModel>
+  						</tree>
+  					</scrollpane>
+  			  </panel>
+  			  
+  			  <panel layout="BorderLayout">
+  			  	<panel layout="FlowLayout(FlowLayout.RIGHT)" constraints="BorderLayout.NORTH">
+  			  		<checkbox id="isUsedCheckBox" Text="是否启用 "></checkbox>
+  			  		<MSearchField id="viewSearchField" emptyString="请输入代码、名称、类型来搜索" size="200,20"></MSearchField>
+  			  		<button id="searchButton" Text="搜索"></button>
+  			  	</panel>
+  			  	
+  			  	<scrollpane constraints="BorderLayout.CENTER">
+  					<table id="referViewdataTable">
+  						<MDefaultTableModel sqlid="getBDReferViewList" params="" lazy="true" editable="false"
+  							columns="code,代码;name,名称;type,类型;is_used,是否启用,java.lang.Boolean"></MDefaultTableModel>
+  					</table>
+  				</scrollpane>
+  				<panel layout="FlowLayout(FlowLayout.LEFT)" constraints="BorderLayout.SOUTH">
+  					<button id="addReord" text="新增记录" actionId="func.add"></button>
+  					<button id="delReord" text="删除记录" actionId="func.delete"></button>
+  				</panel>  			  	
+  			  </panel>
+  			  
+  		</splitpane>  		
+  	</panel>     
+  </panel>
+</MResourcePanel> 

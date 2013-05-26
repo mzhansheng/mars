@@ -8,7 +8,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.swixml;bundle-version="2.0.0",
  com.seekon.smartclient.component;bundle-version="1.0.0",
  net.miginfocom.miglayout;bundle-version="4.3.0",
- org.jdesktop.swingx;bundle-version="1.6.4"
+ org.jdesktop.swingx;bundle-version="1.6.4",
+ com.springsource.org.json;bundle-version="1.0.0"
 Export-Package: com.seekon.smartclient.gui,
  com.seekon.smartclient.gui.model,
  com.seekon.smartclient.gui.tags

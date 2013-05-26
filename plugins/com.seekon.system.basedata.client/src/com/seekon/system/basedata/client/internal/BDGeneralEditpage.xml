@@ -3,11 +3,11 @@
   <panel layout="BorderLayout">
   	<panel constraints="BorderLayout.CENTER">
   		<layout type="MigLayout" layoutConstraints="align center"></layout>
-  		<label text="代码"/>
+  		<label text="代码" constraints="align right"/>
   		<textfield id="codeField" constraints="w 4cm:6cm:,wrap"></textfield>
-  		<label text="名称"/>
+  		<label text="名称" constraints="align right"/>
   		<textfield id="nameField" constraints="growx,wrap"></textfield>
-  		<label text="物理表"/>
+  		<label text="物理表" constraints="align right"/>
   		<textfield id="tableField" constraints="growx,wrap"></textfield>			     
   	</panel>
   	<panel constraints="BorderLayout.SOUTH">

@@ -40,4 +40,25 @@ public class ModelServiceIbatisImpl implements ModelService {
     }
   }
 
+  @Override
+  @Transactional
+  public int update(String sqlid, Map<String, Object> params) {
+    MappedStatement mst = sqlSession.getConfiguration().getMappedStatement(sqlid);
+    try {
+      return sqlSession.update(mst.getId(), params);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  @Transactional
+  public int delete(String sqlid, Map<String, Object> params) {
+    MappedStatement mst = sqlSession.getConfiguration().getMappedStatement(sqlid);
+    try {
+      return sqlSession.delete(mst.getId(), params);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

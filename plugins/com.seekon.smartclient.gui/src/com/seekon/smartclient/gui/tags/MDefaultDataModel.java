@@ -49,7 +49,18 @@ public class MDefaultDataModel implements MDataModel {
   
   @Override
   public int delete() {
-    return 0;
+    if (sqlid == null || sqlid.trim().length() == 0) {
+      throw new RuntimeException("sqlid must not be null.");
+    }
+    return ServiceFacade.getModelService().delete(sqlid, params);
+  }
+  
+  @Override
+  public int update() {
+    if (sqlid == null || sqlid.trim().length() == 0) {
+      throw new RuntimeException("sqlid must not be null.");
+    }
+    return ServiceFacade.getModelService().update(sqlid, params);
   }
   
   @Override
@@ -69,7 +80,7 @@ public class MDefaultDataModel implements MDataModel {
     for (String param : params) {
       String[] entry = param.split("=");
       if (entry.length > 1) {
-        String[] value = entry[1].split("|");
+        String[] value = entry[1].split("[|]");
         this.params
           .put(entry[0].trim(), value.length == 1 ? entry[1].trim() : value);
       }
