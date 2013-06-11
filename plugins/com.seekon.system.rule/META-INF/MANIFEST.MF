@@ -6,7 +6,8 @@ Bundle-Version: 1.0.0
 Bundle-Vendor: seekon
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: com.seekon.system.common;bundle-version="1.0.0",
- com.seekon.mars.rule.engine;bundle-version="1.0.0"
+ com.seekon.mars.rule.engine;bundle-version="1.0.0",
+ com.seekon.mars.dictionary;bundle-version="1.0.0"
 Export-Package: com.seekon.system.rule.model,
  com.seekon.system.rule.spi
 Bundle-Type: share

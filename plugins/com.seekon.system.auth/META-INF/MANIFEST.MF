@@ -13,4 +13,5 @@ Import-Package: com.seekon.smartclient.module,
  com.seekon.system.common.model,
  com.seekon.system.common.spi,
  com.seekon.system.org.model
-Require-Bundle: com.seekon.system.rule;bundle-version="1.0.0"
+Require-Bundle: com.seekon.system.rule;bundle-version="1.0.0",
+ com.seekon.mars.dictionary;bundle-version="1.0.0"
