@@ -3,23 +3,29 @@ package com.seekon.system.basedata.client.internal;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import com.seekon.mars.dictionary.FieldMeta;
 import com.seekon.smartclient.common.DefaultInvokeHandler;
 import com.seekon.smartclient.common.UIUtilities;
 import com.seekon.smartclient.gui.GuiEngine;
-import com.seekon.smartclient.gui.model.ComboBoxMap;
+import com.seekon.smartclient.gui.model.CodeNameMap;
 import com.seekon.smartclient.gui.tags.MDataModel;
 import com.seekon.smartclient.gui.tags.MDefaultDataModel;
 import com.seekon.smartclient.gui.tags.MJSONComboBoxModel;
+import com.seekon.system.common.client.element.ElementStorage;
+import com.seekon.system.common.model.Element;
 
 public class BDReferViewDialog extends GuiEngine {
 
@@ -32,6 +38,18 @@ public class BDReferViewDialog extends GuiEngine {
   private JComboBox typeField;
 
   private JCheckBox usedField;
+
+  private JList leftColumnListField;
+
+  private JList rightColumnListField;
+
+  private JButton moveToLeftButton;
+
+  private JButton moveToRightButton;
+
+  private JButton moveToUpButton;
+
+  private JButton moveToDownButton;
 
   private boolean returnValue = false;
 
@@ -75,9 +93,21 @@ public class BDReferViewDialog extends GuiEngine {
             mDataModel.addParam("code", code);
             mDataModel.addParam("name", nameField.getText());
             mDataModel.addParam("type",
-              ((ComboBoxMap) typeField.getSelectedItem()).get("code"));
+              ((CodeNameMap) typeField.getSelectedItem()).get("code"));
             mDataModel.addParam("is_used", usedField.isSelected() ? "1" : "0");
             mDataModel.addParam("ele_id", data.get("ele_id"));
+            
+            String content = "";
+            DefaultListModel rightModel = (DefaultListModel) rightColumnListField.getModel();
+            for(int i = 0; i < rightModel.getSize(); i++){
+              FieldMeta field = (FieldMeta) rightModel.get(i);
+              content += field.getColCode() + ",";
+            }
+            if(content.length() > 0){
+              content = content.substring(0, content.length() - 1);
+            }
+            mDataModel.addParam("content", content);
+            
             Object id = data.get("id");
             if (id == null) {
               mDataModel.addParam("id", UUID.randomUUID().toString());
@@ -100,6 +130,42 @@ public class BDReferViewDialog extends GuiEngine {
         });
       }
     });
+
+    moveToLeftButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        Object[] values = rightColumnListField.getSelectedValues();
+        for (Object obj : values) {
+          ((DefaultListModel) leftColumnListField.getModel()).addElement(obj);
+          ((DefaultListModel) rightColumnListField.getModel()).removeElement(obj);
+        }
+      }
+    });
+
+    moveToRightButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        Object[] values = leftColumnListField.getSelectedValues();
+        for (Object obj : values) {
+          ((DefaultListModel) rightColumnListField.getModel()).addElement(obj);
+          ((DefaultListModel) leftColumnListField.getModel()).removeElement(obj);
+        }
+      }
+    });
+    
+    moveToUpButton.addActionListener(new ActionListener() {     
+      @Override
+      public void actionPerformed(ActionEvent e) {
+       
+      }
+    });
+    
+    moveToDownButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        
+      }
+    });
   }
 
   private void initData() {
@@ -119,13 +185,46 @@ public class BDReferViewDialog extends GuiEngine {
     if (type != null) {
       MJSONComboBoxModel model = (MJSONComboBoxModel) typeField.getModel();
       for (int i = 0; i < model.getSize(); i++) {
-        ComboBoxMap item = (ComboBoxMap) model.getElementAt(i);
+        CodeNameMap item = (CodeNameMap) model.getElementAt(i);
         if (type.equals(item.get("code"))) {
           model.setSelectedItem(item);
           break;
         }
       }
     }
+
+    String content = (String)data.get("content");
+    String eleId = (String) data.get("ele_id");
+    Element element = ElementStorage.getElementById(eleId);
+    if (element != null) {
+      DefaultListModel model = (DefaultListModel) leftColumnListField.getModel();
+      model.removeAllElements();
+      
+      DefaultListModel rightModel = (DefaultListModel) rightColumnListField.getModel();
+      String[] contents = null;
+      if(content != null){
+        contents = content.split(",");
+      }
+      
+      List<FieldMeta> fieldMetaList = element.getFieldList();
+      for (FieldMeta field : fieldMetaList) {
+        boolean addToRight = false;
+        if(contents != null){
+          for(String code : contents){
+            if(code.equals(field.getColCode())){
+              rightModel.addElement(field);
+              addToRight = true;
+              break;
+            }
+          }
+        }
+        
+        if(!addToRight){
+          model.addElement(field);
+        }
+      }
+    }
+
   }
 
   public boolean getReturnValue() {

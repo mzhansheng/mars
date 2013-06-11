@@ -4,6 +4,7 @@
 <product name="com.seekon.smartclient.desktop" id="com.seekon.smartclient.launcher.product" application="com.seekon.smartclient.launcher" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
+      <macosx>/com.seekon.smartclient.launcher.desktop/config.ini</macosx>
       <win32>/com.seekon.smartclient.launcher/config.ini</win32>
    </configIni>
 
@@ -53,7 +54,6 @@
       <plugin id="com.seekon.smartclient.framework"/>
       <plugin id="com.seekon.smartclient.gui"/>
       <plugin id="com.seekon.smartclient.javadocking"/>
-      <plugin id="com.seekon.smartclient.laf"/>
       <plugin id="com.seekon.smartclient.launcher"/>
       <plugin id="com.seekon.smartclient.launcher.web" fragment="true"/>
       <plugin id="com.seekon.smartclient.layout"/>
@@ -86,6 +86,7 @@
       <plugin id="com.springsource.org.apache.log4j"/>
       <plugin id="com.springsource.org.dom4j"/>
       <plugin id="com.springsource.org.jaxen"/>
+      <plugin id="com.springsource.org.json"/>
       <plugin id="com.springsource.org.objectweb.asm"/>
       <plugin id="com.springsource.slf4j.api"/>
       <plugin id="com.springsource.slf4j.log4j" fragment="true"/>

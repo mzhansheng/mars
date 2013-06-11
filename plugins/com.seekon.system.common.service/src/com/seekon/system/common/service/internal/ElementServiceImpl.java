@@ -14,5 +14,9 @@ public class ElementServiceImpl implements ElementService{
   public Element getElementByCode(String eleCode) {
     return elementMapper.getElementByCode(eleCode);
   }
-
+  
+  @Override
+  public Element getElementById(String eleId) {
+    return elementMapper.getElementById(eleId);
+  }
 }

@@ -76,6 +76,7 @@ public final class BridgeServlet extends HttpServlet {
 //      "enableFrameworkControls");
 //    boolean enableFrameworkControls = (enableFrameworkControlsParameter != null && enableFrameworkControlsParameter
 //      .equals("true"));
+   // System.getProperties().setProperty("db.mode", "mysql");
     try {
       String frameworkLauncherClassParameter = getServletConfig().getInitParameter(
         "frameworkLauncherClass");

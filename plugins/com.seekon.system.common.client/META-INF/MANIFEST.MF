@@ -12,6 +12,12 @@ Require-Bundle: com.seekon.smartclient.component;bundle-version="1.0.0",
  com.jgoodies.validation;bundle-version="2.4.2",
  net.miginfocom.miglayout;bundle-version="4.3.0"
 Export-Package: com.seekon.system.common.client.category,
- com.seekon.system.common.client.category.tree
-Import-Package: org.pietschy.wizard,
+ com.seekon.system.common.client.category.tree,
+ com.seekon.system.common.client.element
+Import-Package: com.google.inject;version="1.3.0",
+ com.seekon.mars.context,
+ org.ops4j.peaberry;version="1.1.0",
+ org.osgi.framework;version="1.5.0",
+ org.pietschy.wizard,
  org.pietschy.wizard.models;version="0.1.2"
+Bundle-Activator: com.seekon.system.common.client.internal.CommonPlugin

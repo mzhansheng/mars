@@ -25,6 +25,7 @@ public class WebParameterUtils {
 				"com.seekon.smartclient.updater_1.0.0.jar",
 				"com.seekon.smartclient.launcher_1.0.0.jar",
 				"com.seekon.smartclient.laf_1.6.7.jar",
+				"com.seekon.smartclient.component_1.0.0.jar",
 				"com.seekon.smartclient.framework_1.0.0.jar",
 				"com.seekon.smartclient.javadocking_1.5.0.jar",
 				"com.seekon.smartclient.login_1.0.0.jar",
@@ -41,7 +42,8 @@ public class WebParameterUtils {
 				"com.springsource.javax.inject_1.0.0.jar",
 				"com.springsource.org.aopalliance_1.0.0.jar",
 				"org.ops4j.peaberry.patch_1.0.0.jar",
-				"com.seekon.mars.dictionary_1.0.0.jar"
+				"com.seekon.mars.dictionary_1.0.0.jar",
+				"com.springsource.org.json-1.0.0.jar"
 		};
 
 		for (int i = 0; i < systemBundleNames.length; i++) {

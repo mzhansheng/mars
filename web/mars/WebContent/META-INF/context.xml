@@ -9,5 +9,5 @@
 		username="mars" 
 		password="1"
 		driverClassName="com.mysql.jdbc.Driver" 
-		url="jdbc:mysql://localhost:3306/mars" />
+		url="jdbc:mysql://localhost:3306/mars?characterEncoding=utf8" />
 </Context>

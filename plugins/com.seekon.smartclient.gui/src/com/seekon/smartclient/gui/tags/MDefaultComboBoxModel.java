@@ -7,7 +7,7 @@ import javax.swing.DefaultComboBoxModel;
 
 import com.seekon.smartclient.common.DefaultInvokeHandler;
 import com.seekon.smartclient.common.UIUtilities;
-import com.seekon.smartclient.gui.model.ComboBoxMap;
+import com.seekon.smartclient.gui.model.CodeNameMap;
 
 public class MDefaultComboBoxModel extends DefaultComboBoxModel{
 
@@ -45,7 +45,7 @@ public class MDefaultComboBoxModel extends DefaultComboBoxModel{
         MDefaultComboBoxModel.this.removeAllElements();
         if(result != null && !result.isEmpty()){
           for(Map<String, Object> item : result){
-            MDefaultComboBoxModel.this.addElement(new ComboBoxMap(item));
+            MDefaultComboBoxModel.this.addElement(new CodeNameMap(item));
           }
         }
       }

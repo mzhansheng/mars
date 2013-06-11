@@ -9,7 +9,7 @@ import javax.swing.DefaultComboBoxModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.seekon.smartclient.gui.model.ComboBoxMap;
+import com.seekon.smartclient.gui.model.CodeNameMap;
 
 public class MJSONComboBoxModel extends DefaultComboBoxModel{
 
@@ -30,7 +30,7 @@ public class MJSONComboBoxModel extends DefaultComboBoxModel{
           String key = (String) iterator.next();
           item.put(key, obj.get(key));
         }
-        this.addElement(new ComboBoxMap(item));
+        this.addElement(new CodeNameMap(item));
       }
     }catch(Exception e){
       e.printStackTrace();

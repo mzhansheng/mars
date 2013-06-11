@@ -92,7 +92,7 @@ public abstract class AbstractApplication implements Application {
 
   public void init() {   
     Splash splash = com.seekon.smartclient.splash.SplashPlugin.getDefault()
-      .getSplash();
+    		.getSplash();
 
     splash.displayMessage("系统启动...");
 

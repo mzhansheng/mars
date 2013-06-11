@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dialog 
-size="400,200" title="参照视图编辑" Modal="true" id="editDialog">
+size="480,300" title="参照视图编辑" Modal="true" id="editDialog">
 
 <MResourcePanel id="bd.refer.view">
   <panel layout="BorderLayout">
-  	<panel constraints="BorderLayout.CENTER">
+  	<panel constraints="BorderLayout.NORTH">
   		<layout type="MigLayout" layoutConstraints="align center"></layout>
   		<label text="代码" constraints="align right"/>
-  		<textfield id="codeField" constraints="w 4cm:6cm:,wrap"></textfield>
+  		<textfield id="codeField" constraints="w 4cm:6cm:"></textfield>
   		<label text="名称" constraints="align right"/>
-  		<textfield id="nameField" constraints="growx,wrap"></textfield>
+  		<textfield id="nameField" constraints="w 4cm:6cm:,wrap"></textfield>
   		<label text="类型" constraints="align right"/>
-  		<combobox id="typeField" constraints="growx,wrap">
+  		<combobox id="typeField" constraints="growx">
   			<MJSONComboBoxModel data='[{"code":"1", "name":"list_view"},{"code":"2", "name":"tree_view"}]'></MJSONComboBoxModel>
   		</combobox>
   		<label text="是否启用"/>
   		<checkbox id="usedField" Selected="true" constraints="growx,wrap"></checkbox>				     
   	</panel>
+  	<tabbedpane constraints="BorderLayout.CENTER" titles="展示字段信息">
+  	   <panel layout="BorderLayout">
+  		<panel constraints="BorderLayout.WEST" layout="BorderLayout">
+  			<label text="待选字段" constraints="BorderLayout.NORTH"></label>
+  			<scrollpane>
+  				<list id="leftColumnListField" PreferredSize="150,30">
+  					<MDefaultListModel sqlid="" params="" lazy="true"></MDefaultListModel>
+  				</list>
+  			</scrollpane>
+  		</panel>
+  		<panel constraints="BorderLayout.CENTER">
+  			<layout type="MigLayout" layoutConstraints="align center"></layout>
+  			<button id="moveToLeftButton" text="左移" constraints="wrap"></button>
+  			<button id="moveToRightButton" text="右移" constraints="wrap"></button>
+  			<button id="moveToUpButton" text="上移" constraints="wrap"></button>
+  			<button id="moveToDownButton" text="下移" constraints="wrap"></button>
+  		</panel>
+  		<panel constraints="BorderLayout.EAST" layout="BorderLayout">
+  			<label text="已选字段" constraints="BorderLayout.NORTH"></label>
+  			<scrollpane>
+  				<list id="rightColumnListField" PreferredSize="150,30">
+  					<MDefaultListModel sqlid="" params="" lazy="true"></MDefaultListModel>
+  				</list>
+  			</scrollpane>
+  		</panel>
+  	  </panel>
+  	</tabbedpane>
   	<panel constraints="BorderLayout.SOUTH">
   		<button id="saveButton" text="保存"></button>
   	</panel>

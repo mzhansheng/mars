@@ -18,6 +18,7 @@ public class DesktopProduct implements IApplication {
 		SwingUtilities.invokeLater(new Runnable() {		
 			@Override
 			public void run() {
+			  
 				StartupRegistry startupRegistry = new StartupRegistry();
 				for (Startup startup : startupRegistry.getStartup()) {
 					startup.run(Activator.getContext());

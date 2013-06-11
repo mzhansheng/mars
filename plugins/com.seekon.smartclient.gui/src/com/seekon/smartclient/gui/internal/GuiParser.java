@@ -9,8 +9,10 @@ import java.util.Map.Entry;
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JTree;
+import javax.swing.ListModel;
 import javax.swing.table.TableModel;
 import javax.swing.tree.TreeModel;
 
@@ -51,6 +53,9 @@ public class GuiParser extends Parser {
     } else if (component.getClass().isAssignableFrom(JXTreeTable.class)
       && model instanceof TreeTableModel) {
       ((JXTreeTable) component).setTreeTableModel((TreeTableModel) model);
+    } else if (component.getClass().isAssignableFrom(JList.class)
+      && model instanceof ListModel) {
+      ((JList) component).setModel((ListModel) model);
     }
   }
 
@@ -89,21 +94,21 @@ public class GuiParser extends Parser {
   @Override
   public Object parse(Document jdoc) throws Exception {
     ClassLoader cl = Thread.currentThread().getContextClassLoader();
-    try{
+    try {
       Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
       return super.parse(jdoc);
-    }finally{
+    } finally {
       Thread.currentThread().setContextClassLoader(cl);
     }
   }
-  
+
   @Override
   public void parse(Document jdoc, Container container) throws Exception {
     ClassLoader cl = Thread.currentThread().getContextClassLoader();
-    try{
+    try {
       Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
       super.parse(jdoc, container);
-    }finally{
+    } finally {
       Thread.currentThread().setContextClassLoader(cl);
     }
   }

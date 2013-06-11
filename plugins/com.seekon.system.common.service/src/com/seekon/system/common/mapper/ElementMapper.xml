@@ -5,6 +5,7 @@
 
 <mapper namespace="com.seekon.system.common.mapper.ElementMapper">
   <resultMap type="Element" id="resultMap_element">
+  	<result property="id" column="id"/>
   	<result property="code" column="code"/>
   	<result property="name" column="name"/>
   	<!-- 
@@ -20,5 +21,8 @@
   
 	<select id="getElementByCode" resultMap="resultMap_element" parameterType="string">
 		select * from m_ele_config where code = #{code}	
+	</select>
+	<select id="getElementById" resultMap="resultMap_element" parameterType="string">
+		select * from m_ele_config where id = #{id}	
 	</select>
 </mapper>

@@ -13,12 +13,13 @@
   </select>
   
   <insert id="insertElementReferView" parameterType="java.util.HashMap" keyProperty="id">
-  	insert into m_ele_refer_view(id, code, name, type, is_used, ele_id)
-  		values(#{id}, #{code}, #{name}, #{type}, #{is_used}, #{ele_id})
+  	insert into m_ele_refer_view(id, code, name, type, is_used, ele_id, content)
+  		values(#{id}, #{code}, #{name}, #{type}, #{is_used}, #{ele_id}, #{content})
   </insert>
   <update id="updateElementReferView" parameterType="java.util.HashMap">
   	update m_ele_refer_view set code = #{code}, name = #{name},
-  		type = #{type}, is_used = #{is_used}, ele_id = #{ele_id}
+  		type = #{type}, is_used = #{is_used}, ele_id = #{ele_id},
+  		content = #{content}
   		where id = #{id}
   </update>
   <delete id="deleteElementReferView" parameterType="java.util.HashMap">

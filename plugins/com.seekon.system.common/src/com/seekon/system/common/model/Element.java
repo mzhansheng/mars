@@ -11,6 +11,8 @@ public class Element implements Serializable, Cloneable {
 
   private static final long serialVersionUID = -4567093179654120245L;
 
+  private String id;
+  
   private String code;
 
   private String name;
@@ -31,6 +33,14 @@ public class Element implements Serializable, Cloneable {
     super();
     this.code = code;
     this.name = name;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 
   public String getCode() {
