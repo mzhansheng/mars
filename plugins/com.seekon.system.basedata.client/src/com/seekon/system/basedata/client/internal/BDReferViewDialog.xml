@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dialog 
-size="480,300" title="参照视图编辑" Modal="true" id="editDialog">
+size="480,320" title="参照视图编辑" Modal="true" id="editDialog">
 
 <MResourcePanel id="bd.refer.view">
   <panel layout="BorderLayout">
@@ -27,7 +27,7 @@ size="480,300" title="参照视图编辑" Modal="true" id="editDialog">
   				</list>
   			</scrollpane>
   		</panel>
-  		<panel constraints="BorderLayout.CENTER">
+  		<panel constraints="BorderLayout.CENTER" PreferredSize="80,30">
   			<layout type="MigLayout" layoutConstraints="align center"></layout>
   			<button id="moveToLeftButton" text="左移" constraints="wrap"></button>
   			<button id="moveToRightButton" text="右移" constraints="wrap"></button>
@@ -41,6 +41,13 @@ size="480,300" title="参照视图编辑" Modal="true" id="editDialog">
   					<MDefaultListModel sqlid="" params="" lazy="true"></MDefaultListModel>
   				</list>
   			</scrollpane>
+  			<!-- 
+  			<panel constraints="BorderLayout.EAST" PreferredSize="80,30">
+  				<layout type="MigLayout" layoutConstraints="align center"></layout>
+  				<button id="moveToUpButton" text="上移" constraints="wrap"></button>
+  				<button id="moveToDownButton" text="下移" constraints="wrap"></button>
+  			</panel>
+  			 -->
   		</panel>
   	  </panel>
   	</tabbedpane>

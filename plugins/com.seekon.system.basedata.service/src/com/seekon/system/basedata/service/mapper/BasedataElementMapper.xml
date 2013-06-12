@@ -11,4 +11,12 @@
   		and type = #{type}
   	</if>
   </select>
+  
+  <select id="getAllBDElementTableMeta" resultType="java.util.HashMap" parameterType="map">
+  	select st.table_code as physical_table, ec.code, ec.name 
+  		from m_sys_table st 
+  			left join m_ele_config ec 
+  			on st.table_code = ec.physical_table	
+  </select>
+  
 </mapper>

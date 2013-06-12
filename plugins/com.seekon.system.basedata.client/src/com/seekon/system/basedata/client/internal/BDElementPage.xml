@@ -7,11 +7,11 @@
   	</panel>
   	<panel layout="BorderLayout" constraints="BorderLayout.CENTER">
   		<scrollpane constraints="BorderLayout.CENTER">
-  			<JXTreeTable id="bdElementTable">
-  				<MDefaultTreeTableModel sqlid="getGeneralBaseData" params="" lazy="true"
-  							columns="code,代码;name,名称;is_used,是否启用,java.lang.Boolean">
-  				</MDefaultTreeTableModel>
-  			</JXTreeTable>
+  			<table id="bdElementTable">
+  				<BDElementTableModel sqlid="getAllBDElementTableMeta" params="" lazy="false"
+  					columns="code,代码;name,名称;physical_table,物理表名;is_used,是否启用,java.lang.Boolean;">
+  				</BDElementTableModel>
+  			</table>
   		</scrollpane>
   	</panel>     
   </panel>
