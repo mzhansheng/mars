@@ -25,6 +25,7 @@ import org.w3c.dom.Element;
 
 import com.seekon.smartclient.framework.util.AuthUtil;
 import com.seekon.smartclient.gui.tags.MResourcePanel;
+import com.seekon.smartclient.gui.util.ReflectUtil;
 
 public class GuiParser extends Parser {
 
@@ -34,10 +35,23 @@ public class GuiParser extends Parser {
 
   protected void setModel(JComponent component, Object model, boolean lazyRefresh) {
     if (!lazyRefresh) {
-      try {
-        Method method = model.getClass().getDeclaredMethod("refresh", null);
-        method.invoke(model, null);
-      } catch (Throwable e) {
+//      Method method = null;
+//      try {
+//        method = model.getClass().getDeclaredMethod("refresh", null);
+//        method.invoke(model, null);
+//      } catch (Throwable e) {
+//        e.printStackTrace();
+//        try{
+//          method = model.getClass().getSuperclass().getDeclaredMethod("refresh", null);
+//          method.invoke(model, null);
+//        }catch(Throwable ee){
+//          ee.printStackTrace();
+//        }
+//      }
+      try{
+        ReflectUtil.invoke(model, "refresh", null, null);
+      }catch(Throwable e){
+        
       }
     }
 

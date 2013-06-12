@@ -68,6 +68,10 @@ public class MDefaultTableModel extends AbstractTableModel {
     this.fireTableDataChanged();
   }
 
+  public Vector<Map> getDataList() {
+    return dataList;
+  }
+
   public Map getRowData(int rowIndex){
     return this.dataList.get(rowIndex);
   }

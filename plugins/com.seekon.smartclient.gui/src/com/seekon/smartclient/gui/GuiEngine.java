@@ -43,7 +43,7 @@ public class GuiEngine extends SwingEngine {
     registerLayoutConverters();
   }
 
-  private void registerTags() {
+  protected void registerTags() {
     registerTag(MTextField.class);
     registerTag(MSearchField.class);
     registerTag(JXTreeTable.class);
@@ -58,16 +58,16 @@ public class GuiEngine extends SwingEngine {
     registerTag("MDataModel", MDefaultDataModel.class);
   }
 
-  private void registerTag(Class<?> clazz) {
+  protected void registerTag(Class<?> clazz) {
     registerTag(clazz.getSimpleName(), clazz);
   }
 
-  private void registerTag(String name, Class<?> clazz) {
+  protected void registerTag(String name, Class<?> clazz) {
     TagLibrary taglib = this.getTaglib();
     taglib.registerTag(name, clazz);
   }
 
-  private void registerLayoutConverters() {
+  protected void registerLayoutConverters() {
     LayoutConverterLibrary lib = LayoutConverterLibrary.getInstance();
     lib.register(MigLayout.class, new MigLayoutConverter());
   }
