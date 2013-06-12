@@ -5,7 +5,6 @@ import java.awt.Container;
 
 import javax.swing.JApplet;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.javadocking.dock.Position;
@@ -110,7 +109,7 @@ public class MainFrameImpl implements MainFrame {
     this.perspective.init(this.owner);
     this.perspective.addComponent("NavigationView", new NavigationView(), "导航菜单",
       new Position());
-    this.perspective.addComponent("homepage", new JLabel("this is the homepage."), "首页",
+    this.perspective.addComponent("homepage", new HomepageRegistry().getDefaultHomepage(), "首页",
       new Position());
 
     this.menuManager.update();

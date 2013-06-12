@@ -7,6 +7,7 @@
    <extension-point id="com.seekon.smartclient.framework.statusbarPanes" name="com.seekon.smartclient.framework.statusbarPanes" schema="schema/com.seekon.smartclient.framework.statusbarPanes.exsd"/>
    <extension-point id="com.seekon.smartclient.framework.perspectives" name="com.seekon.smartclient.framework.perspectives" schema="schema/com.seekon.smartclient.framework.perspectives.exsd"/>
    <extension-point id="com.seekon.smartclient.framework.navigationFilters" name="com.seekon.smartclient.framework.navigationFilters" schema="schema/com.seekon.smartclient.framework.navigationFilters.exsd"/>
+   <extension-point id="com.seekon.smartclient.framework.homepage" name="com.seekon.system.homepage.client" schema="schema/com.seekon.smartclient.framework.homepage.exsd"/>
    <extension
          point="com.seekon.smartclient.framework.menus">
       <menu
