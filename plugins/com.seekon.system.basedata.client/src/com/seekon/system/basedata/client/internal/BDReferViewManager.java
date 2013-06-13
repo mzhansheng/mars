@@ -35,7 +35,7 @@ public class BDReferViewManager extends GuiEngine {
   private JButton delReord;
 
   private String selectedElementId = null;
-  
+
   public Container getDbReferContainer() {
     Container bdReferContainer = null;
     try {
@@ -75,9 +75,10 @@ public class BDReferViewManager extends GuiEngine {
     referViewdataTable.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        if(e.getClickCount() == 2){
+        if (e.getClickCount() == 2) {
           int rowIndex = referViewdataTable.getSelectedRow();
-          MDefaultTableModel model = (MDefaultTableModel) referViewdataTable.getModel();
+          MDefaultTableModel model = (MDefaultTableModel) referViewdataTable
+            .getModel();
           Map data = model.getRowData(rowIndex);
           BDReferViewManager.this.showReferViewDialog(data);
         }
@@ -96,21 +97,24 @@ public class BDReferViewManager extends GuiEngine {
     delReord.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        MDefaultTableModel model = (MDefaultTableModel) referViewdataTable.getModel();
+        MDefaultTableModel model = (MDefaultTableModel) referViewdataTable
+          .getModel();
         List ids = new ArrayList();
         int[] rowIndexes = referViewdataTable.getSelectedRows();
-        for(int rowIndex : rowIndexes){
+        for (int rowIndex : rowIndexes) {
           Map data = model.getRowData(rowIndex);
           ids.add(data.get("id"));
         }
-        
-        MDataModel mDataModel = new MDefaultDataModel();
-        mDataModel.setSqlid("deleteElementReferView");
-        mDataModel.addParam("ids", ids);
-        mDataModel.delete();
-        
-        model.refresh();
-        model.fireTableDataChanged();
+
+        if (!ids.isEmpty()) {
+          MDataModel mDataModel = new MDefaultDataModel();
+          mDataModel.setSqlid("deleteElementReferView");
+          mDataModel.addParam("ids", ids);
+          mDataModel.delete();
+
+          model.refresh();
+          model.fireTableDataChanged();
+        }
       }
     });
 
@@ -118,7 +122,7 @@ public class BDReferViewManager extends GuiEngine {
 
   private void showReferViewDialog(Map data) {
     BDReferViewDialog dialog = new BDReferViewDialog(data);
-    if(dialog.getReturnValue()){
+    if (dialog.getReturnValue()) {
       MDefaultTableModel tableModel = (MDefaultTableModel) referViewdataTable
         .getModel();
       tableModel.refresh();

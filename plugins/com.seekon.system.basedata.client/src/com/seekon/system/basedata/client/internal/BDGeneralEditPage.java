@@ -36,7 +36,7 @@ public class BDGeneralEditPage extends GuiEngine{
     super();
     try {
       Container container = render(BDGeneralEditPage.class.getResource("BDGeneralEditpage.xml"));
-      mDataModel.setSqlid("insertGeneralBaseData");
+      mDataModel.setSqlid("insertBDElement");
       initListeners();
       container.setVisible(true);
     } catch (Exception e) {

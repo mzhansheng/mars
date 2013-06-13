@@ -13,10 +13,27 @@
   </select>
   
   <select id="getAllBDElementTableMeta" resultType="java.util.HashMap" parameterType="map">
-  	select st.table_code as physical_table, ec.code, ec.name 
+  	select st.table_code as physical_table, ec.code, ec.name, ec.id 
   		from m_sys_table st 
   			left join m_ele_config ec 
   			on st.table_code = ec.physical_table	
   </select>
+  
+  <delete id="deleteBDElement" parameterType="java.util.HashMap">
+  	delete from m_ele_config where physical_table in
+  	<foreach collection="dataList" index="index" item="item" open="(" separator="," close=")"> 
+        #{item.physical_table} 
+     </foreach> 
+  </delete>
+  
+  <insert id="insertBDElement" parameterType="java.util.HashMap" keyProperty="id">
+  	insert into m_ele_config(id, code, name, type, physical_table)
+  		values(#{data.id}, #{data.code}, #{data.name}, #{data.type}, #{data.physical_table})
+  </insert>
+  
+  <update id="updateBDElement" parameterType="java.util.HashMap">
+  	update m_ele_config set code = #{data.code}, name = #{data.name}
+  		where id = #{data.id}
+  </update>
   
 </mapper>

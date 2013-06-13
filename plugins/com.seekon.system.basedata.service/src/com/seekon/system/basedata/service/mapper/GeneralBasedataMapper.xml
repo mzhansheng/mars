@@ -24,8 +24,5 @@
   	</where>
   </select>
   
-  <insert id="insertGeneralBaseData" parameterType="java.util.HashMap" keyProperty="id">
-  	insert into m_ele_config(id, code, name, type, physical_table)
-  		values(#{id}, #{code}, #{name}, #{type}, #{physical_table})
-  </insert>
+
 </mapper>
