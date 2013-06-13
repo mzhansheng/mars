@@ -140,4 +140,17 @@ public class MDefaultTableModel extends AbstractTableModel {
     fireTableRowsDeleted(row, row);
   }
 
+  public int insert() {
+    return mDataModel.insert();
+  }
+
+  public int delete() {
+    return mDataModel.delete();
+  }
+
+  public int update() {
+    return mDataModel.update();
+  }
+
+  
 }
