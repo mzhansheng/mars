@@ -195,25 +195,4 @@ public class UnicodeProperties extends Properties {
 		return result;
 	}
 
-	public static void main(String[] args) throws IOException {
-		UnicodeProperties unicodeproperties = new UnicodeProperties();
-		// 以Unicode写入文件
-		unicodeproperties.setProperty("name", "曼灵格(manlge)");
-		unicodeproperties.store("C:/test.conf", "哈哈，我在测试呀!!!");
-		Runtime.getRuntime().exec("notepad C:\\test.conf");
-
-		// 从文件读入
-		unicodeproperties.load("c:/test.conf");
-
-		// 读取name
-		System.out.println(unicodeproperties.getProperty("name"));
-
-		// 测试带变量引用的属性值
-		unicodeproperties.put("project", "A6");
-		unicodeproperties.put("project.src", "${project}/src");
-		System.out.println(unicodeproperties.getProperty("project.src"));
-
-		System.out.println(unicodeproperties.getProperty("project.src", "abc"));
-	}
-
 }
