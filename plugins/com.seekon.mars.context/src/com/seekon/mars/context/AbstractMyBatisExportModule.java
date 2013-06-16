@@ -46,6 +46,13 @@ public abstract class AbstractMyBatisExportModule extends AbstractExportModule {
     configuration.getTypeHandlerRegistry().register(handlerClass);
   }
 
+  protected final void addSimpleAliases(final String packageName) {
+    Set<Class<?>> clazzes = (getClasses(packageName));
+    for (Class<?> clazz : clazzes) {
+      addSimpleAlias(clazz);
+    }
+  }
+  
   protected final void addSimpleAlias(final Class<?> type) {
     checkArgument(type != null, "Parameter 'type' must be not null");
     addAlias(type.getSimpleName()).to(type);
