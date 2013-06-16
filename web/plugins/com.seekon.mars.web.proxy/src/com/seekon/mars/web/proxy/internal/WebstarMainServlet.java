@@ -36,7 +36,7 @@ public class WebstarMainServlet extends HttpServlet {
 		out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		out.write("<jnlp spec=\"1.0+\" codebase=\"" + webRoot + "\">");
 		out.write("  <information>");
-		out.write("    <title>smartclient</title>");
+		out.write("    <title>MARS智能客户端平台</title>");
 		out.write("    <vendor>smartclient</vendor>");
     out.write("    <description>smartclient</description>");
 		out.write("    <offline-allowed />");

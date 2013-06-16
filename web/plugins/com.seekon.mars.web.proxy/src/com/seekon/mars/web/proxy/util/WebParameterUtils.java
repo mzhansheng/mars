@@ -43,7 +43,9 @@ public class WebParameterUtils {
 				"com.springsource.org.aopalliance_1.0.0.jar",
 				"org.ops4j.peaberry.patch_1.0.0.jar",
 				"com.seekon.mars.dictionary_1.0.0.jar",
-				"com.springsource.org.json-1.0.0.jar"
+				"com.springsource.org.json-1.0.0.jar",
+				"com.springsource.jxl-2.6.6.jar",
+				"com.springsource.org.dom4j-1.6.1.jar"
 		};
 
 		for (int i = 0; i < systemBundleNames.length; i++) {
