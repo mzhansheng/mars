@@ -12,3 +12,4 @@ Export-Package: com.seekon.system.common,
 Import-Package: com.seekon.mars.dictionary,
  com.seekon.mars.osgi.util,
  org.eclipse.core.runtime;version="3.4.0"
+Bundle-Type: share
