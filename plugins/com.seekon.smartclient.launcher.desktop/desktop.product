@@ -50,6 +50,9 @@
       <plugin id="com.seekon.mars.osgi.util"/>
       <plugin id="com.seekon.mars.rule.engine"/>
       <plugin id="com.seekon.mars.sqlscript.parser"/>
+      <plugin id="com.seekon.mars.wf.client"/>
+      <plugin id="com.seekon.mars.wf.engine.spi"/>
+      <plugin id="com.seekon.mars.wf.spi"/>
       <plugin id="com.seekon.smartclient.component"/>
       <plugin id="com.seekon.smartclient.framework"/>
       <plugin id="com.seekon.smartclient.gui"/>
@@ -80,6 +83,7 @@
       <plugin id="com.springsource.com.mysql.jdbc"/>
       <plugin id="com.springsource.javax.inject"/>
       <plugin id="com.springsource.javax.xml.stream"/>
+      <plugin id="com.springsource.jxl"/>
       <plugin id="com.springsource.net.sf.cglib"/>
       <plugin id="com.springsource.org.aopalliance"/>
       <plugin id="com.springsource.org.apache.commons.logging"/>
