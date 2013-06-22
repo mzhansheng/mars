@@ -59,6 +59,7 @@ public abstract class AbstractJarFileLoader implements JarFileLoader {
 			try {
 				String bundleURL = "reference:"
 						+ new File(jarFile.getLocation()).toURI().toURL().toString();
+				System.out.println("installing bundle:" + bundleSymbolicName);
 				Bundle bundle = bundleContext.installBundle(bundleURL);
 				installedBundleList.add(bundle);
 			} catch (Exception e) {
@@ -81,6 +82,7 @@ public abstract class AbstractJarFileLoader implements JarFileLoader {
             && !"server".equals(bundle.getHeaders().get("Bundle-Type"))
             && bundle.getState() != Bundle.STARTING
             && bundle.getState() != Bundle.ACTIVE) {
+          System.out.println("starting bundle:" + bundle.getSymbolicName());
           bundle.start();
         }
       } catch (Exception e) {
