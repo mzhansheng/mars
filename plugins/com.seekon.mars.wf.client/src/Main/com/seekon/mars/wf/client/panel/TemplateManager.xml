@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<MResourcePanel id="system.wf.template">
+  	<panel layout="BorderLayout">
+  		<toolbar constraints="BorderLayout.NORTH">
+  			<button id="import" Text="导入" icon="icons/import.png" actionId="func.import"></button>
+  			<button id="export" Text="导出" icon="icons/export.png" actionId="func.export"></button>
+  			<button id="add" text="新增" actionId="func.add"></button>
+  			<button id="delete" text="删除" actionId="func.delete"></button>
+  			<button id="save" text="保存" actionId="func.save"></button>
+  		</toolbar>
+  			  
+  		<panel layout="BorderLayout">
+  			<panel layout="FlowLayout(FlowLayout.RIGHT)" constraints="BorderLayout.NORTH">
+  			  	<checkbox id="isUsedCheckBox" Text="是否启用 "></checkbox>
+  			  	<MSearchField id="searchField" emptyString="请输入代码或名称来搜索" size="200,20"></MSearchField>
+  			  	<button id="searchButton" Text="搜索"></button>
+  			</panel>
+  			  	
+  			 <scrollpane constraints="BorderLayout.CENTER">
+  				<table id="basedataTable">
+  					<MDefaultTableModel sqlid="getWorkflowTemplates" params="" lazy="true"
+  							columns="code,代码;name,名称;is_used,是否启用,java.lang.Boolean"></MDefaultTableModel>
+  				</table>
+  			</scrollpane> 			  	
+  		</panel>
+  			       
+  </panel>
+</MResourcePanel> 
