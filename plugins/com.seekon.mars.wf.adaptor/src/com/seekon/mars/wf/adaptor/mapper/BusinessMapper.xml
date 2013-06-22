@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.mars.wf.adaptor.mapper.BusinessMapper">
+	<resultMap type="BusinessType" id="businessBase">
+		<result property="name" column="NAME"/>
+  		<result property="description" column="DESCRIPTION"/>
+  		<result property="nd" column="ND"/>
+	</resultMap>
+
+	<resultMap type="Company" id="companyMap" extends="businessBase">
+		<result property="code" column="COMPANY_ID" />	
+		<result property="parentId" column="PARENT_ID" />
+	</resultMap>
+	
+	<resultMap type="Org" id="orgMap" extends="businessBase">
+		<result property="code" column="ORG_CODE" />	
+		<result property="parentId" column="PARENT_ID" />
+		<result property="coCode" column="COMPANY_ID" />	
+	</resultMap>
+	
+	<resultMap type="Position" id="positionMap" extends="businessBase">
+		<result property="code" column="POSITION_ID" />	
+	</resultMap>
+	
+	<resultMap type="Staff" id="staffMap" extends="businessBase">
+		  <result property="code" column="STAFF_ID" />
+		  <result property="pwd" column="PWD" />
+		  <result property="email" column="EMAIL" />
+		  <result property="status" column="STATUS" />
+		  <result property="coCode" column="CO_CODE" />
+		  <result property="orgCode" column="ORG_CODE" />
+		  <result property="posiCode" column="POSI_CODE" />
+	</resultMap>
+
+	<resultMap type="AsCompoModel" id="asCompoMap">
+		<result column="COMPO_ID" property="compoId" jdbcType="VARCHAR"/>
+		<result column="COMPO_NAME" property="compoName" jdbcType="VARCHAR"/>
+		<result column="MASTER_TAB_ID" property="masterTabId" jdbcType="VARCHAR"/>
+		<result column="NO_FIELD" property="noField" jdbcType="VARCHAR"/>
+		<result column="COMPO_TYPE" property="compType" jdbcType="VARCHAR"/>
+		<result column="DEFAULT_WF_TEMPLATE" property="defaultWftemplate" jdbcType="VARCHAR"/>
+	</resultMap>
+	<!-- 
+	<select id="getCompany" resultMap="companyMap" parameterType="map">
+		SELECT COMPANY_ID,NAME,DESCRIPTION,PARENT_ID,ND 
+       	FROM WF_COMPANY t 
+		where t.COMPANY_ID=#{companyId} and t.ND=#{nd}
+	</select>
+	
+	<select id="getLevelCompany" resultMap="companyMap" parameterType="map">
+		SELECT * FROM WF_COMPANY where ${parentIdStr} and ND=#{nd}
+	</select>
+	
+	<select id="getUpLevelCompany" resultMap="companyMap" parameterType="map">
+		select * from WF_COMPANY 
+		where ND=#{nd} and company_id=(select t.parent_id 
+							from WF_COMPANY t
+							where t.company_id=#{companyId}
+									and t.ND=#{nd})
+	</select>
+
+	<select id="getUpLevelCompanyTree" resultMap="companyMap" parameterType="map">
+		SELECT * FROM WF_COMPANY t where t.ND=#{nd}
+	    start with t.company_id = #{companyId}
+	    connect by t.company_id = prior parent_id
+	    order by company_id
+	</select>
+	
+	<select id="getOrgOfCompany" resultMap="orgMap" parameterType="map">
+		select * from WF_ORG t
+		where ${parentIdStr} and t.ND=#{nd}
+	    <if test="companyId != null">
+			and t.company_id=#{companyId}
+		</if>
+	</select>
+	
+	<select id="getUpLevelOrg" resultMap="orgMap" parameterType="map">
+		select * from WF_ORG
+		where company_id=#{companyId}
+			  and ND=#{nd}
+			  and org_code = (select t.parent_id
+							 from WF_ORG t
+							 where t.company_id=#{companyId}
+							 		and t.org_code=#{orgCode}
+							 		and t.ND=#{nd}
+							 		)		
+	</select>
+	
+	<select id="getUpLevelOrgTree" resultMap="orgMap" parameterType="map">
+		select * from (
+		select * from WF_ORG t
+		where t.company_id=#{companyId}
+				and t.ND=#{nd}
+		start with t.ORGANIZATION_ID = #{codeId}
+	    connect by t.organizationId = prior parent_id
+	    order by organizationId)g
+	    where ${parentIdStr} and t.ND=#{nd}
+	    <if test="companyId != null">
+			and t.company_id=#{companyId}
+		</if>
+	</select>
+	
+	<select id="getPositionOfOrg" resultMap="positionMap" parameterType="map">
+		select distinct p.POSITION_ID,p.NAME,p.DESCRIPTION,op.ND
+	    from WF_ORG org INNER JOIN WF_ORG_POSITION op 
+	         on org.ORGANIZATION_ID=op.ORGANIZATION_ID
+	            AND org.ORG_CODE=#{orgCode} and org.ND=#{nd}
+	        INNER JOIN WF_POSITION p
+	            ON op.POSITION_ID=p.POSITION_ID
+	            and op.ND=#{nd}
+				<if test="code != null">
+					and op.POSITION_ID=#{code}
+				</if>
+				<if test="onOff != null"> 
+					${onOff}
+				</if>
+	</select>
+	
+	<select id="getStaffOfPosition" resultMap="staffMap" parameterType="map">
+		select stf.STAFF_ID,stf.NAME,stf.PWD,stf.EMAIL,stf.STATUS,stf.DESCRIPTION,
+				sp.CO_CODE,sp.ORG_CODE,sp.POSI_CODE,sp.ND
+		from WF_STAFF_POSITION sp
+				INNER JOIN WF_STAFF stf
+				ON sp.STAFF_ID=stf.STAFF_ID
+				and sp.ND=#{nd}
+			<if test="code != null">
+				and stf.STAFF_ID=#{code}
+			</if> 	
+			<if test="coCode != null">
+				and sp.CO_CODE=#{coCode}
+			</if> 
+			<if test="orgCode != null">
+				and sp.ORG_CODE=#{orgCode}
+			</if>
+			<if test="positionId != null">
+				and sp.POSI_CODE=#{positionId}
+			</if>
+			<if test="onOff != null"> 
+				${onOff}
+			</if>
+	</select>
+	
+	<select id="getAsCompoFromId" resultMap="asCompoMap" parameterType="string">
+		select COMPO_ID,COMPO_NAME,MASTER_TAB_ID,NO_FIELD,COMPO_TYPE,DEFAULT_WF_TEMPLATE 
+		from AS_COMPO t
+		where t.compo_id=#{compoId}
+	</select>
+	
+	<select id="getCountFromDraft" resultType="java.lang.Integer" parameterType="int">
+		select count(WF_DRAFT_ID) from as_wf_draft where WF_DRAFT_ID=#{draftId}
+	</select>
+	
+	<select id="isUserOfInstance" resultType="java.lang.Integer" parameterType="map">
+		select sum(total.cnt) qty
+		from (
+		      select count(crt.executor) cnt
+		      from wf_current_task crt
+		      where crt.executor=#{userId}
+		            and crt.instance_id=#{instanceId}
+		      union
+		      select count(e.executor) cnt 
+		      from wf_link t inner join wf_executor_source e 
+		            on t.next_node_id=e.node_id
+		            and t.current_node_id=-1
+		            and t.template_id=(
+		                select comp.default_wf_template 
+		                from as_compo comp 
+		                where comp.compo_id=#{compoId}
+		            )
+		            and e.executor=#{userId}
+		            ) total  
+	</select>
+	
+	<select id="curNodeIdFromNoCommitTask" resultType="java.lang.Integer" parameterType="long">
+		select nk.current_node_id from wf_link nk 
+	       inner join wf_current_task tsk 
+	       on nk.next_node_id=tsk.node_id
+	       and tsk.instance_id=#{instanceId} 
+	</select>
+	
+	<select id="curNodeIdFromNoCommitTask2" resultType="java.lang.Integer" parameterType="map">
+		select DISTINCT nk.current_node_id from wf_link nk 
+	       inner join wf_current_task tsk 
+	       on nk.next_node_id=tsk.node_id
+	       and tsk.instance_id=#{instanceId}
+		   <if test="svUserID != null">
+		      and tsk.CREATOR=#{svUserID}
+		   </if>
+	</select>
+	
+	<select id="getCurTaskOfUser" resultType="java.util.HashMap" parameterType="map">
+		select lnk.current_node_id,count(t.executor) qty 
+		from wf_current_task t 
+			inner join wf_node n on n.node_id=t.node_id
+			inner join wf_link lnk on n.node_id=lnk.next_node_id
+					  and t.instance_id = #{instanceId}
+			       			and t.executor = #{userId}
+		group by lnk.current_node_id
+	</select>
+	
+	<select id="instanceExistHistory" resultType="java.lang.Integer" parameterType="long">
+		select count(t.INSTANCE_ID)
+		from wf_instance_history t
+		where t.INSTANCE_ID=#{instanceId}
+	</select>
+	
+	<select id="getCreatorOfCurTask" resultType="java.lang.Integer" parameterType="map">
+		select count(t.executor) qty from wf_current_task t 
+			inner join wf_node n on n.node_id=t.node_id
+			inner join wf_link lnk on n.node_id=lnk.next_node_id 
+					and lnk.current_node_id!=-1
+					and t.instance_id = #{instanceId}
+       				and t.creator = #{userId}
+	</select>
+	 -->
+</mapper>
+

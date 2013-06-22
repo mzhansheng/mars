@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.mars.wf.engine.internal.mapper.WFMetaMapper">
+	
+	<resultMap type="BaseTemplateModel" id="basetemplatemap">
+		<result property="templateId"    		column="TEMPLATE_ID" />	
+		<result property="name"          		column="NAME" />		
+		<result property="description"   		column="DESCRIPTION" />		
+		<result property="templateType"  		column="TEMPLATE_TYPE" />		
+		<result property="version"       		column="VERSION" />	
+		<result property="startTime"     		column="START_TIME" />		
+		<result property="expireTime"    		column="EXPIRE_TIME" />		
+		<result property="createTime"    		column="CREATE_TIME" />		
+		<result property="createStaffId" 		column="CREATE_STAFF_ID" />		
+		<result property="active"        		column="IS_ACTIVE" />
+	</resultMap>
+	<resultMap type="TemplateModel" id="templatemap" extends="basetemplatemap">
+		<collection property="nodeList"      		column="TEMPLATE_ID" select="getNodeListByTemplateId" />	
+		<collection property="linkList"      		column="TEMPLATE_ID" select="link_query_byTemplateId" />
+		<collection property="bindStateList" 		column="TEMPLATE_ID" select="bindState_query_byTemplate" />
+		<collection property="bindVariableList"		column="TEMPLATE_ID" select="bindVariable_query_byTemplate" />
+		<collection property="delegationList" 		column="TEMPLATE_ID" select="delegation_query_byTemplate"/>
+	</resultMap>
+	
+	<resultMap type="BaseNodeModel" id="basenodemap">
+		<result property="nodeId"            	column="NODE_ID" />
+		<result property="name"              	column="NAME" />
+		<result property="description"       	column="DESCRIPTION" />
+		<result property="type"              	column="TYPE" />
+		<result property="businessType"      	column="BUSINESS_TYPE" />
+		<result property="templateId"        	column="TEMPLATE_ID" />
+		<result property="executorsMethod"   	column="EXECUTORS_METHOD" />
+		<result property="taskListener"      	column="TASK_LISTENER" />
+		<result property="limitExecuteTerm"  	column="LIMIT_EXECUTE_TERM"	/>
+		<result property="remindExecuteTerm" 	column="REMIND_EXECUTE_TERM" />	
+	</resultMap>
+	<resultMap type="NodeModel" id="nodemap" extends="basenodemap">
+		<collection property="nodeStateList"     	column="NODE_ID" select="nodeState_query_byNodeId" />
+		<collection property="executorSourceList" 	column="NODE_ID" select="executorSource_query_byNodeId" />
+	</resultMap>
+	
+	<resultMap type="LinkModel" id="linkmap">
+		<result property="nodeLinkId" 			column="NODE_LINK_ID" />			
+		<result property="name" 				column="NAME" />			
+		<result property="description" 			column="DESCRIPTION" />			
+		<result property="linkType" 			column="LINK_TYPE" />
+		<!-- 
+		<result property="templateId" 			column="TEMPLATE_ID" />
+		 -->
+		<result property="currentNodeId" 		column="CURRENT_NODE_ID" />
+		<result property="nextNodeId" 			column="NEXT_NODE_ID" />
+		<result property="executorRelation" 	column="EXECUTOR_RELATION" />
+		<result property="executorsMethod" 		column="EXECUTORS_METHOD" />
+		<result property="numberOrPercent" 		column="NUMBER_OR_PERCENT" />
+		<result property="passValue" 			column="PASS_VALUE" />
+		<result property="expression" 			column="EXPRESSION" />
+		<result property="defaultPath" 			column="DEFAULT_PATH" />			
+		<result property="actionName" 			column="ACTION_NAME" />	
+		<collection property="linkStateList" 		column="NODE_LINK_ID" select="linkState_query_byLinkId" />				
+	</resultMap>
+	
+	<resultMap type="BindStateModel" id="bindstatemap">
+		<result property="templateId" 			column="TEMPLATE_ID" />	
+		<result property="stateId" 				column="STATE_ID" />
+		<result property="tableId" 				column="TAB_ID" />
+		<result property="fieldId" 				column="FIELD_ID" />
+		<result property="name" 				column="NAME" />
+		<result property="description" 				column="DESCRIPTION" />
+	</resultMap>
+	
+	<resultMap type="BindVariableModel" id="bindVariablemap">
+		<result property="variableId"     		column="VARIABLE_ID" />
+		<result property="name"           		column="NAME" />
+		<result property="description"    		column="DESCRIPTION" />
+		<result property="type"           		column="TYPE" />
+		<result property="templateId"     		column="TEMPLATE_ID" />
+		<result property="bindExpression" 		column="BIND_EXPRESSION" />
+		<result property="tableId"        		column="TAB_ID" />
+		<result property="condition"      		column="CONDITION" />
+		<result property="filterByKey"    		column="FILTER_BY_ENTITYKEY" />	
+	</resultMap>
+		
+	<resultMap type="NodeStateModel" id="nodestatemap">
+		<result property="nodeStateId" 			column="NODE_STATE_ID" /> 	
+		<result property="nodeId" 				column="NODE_ID" />
+		<result property="stateId" 				column="STATE_ID"/>	
+		<result property="stateValue" 			column="STATE_VALUE" />
+	</resultMap>
+	
+	<resultMap type="LinkStateModel" id="linkstatemap">
+		<result property="nodeLinkStateId" 		column="NODE_LINK_STATE_ID" />			
+		<result property="nodeLinkId" 			column="NODE_LINK_ID" />			
+		<result property="stateId" 				column="STATE_ID" />			
+		<result property="stateValue" 			column="STATE_VALUE" />
+	</resultMap>
+	
+	<resultMap type="ExecutorSourceModel" id="executorsourcemap">
+		<result property="nodeId" 				column="NODE_ID" />			
+		<result property="executor" 			column="EXECUTOR" />
+		<result property="executorName" 		column="EXECUTORN_NAME" />					
+		<result property="source" 				column="SOURCE" />			
+		<result property="responsibility" 		column="RESPONSIBILITY" />
+		<!-- 
+		<result property="executorOrder" 		column="EXECUTOR_ORDER" />
+		 -->			
+		<result property="coCode" 				column="EXTCOCODE" />			
+		<result property="orgCode" 				column="EXTORGCODE" />
+		<result property="posiCode" 			column="extposicode" />			
+		<result property="nd" 					column="ND" />
+	</resultMap>
+	
+	<resultMap type="DelegationModel" id="delegationmap">
+		<result property="delegationId" 		column="DELEGATION_ID" />
+		<result property="description" 			column="DESCRIPTION" />			
+		<result property="templateId" 			column="TEMPLATE_ID"/>		
+		<result property="nodeId" 				column="NODE_ID" />	
+		<result property="sender" 				column="SENDER" />	
+		<result property="senderCoCode" 		column="SENDER_CO_CODE" />		
+		<result property="senderOrgCode" 		column="SENDER_ORG_CODE" />
+		<result property="senderPosiCode" 		column="SENDER_POSI_CODE" />		
+		<result property="owner" 				column="OWNER" />	
+		<result property="receiver" 			column="RECEIVER" />		
+		<result property="receiverCoCode" 		column="RECEIVER_CO_CODE" />	
+		<result property="receiverOrgCode" 		column="RECEIVER_ORG_CODE" />
+		<result property="receiverPosiCode" 	column="RECEIVER_POSI_CODE" />	
+		<result property="parentId" 			column="PARENT_ID" />		
+		<result property="delegationTime" 		column="DELEGATION_TIME" />	
+		<result property="startTime" 			column="START_TIME" />
+		<result property="endTime" 				column="END_TIME" />	
+		<result property="active" 				column="IS_ACTIVE" />		
+	</resultMap>
+	<resultMap type="CompoModel" id="compomap">
+		<result property="compoId" 				column="compo_id" />
+		<result property="compoName" 			column="compo_name" />			
+		<result property="tempolateId" 			column="DEFAULT_WF_TEMPLATE"/>		
+		<result property="masterTabId" 			column="MASTER_TAB_ID" />	
+		<result property="briefFields" 			column="WF_BRIEF_FIELDS" />	
+		<result property="titleField" 			column="TITLE_FIELD" />		
+		<result property="listType" 			column="WF_LIST_TYPE" />
+	</resultMap>
+	
+	<!-- template 操作 -->
+	<select id="getTemplateById" resultMap="templatemap"
+		parameterType="java.lang.String">
+		SELECT * FROM m_wf_template t where t.template_id=#{value}
+	</select>
+	
+	<select id="getTemplateList" resultMap="basetemplatemap"
+		parameterType="java.lang.String">
+		SELECT * FROM m_wf_template t
+		<if test="value != null">
+			t.template_id=#{value}
+		</if>
+	</select>
+
+	<!-- node 操作 -->
+	<select id="node_query_byId" resultMap="nodemap"
+		parameterType="java.lang.String">
+		SELECT * FROM m_wf_node n WHERE n.Node_Id=#{value}
+	</select>
+	
+	<select id="getNodeListByTemplateId" resultMap="nodemap"
+		parameterType="java.lang.String">
+		SELECT * FROM m_wf_node t where t.template_id=#{value}
+	</select>
+	
+	<select id="nodeListByTemplateId" resultMap="basenodemap"
+		parameterType="java.lang.String">
+		SELECT * FROM m_wf_node t
+		<if test="templateId != null">
+			t.template_id=#{templateId}
+		</if>
+	</select>
+	
+	<select id="nodeState_query_byNodeId" resultMap="nodestatemap"
+		parameterType="java.lang.String">
+		SELECT * FROM m_wf_node_state t where t.Node_Id=#{value}
+	</select>
+	
+	<select id="executorSource_query_byNodeId" resultMap="executorsourcemap"
+		parameterType="java.lang.String">
+		select t.node_id, sp.co_code as extcocode, sp.org_code as extorgcode, sp.nd,
+					sp.posi_code as extposicode, t.executor, sp.staff_name EXECUTORN_NAME,t.source, t.responsibility
+			from wf_executor_source t, wf_staff_position sp 
+			where t.source = '5' and t.executor = sp.STAFF_ID and t.extcocode = sp.co_code
+				and t.extnd = sp.nd and t.Node_Id=#{value}
+		union
+		select t.node_id, t.extcocode, t.extorgcode, t.extnd, t.executor as extposicode
+					, eo.executor,sp.staff_name EXECUTORN_NAME, t.source, t.responsibility
+			from wf_executor_source t, wf_executor_order eo, wf_staff_position sp
+			where t.source = '4' and t.node_id = eo.node_id 
+					and t.extcocode = sp.co_code and t.extorgcode = sp.org_code and t.executor = sp.posi_code
+					and eo.executor = sp.STAFF_ID and t.extnd = sp.nd and t.Node_Id=#{value}
+	</select>
+	
+	<!-- link 操作 -->
+	<select id="link_query_byId" resultMap="linkmap"
+		parameterType="java.lang.String">
+		SELECT * FROM m_wf_link t WHERE t.Node_Link_Id=#{value}
+	</select>
+	
+	<select id="link_query_byTemplateId" resultMap="linkmap"
+		parameterType="java.lang.String">
+		SELECT * FROM m_wf_link t WHERE t.template_id=#{value}
+	</select>
+	
+	<select id="linkState_query_byLinkId" resultMap="linkstatemap"
+		parameterType="java.lang.String">
+		SELECT * FROM m_wf_link_state t WHERE t.Node_Link_Id=#{value}
+	</select>
+	
+	<!-- 状态集与变量集 -->
+	<select id="bindState_query_byTemplate" parameterType="java.lang.String" resultMap="bindstatemap">
+		SELECT t.tab_id, t.field_id, s.template_id, s.description, s.name, s.state_id
+			FROM as_wf_bind_state t, m_wf_state s 
+			WHERE t.wf_template_id = s.template_id and t.wf_state_id = s.state_id and t.wf_template_id=#{value}
+	</select>
+	
+	<select id="bindVariable_query_byTemplate" parameterType="java.lang.String" resultMap="bindVariablemap">
+		select b.variable_id VARIABLE_ID, b.DESCRIPTION, b.TEMPLATE_ID, b.TYPE, BIND_EXPRESSION ,TAB_ID ,CONDITION,FILTER_BY_ENTITYKEY,b.name NAME 
+			from AS_WF_BIND_VARIABLE a, m_WF_VARIABLE b 
+			where a.wf_variable = b.variable_id and a.wf_template_id = b.template_id and WF_TEMPLATE_ID=#{value}
+	</select>
+	
+	<!-- delegation -->
+	<select id="delegation_query_byTemplate" parameterType="java.lang.String" resultMap="delegationmap">
+		select * from m_wf_delegation where  TEMPLATE_ID=#{value} and IS_ACTIVE = '1'
+	</select>
+	
+	<!-- compo -->
+	<select id="getCompoById" resultMap="compomap" parameterType="java.lang.String">
+		SELECT * FROM as_compo t WHERE t.compo_id=#{value} 
+			and t.TEMPLATE_IS_USED = 'Y' and t.DEFAULT_WF_TEMPLATE is not null
+	</select>
+	
+	<select id="getPreLinkOfCurNode" resultMap="linkmap" parameterType="java.lang.String">
+	     select lk.*
+         from m_wf_link lk
+         where lk.next_node_id=
+             (select distinct node_id
+              from wf_current_task
+              where instance_id=#{instanceId})
+	</select>
+</mapper>
+

@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seekon.mars.wf.engine.internal.mapper.WFRuntimeMapper">
+	
+	<!-- 运行时用 -->
+	<resultMap type="DraftModel" id="draftmap">
+		<result property="draftId" 				column="WF_DRAFT_ID" />
+		<result property="draftName" 			column="WF_DRAFT_NAME" />		
+		<result property="compoId" 				column="COMPO_ID" />	
+		<result property="masteTableId" 		column="MASTER_TAB_ID" />			
+		<result property="userId" 				column="USER_ID" />	
+		<result property="userName" 			column="USER_NAME" />		
+		<result property="saveTime" 			column="SAVE_TIME" />		
+		<result property="status" 				column="STATUS" />		
+	</resultMap>
+	
+	<resultMap type="InstanceModel" id="baseInstancemap">
+		<result property="name" 				column="NAME" />		
+		<result property="description" 			column="DESCRIPTION" />		
+		<result property="templateId" 			column="TEMPLATE_ID" />			
+		<result property="owner" 				column="OWNER" />			
+		<result property="startTime" 			column="START_TIME" />		
+		<result property="endTime" 				column="END_TIME" />		
+		<result property="status" 				column="STATUS" />		
+		<result property="parentInstanceId" 	column="PARENT_INSTANCE_ID" />		
+	</resultMap>
+	<resultMap type="InstanceModel" id="instancemap" extends="WFEngine.baseInstancemap">
+		<result property="instanceId" 			column="INSTANCE_ID" />
+	</resultMap>
+	<resultMap type="InstanceHistoryModel" id="instancehistorymap" extends="WFEngine.baseInstancemap">
+		<result property="instanceId" 		column="INSTANCE_ID" />	
+		<result property="instanceTrace" 	column="INSTANCE_TRACE" jdbcType="CLOB" javaType = "java.lang.String"/>
+	</resultMap>
+	
+	<resultMap type="CurrentTaskModel" id="currenttaskmap">
+		<result property="currentTaskId" 		column="CURRENT_TASK_ID" />			
+		<result property="instanceId" 			column="INSTANCE_ID"/>		
+		<result property="nodeId" 				column="NODE_ID" />	
+		<result property="executor" 			column="EXECUTOR" />	
+		<result property="delegationId" 		column="DELEGATION_ID" />		
+		<result property="owner" 				column="OWNER" />
+		<result property="creator" 				column="CREATOR" />		
+		<result property="createTime" 			column="CREATE_TIME" />	
+		<result property="limitExecuteTime" 	column="LIMIT_EXECUTE_TIME" />		
+		<result property="responsibility" 		column="RESPONSIBILITY" />	
+		<result property="parentTaskId" 		column="PARENT_TASK_ID" />
+		<result property="coCode" 			column="co_code" />	
+		<result property="orgCode" 	column="org_code" />		
+		<result property="posiCode" 		column="posi_code" />	
+		<result property="nd" 		column="nd" />		
+	</resultMap>
+	<!-- 
+	<resultMap type="TaskExecutorModel" id="taskexecutormap">
+		<result property="taskExecutorOrderId" 	column="TASK_EXECUTOR_ORDER_ID" />		
+		<result property="instanceId" 			column="INSTANCE_ID" />
+		<result property="nodeId" 				column="NODE_ID" />
+		<result property="executor" 			column="EXECUTOR" />	
+		<result property="executorOrder" 		column="EXECUTOR_ORDER" />
+		<result property="responsibility" 		column="RESPONSIBILITY" />	
+	</resultMap>
+	 -->
+	<resultMap type="ActionModel" id="baseactionmap">	
+		<result property="instanceId" 			column="INSTANCE_ID" />
+		<result property="nodeId" 				column="NODE_ID" />	
+		<result property="actionName" 			column="ACTION_NAME" />		
+		<result property="executor" 			column="EXECUTOR" />
+		<result property="executeTime" 			column="EXECUTE_TIME" />
+		<result property="description" 			column="DESCRIPTION" />
+		<result property="owner" 				column="OWNER" />
+		<result property="limitExecuteTime" 	column="LIMIT_EXECUTE_TIME" />
+		<result property="coCode" 				column="co_code" />	
+		<result property="orgCode" 				column="org_code" />		
+		<result property="posiCode" 			column="posi_code" />	
+		<result property="nd" 					column="nd" />
+	</resultMap>
+	<resultMap type="ActionModel" id="actionmap" extends="WFEngine.baseactionmap">
+		<result property="actionId" 			column="ACTION_ID" />
+	</resultMap>
+	<resultMap type="ActionHistoryModel" id="actionhistorymap" extends="WFEngine.baseactionmap">
+		<result property="actionId" 		column="ACTION_HISTORY_ID" />	
+	</resultMap>
+
+	<!-- 
+	<resultMap type="StateValueModel" id="statevaluemap">
+		<result property="stateValueId" 		column="STATE_VALUE_ID" />
+		<result property="instanceId" 			column="INSTANCE_ID" />
+		<result property="stateId" 				column="STATE_ID" />
+		<result property="value" 				column="VALUE" />
+	</resultMap>
+	-->
+	 
+	<resultMap type="BusinessJuniorModel" id="businessJuniormap">
+		<result property="id"					column="ID" />
+		<result property="projectName"  		column="PROJECT_NAME" />
+		<result property="desc"         		column="DESCRIPTION" />
+		<result property="priority"				column="PRIORITY" />
+		<result property="junCoCode"    		column="JUN_CO_CODE" />
+		<result property="junOrgCode"   		column="JUN_ORG_CODE" />
+		<result property="junPosiCode"  		column="JUN_POSI_CODE" />
+		<result property="junEmpCode"   		column="JUN_EMP_CODE" />
+		<result property="supCoCode"    		column="SUP_CO_CODE" />
+		<result property="supOrgCode"   		column="SUP_ORG_CODE" />
+		<result property="supPosiCode"  		column="SUP_POSI_CODE" />
+		<result property="supEmpCode"   		column="SUP_EMP_CODE" />
+		<result property="supCondition" 		column="SUP_CONDITION" />
+		<result property="nd"           		column="ND" />
+	</resultMap>
+	
+	<resultMap type="PassModel" id="instancepassmap">
+		<result property="passCountId"					column="PASS_COUNT_ID" />
+		<result property="instanceId"  					column="INSTANCE_ID" />
+		<result property="nodeLinkId"         			column="NODE_LINK_ID" />
+		<result property="currentNodeId"				column="CURRENT_NODE_ID" />
+		<result property="nextNodeId"    				column="NEXT_NODE_ID" />
+		<result property="coCode" 						column="co_code" />	
+		<result property="orgCode" 						column="org_code" />		
+		<result property="posiCode" 					column="posi_code" />	
+		<result property="nd" 							column="nd" />
+	</resultMap>
+	
+	<resultMap type="SumResultRow" id="sumResultRowMap">
+		<result property="compId"						column="compo_id" />
+  		<result property="templateId"					column="template_id" />
+  		<result property="templateName"					column="template_name" />
+  		<result property="instanceId"					column="instance_id" />
+  		<result property="instanceName"					column="instance_name" />
+  		<result property="nodeId"						column="node_id" />
+  		<result property="nodeName"						column="node_name" />
+  		<result property="executor"						column="executor" />
+  		<result property="executorName"					column="executor_name" />
+  		<result property="arrivalTime"					column="arrival_time" />
+  		<result property="executeTime"					column="execute_time" />
+  		<result property="coCode"						column="co_code" />
+  		<!--result property="orgCode"						column="orgCode" />
+  		<result property="posiCode"						column="posiCode" /-->
+  		<result property="nd"							column="nd" />
+  		<result property="dureTime"						column="dure_time" />
+  		<result property="averageTime"					column="avg_time" />
+	</resultMap>
+	
+	<resultMap type="StaffModel" id="staffMap">
+		<result column="STAFF_ID" 					property="code"/>
+        <result column="NAME" 						property="name"/>
+        <result column="PWD" 						property="pwd"/>
+        <result column="DESCRIPTION" 				property="description"/>
+        <result column="EMAIL" 						property="email"/>
+        <result column="STATUS" 					property="status"/>
+        <result column="PASSDESC"  					property="passDesc"/>
+        <result column="EXECUTETIME"  				property="actionTime"/>
+	</resultMap>
+	
+	<resultMap type="NodeStaffModel" id="nodeStaffMap" extends="staffMap">
+		<result column="NODE_ID"					property="nodeId"/>
+		<result column="ACTIONDESCRIPTION" 				property="actionDescription"/>
+	</resultMap>
+	
+	<!-- 草稿 -->
+	<insert id="createDraft" parameterType="DraftModel">
+		<selectKey resultType="java.lang.String" keyProperty="draftId">
+			SELECT
+			-seq_instance.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO M_WF_DRAFT
+		(WF_DRAFT_ID,
+		WF_DRAFT_NAME,
+		COMPO_ID,
+		MASTER_TAB_ID,
+		USER_ID,
+		USER_NAME,
+		SAVE_TIME,
+		STATUS)
+		VALUES
+		(#{draftId},
+		#{draftName},
+		#{compoId},
+		#{masteTableId},
+		#{userId},
+		#{userName},
+		#{saveTime},
+		#{status})
+	</insert>
+	<delete id="removeDraftById" parameterType="java.lang.String">
+		DELETE FROM
+		m_wf_draft t WHERE t.wf_draft_id=#{value}
+	</delete>
+	<select id="getDraftById" parameterType="java.lang.String" resultMap="draftmap">
+		SELECT * FROM m_wf_draft t WHERE t.wf_draft_id=#{value}
+	</select>
+
+	<!-- 实例 -->
+	<insert id="createInscance"
+		parameterType="InstanceModel">
+		<selectKey resultType="java.lang.String" keyProperty="instanceId">
+			SELECT seq_instance.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO m_WF_INSTANCE
+		(INSTANCE_ID,
+		NAME,
+		DESCRIPTION,
+		TEMPLATE_ID,
+		OWNER,
+		START_TIME,
+		END_TIME,
+		STATUS,
+		PARENT_INSTANCE_ID)
+		VALUES
+		(#{instanceId},
+		#{name},
+		#{description},
+		#{templateId},
+		#{owner},
+		#{startTime},
+		#{endTime},
+		#{status},
+		#{parentInstanceId})
+	</insert>
+	<insert id="createInstanceFromHistory"
+		parameterType="InstanceModel">
+		INSERT INTO m_WF_INSTANCE
+		(INSTANCE_ID,
+		NAME,
+		DESCRIPTION,
+		TEMPLATE_ID,
+		OWNER,
+		START_TIME,
+		END_TIME,
+		STATUS,
+		PARENT_INSTANCE_ID)
+		VALUES
+		(#{instanceId},
+		#{name},
+		#{description},
+		#{templateId},
+		#{owner},
+		#{startTime},
+		#{endTime},
+		#{status},
+		#{parentInstanceId})
+	</insert>
+	<delete id="removeInstanceById" parameterType="java.lang.String">
+		DELETE FROM
+		m_wf_instance t WHERE t.instance_id=#{value}
+	</delete>
+	<select id="getInstanceList" parameterType="map" resultMap="instancemap">
+		SELECT * FROM m_wf_instance t
+		<where>
+		<if test="value != null">
+			t.instance_Id=#{value}
+		</if>
+		</where>
+	</select>
+	<select id="getInstanceById" parameterType="java.lang.String" resultMap="instancemap">
+		SELECT * FROM m_wf_instance t where t.instance_Id=#{value}
+	</select>
+	<update id="updateInstance"
+		parameterType="InstanceModel">
+		UPDATE m_wf_instance t SET t.status=#{status}, t.end_time=#{endTime} WHERE
+		t.Instance_Id=#{instanceId}
+	</update>
+	
+	<update id="updateBusinessInstanceId" parameterType="map">
+		update ${tableName} set PROCESS_INST_ID = #{instanceId} where PROCESS_INST_ID = #{draftId}
+	</update>
+
+	<!-- current task -->
+	<insert id="create_CurrentTask"
+		parameterType="CurrentTaskModel">
+		<selectKey resultType="java.lang.String" keyProperty="currentTaskId">
+			SELECT seq_current_task.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO m_WF_CURRENT_TASK
+		(CURRENT_TASK_ID,
+		INSTANCE_ID,
+		NODE_ID,
+		EXECUTOR,
+		DELEGATION_ID,
+		OWNER,
+		CREATOR,
+		CREATE_TIME,
+		LIMIT_EXECUTE_TIME,
+		RESPONSIBILITY,
+		PARENT_TASK_ID,
+		co_code,
+		org_code,
+		posi_code,
+		nd)
+		VALUES
+		(#{currentTaskId},
+		#{instanceId},
+		#{nodeId},
+		#{executor},
+		#{delegationId},
+		#{owner},
+		#{creator},
+		#{createTime},
+		#{limitExecuteTime},
+		#{responsibility},
+		#{parentTaskId},
+		#{coCode},
+		#{orgCode},
+		#{posiCode},
+		#{nd})
+	</insert>
+	<delete id="remove_currentTask"
+		parameterType="CurrentTaskModel">
+		DELETE FROM m_wf_current_task t
+		<where>
+		<if test="currentTaskId != null">
+			t.current_task_id=#{currentTaskId}
+		</if>
+		<if test="instanceId != null">
+			t.Instance_Id=#{instanceId}	
+		</if>
+		<if test="nodeId != null">
+			t.Node_Id=#{nodeId}
+		</if>
+		<if test="executor != null">
+			t.EXECUTOR=#{executor}
+		</if>
+		</where>
+	</delete>
+	<select id="get_currentTask"
+		parameterType="CurrentTaskModel"
+		resultMap="currenttaskmap">
+		SELECT *
+		FROM m_wf_current_task t
+		INNER JOIN WF_INSTANCE i ON t.INSTANCE_ID = i.INSTANCE_ID
+		AND i.STATUS = 1
+		<where>
+			<if test="instanceId != null">
+				t.Instance_Id=#{instanceId}
+			</if>
+			<if test="nodeId != null">
+				t.Node_Id=#{nodeId}
+			</if>
+			<if test="executor != null">
+				t.executor=#{executor}
+			</if>
+			<if test="coCode != null">
+				(t.co_Code=#{coCode} or
+				t.co_code = '*')
+			</if>
+			<if test="orgCode != null">
+				(t.org_Code=#{orgCode}
+				or t.org_code = '*')
+			</if>
+			<if test="posiCode != null">
+				(t.posi_Code=#{posiCode} or t.posi_code = '*')
+			</if>
+			<if test="nd != null">
+				t.nd=#{nd}
+			</if>
+		</where>
+	</select>
+	<select id="get_currentTaskCount"
+		parameterType="CurrentTaskModel"
+		resultType="java.lang.Integer">
+		SELECT count(1) FROM m_wf_current_task t
+		INNER JOIN M_WF_INSTANCE i ON t.INSTANCE_ID = i.INSTANCE_ID
+		AND i.STATUS = 1
+		where t.delegation_id > 1
+		<if test="instanceId != null">
+			and t.Instance_Id=#{instanceId}
+			</if>
+		<if test="nodeId != null">
+			and t.Node_Id=#{nodeId}
+			</if>
+		<if test="executor != null">
+			and t.executor=#{executor}
+			</if>
+	</select>
+
+
+	<!-- action -->
+	<insert id="create_Action" parameterType="ActionModel">
+		<selectKey resultType="java.lang.String" keyProperty="actionId">
+			SELECT
+			seq_action.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO M_WF_ACTION
+		(ACTION_ID,
+		INSTANCE_ID,
+		NODE_ID,
+		ACTION_NAME,
+		EXECUTOR,
+		ARRIVAL_TIME,
+		EXECUTE_TIME,
+		DESCRIPTION,
+		OWNER,
+		LIMIT_EXECUTE_TIME,
+		co_code,
+		org_code,
+		posi_code,
+		nd)
+		VALUES
+		(#{actionId},
+		#{instanceId},
+		#{nodeId},
+		#{actionName},
+		#{executor},
+		#{arrivalTime},
+		#{executeTime},
+		#{description},
+		#{owner},
+		#{limitExecuteTime},
+		#{coCode},
+		#{orgCode},
+		#{posiCode},
+		#{nd})
+	</insert>
+
+	<delete id="remove_Action" parameterType="ActionModel">
+		DELETE FROM m_wf_action t
+		<where>
+			<if test="actionId != null">
+				t.action_id=#{actionId}
+			</if>
+			<if test="instanceId != null">
+				t.instance_id=#{instanceId} 
+			</if>
+			<if test="nodeId != null">
+				t.node_id=#{nodeId}
+			</if>
+			<if test="executor != null">
+				t.EXECUTOR=#{executor}
+			</if>
+		</where>
+	</delete>
+
+	<select id="get_Action" parameterType="ActionModel"
+		resultMap="actionmap">
+		SELECT * FROM m_wf_action t
+		<where>
+			<if test="instanceId != null">
+				t.Instance_Id=#{instanceId} 
+			</if>
+			<if test="nodeId != null">
+				t.Node_Id=#{nodeId}
+			</if>
+			<if test="actionName != null">
+				t.ACTION_NAME=#{actionName}	
+			</if>
+			<if test="executor != null">
+				t.EXECUTOR!=#{executor}
+			</if>
+		</where>
+		ORDER BY t.EXECUTE_TIME
+	</select>
+	<select id="getActionFromNodeList" parameterType="map"
+		resultMap="actionmap">
+		SELECT *
+  FROM M_WF_ACTION MASTER
+ WHERE NOT EXISTS (SELECT 1
+          FROM M_WF_CURRENT_TASK WCT
+         WHERE WCT.EXECUTOR = MASTER.EXECUTOR
+           AND WCT.INSTANCE_ID = MASTER.INSTANCE_ID
+           AND WCT.NODE_ID = MASTER.NODE_ID
+           AND WCT.ND = MASTER.ND
+           AND WCT.CO_CODE = MASTER.CO_CODE
+           AND WCT.ORG_CODE = MASTER.ORG_CODE
+           AND WCT.POSI_CODE = MASTER.POSI_CODE)
+			<if test="instanceId != null">
+				MASTER.Instance_Id=#{instanceId} 
+			</if>
+			<if test="nodeIdList != null">
+				MASTER.Node_Id in
+				<foreach collection="nodeIdList">
+					#{nodeIdList[]}
+				</foreach>
+			</if>
+	</select>
+
+	<select id="get_ActionCount" parameterType="ActionModel"
+		resultType="java.lang.Integer">
+		SELECT count(1) FROM m_wf_action t
+		INNER JOIN M_WF_INSTANCE i ON t.INSTANCE_ID = i.INSTANCE_ID
+		AND i.STATUS = 1
+		where t.action_name not like 'authorize_task%'
+			<if test="instanceId">
+				t.Instance_Id=#{instanceId}
+			</if>
+			<if test="nodeId">
+				t.Node_Id=#{nodeId}
+			</if>
+	</select>
+	
+	
+	<!-- actionhistory -->
+	<insert id="create_ActionHistory" parameterType="ActionHistoryModel">
+		<selectKey resultType="java.lang.String" keyProperty="actionId" >
+			SELECT seq_action_history.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO M_WF_ACTION_HISTORY
+		  (ACTION_HISTORY_ID,
+		   INSTANCE_ID,
+		   NODE_ID,
+		   ACTION_NAME,
+		   EXECUTOR,
+		   ARRIVAL_TIME,
+		   EXECUTE_TIME,
+		   DESCRIPTION,
+		   OWNER,
+		   LIMIT_EXECUTE_TIME,
+		   co_code,
+		   org_code,
+		   posi_code,
+		   nd)
+		VALUES
+		  (#{actionId},
+		   #{instanceId},
+		   #{nodeId},
+		   #{actionName},
+		   #{executor},
+		   #{arrivalTime},
+		   #{executeTime},
+		   #{description},
+		   #{owner},
+		   #{limitExecuteTime},
+		   #{coCode},
+		   #{orgCode},
+		   #{posiCode},
+		   #{nd})
+	</insert>
+	<select id="get_ActionHistory" parameterType="ActionHistoryModel" resultMap="actionhistorymap">
+		SELECT t.* FROM m_wf_action_history t
+		<where>
+			<if test="instanceId != null">
+				t.Instance_Id=#{instanceId} 
+			</if>
+			<if test="nodeId != null">
+				t.Node_Id=#{nodeId} 
+			</if>
+			<if test="executor != null">
+				t.executor=#{executor} 
+			</if>
+		</where>
+	</select>
+	
+		
+	<insert id="create_Pass" parameterType="PassModel">
+		<selectKey resultType="java.lang.String" keyProperty="passCountId" >
+			SELECT SEQ_PASS.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO M_WF_PASS
+		  (PASS_COUNT_ID,
+		   INSTANCE_ID,
+		   NODE_LINK_ID,
+		   CURRENT_NODE_ID,
+		   NEXT_NODE_ID,
+		   co_code,
+		   org_code,
+		   posi_code,
+		   nd)
+		VALUES
+		  (#{passCountId},
+		   #{instanceId},
+		   #{nodeLinkId},
+		   #{currentNodeId},
+		   #{nextNodeId},
+		   #{coCode},
+		   #{orgCode},
+		   #{posiCode},
+		   #{nd})
+	</insert>
+	
+	<!-- 获取根据用户获取业务上级 -->
+	<select id="get_businessJunior" parameterType="map" resultMap="businessJuniormap">
+		SELECT * FROM as_wf_business_superior t 
+			WHERE t.nd = #nd#
+				and (t.jun_co_code = '##' or t.jun_co_code like #{coCode})
+				and (t.jun_org_code = '##' or t.jun_org_code like #{orgCode})
+				and (t.jun_posi_code = '##' or t.jun_posi_code like #{posiCode})
+				and (t.jun_emp_code = '##' or t.jun_emp_code like #{empCode})
+	</select>
+	 
+	<!-- 获取根据用户获取组织上级 -->
+	<select id="get_orgJunior" parameterType="StaffModel" resultType="com.ufgov.workflow.engine.util.UnCaseKeyHashMap">
+		select distinct a.STAFF_ID as svUserID, a.NAME as svUserName, b.co_code as svCoCode
+				   , b.org_code as svOrgCode, b.posi_code as svPoCode, b.nd, a.email
+			from wf_staff a, wf_staff_position b, wf_org_position_level c, wf_staff_position d
+      where a.staff_id = b.staff_id  
+				and b.org_position_id = c.parent_id and c.org_position_id = d.org_position_id 
+				and d.staff_id = #{code} and d.co_code = #{staffPosition.org.company.code} 
+				and d.org_code = #{staffPosition.org.code} and d.posi_code = #{staffPosition.position.code}
+        and d.nd = #staffPosition.org.nd# and d.nd = b.nd
+	</select>
+	
+	<select id="get_empPositionByUserCodeList" parameterType="map" resultType="com.ufgov.workflow.engine.util.UnCaseKeyHashMap">
+		select distinct a.STAFF_ID as svUserID, a.NAME as svUserName, b.co_code as svCoCode
+				   , b.org_code as svOrgCode, b.posi_code as svPoCode, b.nd, a.email
+			from wf_staff a, wf_staff_position b
+      where a.staff_id = b.staff_id
+      	<if test="nd != null">
+      		b.nd = #{nd}
+      	</if>
+      	<if test="userCodeList != null">
+      		b.staff_id in
+		   		<foreach collection="userCodeList" open="(" close=")">
+						#{userCodeList[]}
+		   		</foreach>
+		   </if>
+	</select>
+	
+	<select id="getInstanceAllPass" parameterType="PassModel" resultMap="instancepassmap">
+		select * from m_wf_pass t where t.instance_id=#instanceId#
+		<if test="nodeLinkId != null">
+			t.node_link_id=#{nodeLinkId}	
+		</if>
+		<if test="currentNodeId != null">
+			t.current_node_id=#{currentNodeId}	
+		</if>
+		<if test="nextNodeId != null">
+			t.next_node_id=#{nextNodeId}	
+		</if>
+	</select>
+	<select id="getInstanceActionHistoryList" parameterType="Map" resultMap="actionhistorymap">
+		select * from m_wf_action_history t where t.instance_id=#{instanceId}
+		<if test="nodeIdList != null"> 
+			t.node_id in 
+			<foreach collection="nodeIdList" open="(" close=")">
+				#{nodeIdList[]}
+			</foreach>
+		</if>
+		<if test="executor != null">
+				t.EXECUTOR=#{executor}
+		</if>
+	</select> 
+	<delete id="deletePass" parameterType="PassModel">
+		delete from m_wf_pass t
+		<where>
+			<if test="passCountId != null">
+				t.PASS_COUNT_ID=#{passCountId} 
+			</if>
+			<if test="instanceId != null">
+				t.INSTANCE_ID=#{instanceId}
+			</if>
+			<if test="nodeLinkId != null">
+				t.NODE_LINK_ID=#{nodeLinkId} 
+			</if>
+			<if test="currentNodeId != null">
+				t.CURRENT_NODE_ID=#{currentNodeId} 
+			</if>
+			<if test="nextNodeId != null">
+				t.NEXT_NODE_ID=#{nextNodeId} 
+			</if>
+		</where>
+	</delete>
+	<delete id="deletePassByIdList" parameterType="Map">
+		delete from m_wf_pass t 
+		<where>
+			t.pass_count_id in
+		   <foreach collection="passIdList" open="(" close=")">
+				#{passIdList[]}
+		   </foreach>
+		</where>
+	</delete>	
+	
+	
+	<!-- 实例历史 -->
+	<insert id="createInstanceHistory" parameterType="InstanceHistoryModel">
+		<!-- selectKey resultType="java.lang.String" keyProperty="instanceId" >
+			SELECT seq_instance.NEXTVAL FROM dual
+		</selectKey-->
+		INSERT INTO M_WF_INSTANCE_HISTORY
+		  (INSTANCE_ID,
+		   NAME,
+		   DESCRIPTION,
+		   TEMPLATE_ID,
+		   OWNER,
+		   START_TIME,
+		   END_TIME,
+		   STATUS,
+		   PARENT_INSTANCE_ID,
+		   INSTANCE_TRACE)
+		VALUES
+		  (#{instanceId},
+		   #{name},
+		   #{description:VARCHAR},
+		   #{templateId},
+		   #{owner},
+		   #{startTime},
+		   #{endTime},
+		   #{status},
+		   #{parentInstanceId},
+		   #{instanceTrace})
+	</insert>
+	<delete id="removeInstanceHistoryById" parameterType="java.lang.String">
+		DELETE FROM m_wf_instance_history t WHERE t.Instance_Id=#{instanceHistoryId}
+	</delete>
+	<select id="getInstanceHistoryById" parameterType="java.lang.String" resultMap="instancehistorymap">
+		SELECT * FROM m_wf_instance_history t 
+		WHERE t.INSTANCE_ID=#{instanceHistoryId}
+	</select>
+	
+	<select id="getTemplateActionHistory" parameterType="map" resultMap="actionhistorymap">
+		select a.*
+		from M_WF_INSTANCE t inner join M_WF_ACTION_HISTORY a
+			on t.instance_id=a.instance_id 
+				and t.template_id=#{templateId}
+		<if test="nodeId != null">
+				a.Node_Id=#{nodeId}
+		</if>		
+		order by a.instance_id
+	</select>
+	
+	<select id="getSumActionResult" resultMap="sumResultRowMap" parameterType="queryElement">
+		select s.compo_id,
+		       ath.nd,
+		       s.template_id,
+		       s.template_name,
+		       ath.instance_id,
+		       i.name instance_name,
+		       ath.node_id,
+		       s.node_name,
+		       ath.executor,
+		       u.user_name executor_name,
+		       to_char(to_date(ath.arrival_time, 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss') arrival_time,
+       to_char(to_date(ath.execute_time, 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss') execute_time,
+		       trunc((to_date(ath.execute_time, 'yyyy-mm-dd hh24:mi:ss')-to_date(ath.arrival_time, 'yyyy-mm-dd hh24:mi:ss'))*24,2) dure_time,
+		       ag.avg_time,
+		       ath.co_code
+		  from (select c.compo_id    compo_id,
+		               t.template_id template_id,
+		               t.name        template_name,
+		               n.node_id     node_id,
+		               n.name        node_name
+		          from as_wf_activity_compo c
+		         inner join wf_template t on c.wf_template_id = t.template_id
+		         <if test="templateId != null">
+								c.wf_template_id=#{templateId}
+				 </if>
+				 <if test="templateId != null">
+								t.template_id=#{templateId}
+				 </if>
+		         inner join wf_node n on t.template_id = n.template_id
+		         <if test="templateId != null">
+								n.template_id=#{templateId}
+				 </if>
+				 <if test="nodeId != null">
+								n.node_id=#{nodeId}
+				 </if>
+		         ) s
+		 inner join (select INSTANCE_ID,NAME,DESCRIPTION,TEMPLATE_ID,
+                            OWNER,START_TIME,END_TIME,STATUS,PARENT_INSTANCE_ID 
+		              from wf_instance_history
+		              union
+		              select * from wf_instance) i 
+              on s.template_id = i.template_id
+			 	<if test="instanceId != null">
+					i.instance_id=#{instanceId}
+				</if>
+				<if test="templateId != null">
+					i.template_id=#{templateId}
+				</if>
+		 inner join (select h.nd,
+		                    h.instance_id,
+		                    h.node_id,
+		                    h.executor,
+		                    min(h.arrival_time) arrival_time,
+		                    max(h.execute_time) execute_time,
+		                    h.co_code
+		               from wf_action_history h
+		               <where>
+							<if test="startTime != null">
+								<![CDATA[to_date(h.execute_time,'yyyy-mm-dd hh24:mi:ss')>=to_date(']]>${startTime}<![CDATA[','yyyy-mm-dd hh24:mi:ss')]]>
+							</if>
+							<if test="endTime != null">
+								<![CDATA[to_date(h.execute_time,'yyyy-mm-dd hh24:mi:ss')<=to_date(']]>${endTime}<![CDATA[','yyyy-mm-dd hh24:mi:ss')]]>
+							</if>     
+							<if test="instanceId != null">
+								h.instance_id=#{instanceId}
+							</if>
+							<if test="nodeId != null">
+								h.node_id=#{nodeId}
+							</if>
+							<if test="staffId != null">
+								h.executor=#{staffId}
+							</if>	
+					  </where>		
+		              group by h.nd,
+		                       h.instance_id,
+		                       h.node_id,
+		                       h.action_name,
+		                       h.executor,
+		                       h.co_code) ath 
+		            on i.instance_id = ath.instance_id
+		             	and s.node_id = ath.node_id
+		 	inner join as_user u on ath.executor=u.user_id
+ 							<if test="staffId != null">
+								u.user_id=#{staffId}
+							</if>
+							<if test="staffId != null">
+								ath.executor=#{staffId}
+							</if>
+			inner join (select tl.nd,
+			                    tl.co_code,
+			                    tl.node_id,
+			                    avg(tl.dure_time) avg_time
+			               from (select g.nd,
+			                            g.instance_id,
+			                            g.node_id,
+			                            trunc((to_date(max(g.execute_time),
+			                                           'yyyy-mm-dd hh24:mi:ss') -
+			                                  to_date(min(g.arrival_time),
+			                                           'yyyy-mm-dd hh24:mi:ss')) * 24,
+			                                  2) dure_time,
+			                            g.co_code
+			                       from wf_action_history g
+			                       <where>
+										<if test="nodeId != null">
+											g.node_id=#{nodeId}
+										</if>
+								   </where>
+			                      group by g.nd, g.instance_id, g.node_id, g.co_code) tl
+			              group by tl.nd, tl.co_code, tl.node_id) ag
+			              on ath.nd = ag.nd and (ath.co_code = ag.co_code or ath.co_code='*' or ag.co_code='*')
+			                 and ath.node_id=ag.node_id
+		 group by s.compo_id,
+		          ath.nd,
+		          s.template_id,
+		          s.template_name,
+		          ath.instance_id,
+		          i.name,
+		          ath.node_id,
+		          s.node_name,
+		          ath.executor,
+		          u.user_name,
+		          ath.arrival_time,
+		          ath.execute_time,
+		          ag.avg_time,
+		          ath.co_code
+	</select>
+	
+	
+	<select id="getRuntimeAllExecutor" resultMap="nodeStaffMap" parameterType="java.lang.String">
+		select tsk.NODE_ID,stf.*,tsk.create_time EXECUTETIME,'' PASSDESC,'' ACTIONDESCRIPTION
+		from wf_staff stf inner join wf_current_task tsk
+			    on stf.STAFF_ID=tsk.executor 
+			      and tsk.instance_id = #{instanceId}
+	    union 
+	    select act.NODE_ID,wsf.*,act.execute_time EXECUTETIME,
+	           (case when act.action_name='authorize_task' then '授权'
+	                  when act.action_name='commit_task' then '提交'
+	                  when act.action_name='forward_task' then '移交'
+	                  when act.action_name='callback_flow' then '收回'
+	                  when act.action_name='giveback_flow' then '回退一步'
+	                  when act.action_name='transfer_flow' then '流程跳转'
+	                  when act.action_name='untread_flow' then '回退多步'	
+	                  when act.action_name='addExecutor_flow' then '添加执行者'
+	                  when act.action_name='start_instance' then '启动流程'	
+	                  when act.action_name='activate_instance' then '激活'
+	                  when act.action_name='deactivate_instance' then '冻结'
+	                  when act.action_name='interrupt_instance' then '中止'
+	                  when act.action_name='restart_instance' then '重启'
+	                  when act.action_name='redo_instance' then '重做'	
+	                  when act.action_name='suspend_instance' then '挂起'	
+	                  when act.action_name='terminated_instance' then '中止'
+	                  else '已处理'
+	                 end) PASSDESC,act.DESCRIPTION ACTIONDESCRIPTION
+	    from  wf_staff wsf inner join wf_action_history act
+	    on wsf.STAFF_ID=act.executor
+	       and act.instance_id = #{instanceId}
+	</select>
+	
+		<!--
+		taskexecutor <insert id="create_TaskExecutor"
+		parameterType="TaskExecutorModel">
+		<selectKey resultType="java.lang.String" keyProperty="taskExecutorOrderId" >
+		SELECT seq_task_executor.NEXTVAL FROM dual </selectKey> INSERT INTO
+		WF_TASK_EXECUTOR (TASK_EXECUTOR_ORDER_ID, INSTANCE_ID, NODE_ID,
+		EXECUTOR, EXECUTOR_ORDER, RESPONSIBILITY) VALUES
+		(#taskExecutorOrderId#, #instanceId#, #nodeId#, #executor#,
+		#executorOrder#, #responsibility# ) </insert> <select
+		id="get_TaskExecutor"
+		parameterType="TaskExecutorModel"
+		resultType="string"> SELECT t.executor FROM wf_task_executor t
+		<where> <isNotNull prepend="AND"
+		property="instanceId"> t.Instance_Id=#instanceId# </if>
+		<if test="nodeId"> t.Node_Id=#nodeId#
+		</if> </where> </select> <delete id="remove_TaskExecutor"
+		parameterType="TaskExecutorModel">
+		DELETE FROM WF_TASK_EXECUTOR t <where> <isNotNull
+		prepend="AND" property="taskExecutorOrderId">
+		t.TASK_EXECUTOR_ORDER_ID=#taskExecutorOrderId# </if> <isNotNull
+		prepend="AND" property="instanceId"> t.Instance_Id=#instanceId#
+		</if> <if test="nodeId">
+		t.Node_Id=#nodeId# </if> <isNotNull prepend="AND"
+		property="executor"> t.EXECUTOR=#executor# </if> </where>
+		</delete>
+	-->
+	
+	<!-- statevalue 
+	<insert id="create_StateValue" parameterType="StateValueModel">
+		<selectKey resultType="java.lang.String" keyProperty="stateValueId" >
+			SELECT seq_state_value.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO WF_STATE_VALUE
+		  (STATE_VALUE_ID, INSTANCE_ID, STATE_ID, VALUE)
+		VALUES
+		  (#stateValueId#,
+		   #instanceId#,
+		   #stateId#,
+		   #value#)
+	</insert>
+	
+	<select id="get_StateValue" parameterType="StateValueModel" resultMap="statevaluemap">
+		SELECT * FROM wf_state_value t WHERE t.Instance_Id=#instanceId#
+	</select>
+	
+	<update id="update_StateValue" parameterType="StateValueModel">
+	    UPDATE wf_state_value t SET t.value=#value# WHERE t.state_value_id=#stateValueId#
+	</update>
+	
+	<delete id="remove_StateValue" parameterType="StateValueModel">
+		DELETE FROM WF_STATE_VALUE t
+		<where>
+			<if test="stateValueId">
+				t.state_value_id=#stateValueId# 
+			</if>
+			<if test="instanceId">
+				t.instance_id=#instanceId# 
+			</if>
+			<if test="stateId">
+				t.state_id=#stateId# 
+			</if>
+		</where>
+	</delete>
+	-->
+</mapper>
+

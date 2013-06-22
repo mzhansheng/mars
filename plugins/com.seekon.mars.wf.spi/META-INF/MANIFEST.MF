@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Spi
+Bundle-SymbolicName: com.seekon.mars.wf.spi
+Bundle-Version: 1.0.0
+Bundle-Vendor: SEEKON
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: com.seekon.mars.wf.engine.spi;bundle-version="1.0.0"
+Export-Package: com.seekon.mars.wf.model,
+ com.seekon.mars.wf.service
+Bundle-Type: share
