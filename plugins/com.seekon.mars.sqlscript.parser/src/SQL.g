@@ -474,6 +474,7 @@ NO_WRITE_TO_BINLOG    : N_ O_  '_' W_ R_ I_ T_ E_  '_' T_ O_  '_' B_ I_ N_ L_ O_
 NODEGROUP_SYM     : N_ O_ D_ E_ G_ R_ O_ U_ P_  ;
 NONE_SYM      : N_ O_ N_ E_  ;
 NOT_SYM       : (N_ O_ T_) | ('!') ;
+NOT_IN_SYM    : ((N_ O_ T_) | ('!')) ' ' I_ N_ ;
 NOW       : (N_ O_ W_) | (L_ O_ C_ A_ L_ T_ I_ M_ E_) | (L_ O_ C_ A_ L_ T_ I_ M_ E_ S_ T_ A_ M_ P_) | (C_ U_ R_ R_ E_ N_ T_ '_' T_ I_ M_ E_ S_ T_ A_ M_ P_);
 NULL_SYM      : N_ U_ L_ L_  ;
 NUMERIC_SYM     : N_ U_ M_ E_ R_ I_ C_  ;
@@ -830,7 +831,7 @@ TEXT_STRING:
   (
     (  '\'' ( ('\\' '\\') | ('\'' '\'') | ('\\' '\'') | ~('\'') )* '\''  )
     |
-    (  '\"' ( ('\\' '\\') | ('\"' '\"') | ('\\' '\"') | ~('\"') )* '\"'  ) 
+    (  '\"' ( ('\\' '\\') | ('\"' '\"') | ('\\' '\"') | ~('\"') )* '\\"'  ) 
   )
 ;
 
@@ -1241,20 +1242,33 @@ expression: exp_factor1 ( OR_SYM ^ exp_factor1 )* ;
 exp_factor1:  exp_factor2 ( XOR ^ exp_factor2 )* ;
 exp_factor2:  exp_factor3 ( AND_SYM ^ exp_factor3 )* ;
 exp_factor3:  (NOT_SYM ^)? exp_factor4 ;
-exp_factor4:  bool_primary ( IS_SYM ^ (NOT_SYM ^)? (boolean_literal|NULL_SYM) )? ;
+exp_factor4:  bool_primary ( (IS_SYM (NOT_SYM)?)^ (boolean_literal|NULL_SYM) )? ;
 bool_primary:
     ( predicate relational_op predicate ) -> ^(relational_op predicate predicate)  
-  | ( predicate relational_op ( ALL | ANY )? subquery ) //-> ^( relational_op predicate ( ALL | ANY )? subquery )
-  | ( NOT_SYM? EXISTS ^ subquery )
-  | predicate
+ // | ( predicate relational_op ALL subquery ) -> ^( relational_op ALL predicate  subquery )
+ // | ( predicate relational_op ANY subquery ) -> ^( relational_op ANY predicate  subquery )
+  | ( EXISTS subquery ) -> ^(EXISTS subquery )
+  | ( NOT_SYM EXISTS subquery ) -> ^(NOT_SYM EXISTS subquery )
+  | predicate -> predicate
 ;
 predicate:
-    ( bit_expr (NOT_SYM)? IN_SYM ^ (subquery | expression_list) )
-  | ( bit_expr (NOT_SYM)? BETWEEN ^ bit_expr AND_SYM ^ predicate ) 
-  | ( bit_expr SOUNDS_SYM LIKE_SYM ^ bit_expr ) 
-  | ( bit_expr (NOT_SYM)? LIKE_SYM ^ simple_expr (ESCAPE_SYM ^ simple_expr)? )
-  | ( bit_expr (NOT_SYM)? REGEXP ^ bit_expr ) 
+    (predicate_in) // ( bit_expr ((NOT_SYM)? IN_SYM) ^ (subquery | expression_list) ) //-> ^(IN_SYM bit_expr (subquery | expression_list) )
+  | (predicate_like)
+  | ( bit_expr ((NOT_SYM)? BETWEEN) ^ bit_expr AND_SYM ^ predicate ) 
+  | ( bit_expr ((NOT_SYM)? REGEXP) ^ bit_expr ) 
   | ( bit_expr )  
+;
+predicate_in:
+   ( bit_expr IN_SYM  (subquery) ) -> ^(IN_SYM bit_expr subquery)
+   | ( bit_expr NOT_IN_SYM  (subquery) ) -> ^(NOT_IN_SYM bit_expr subquery)
+   | ( bit_expr IN_SYM  (expression_list) ) -> ^(IN_SYM bit_expr expression_list )
+   | ( bit_expr NOT_IN_SYM  (expression_list) ) -> ^(NOT_IN_SYM bit_expr expression_list )
+;
+predicate_like:
+    ( bit_expr (SOUNDS_SYM LIKE_SYM)  bit_expr ) -> ^(SOUNDS_SYM LIKE_SYM bit_expr bit_expr)
+  | ( bit_expr LIKE_SYM simple_expr ) -> ^(LIKE_SYM bit_expr simple_expr)
+  | ( bit_expr NOT_SYM LIKE_SYM simple_expr) -> ^(NOT_SYM LIKE_SYM bit_expr  simple_expr)
+  //| ( bit_expr ((NOT_SYM)? LIKE_SYM) ^ simple_expr (ESCAPE_SYM ^ simple_expr)? )
 ;
 bit_expr:
   factor1 ( VERTBAR ^ factor1 )? ;
@@ -1302,15 +1316,15 @@ case_when_statement:
         case_when_statement1 | case_when_statement2
 ;
 case_when_statement1:
-        CASE_SYM
-        ( WHEN_SYM expression THEN_SYM bit_expr )+
-        ( ELSE_SYM bit_expr )?
+        CASE_SYM ^
+        ( WHEN_SYM ^ expression THEN_SYM ^ bit_expr )+
+        ( ELSE_SYM ^ bit_expr )?
         END_SYM
 ;
 case_when_statement2:
-        CASE_SYM bit_expr
-        ( WHEN_SYM bit_expr THEN_SYM bit_expr )+
-        ( ELSE_SYM bit_expr )?
+        CASE_SYM ^ bit_expr
+        ( WHEN_SYM ^ bit_expr THEN_SYM ^ bit_expr )+
+        ( ELSE_SYM ^ bit_expr )?
         END_SYM
 ;
 
@@ -1322,7 +1336,8 @@ column_spec:
   ( ( schema_name DOT ^ )? table_name DOT ^ )? column_name ;
 
 expression_list:
-  LPAREN expression ( COMMA expression )* RPAREN ;
+  LPAREN ! expression ( COMMA ^ expression )* RPAREN !
+  ;
 
 interval_expr:
   INTERVAL_SYM expression interval_unit
@@ -1362,7 +1377,7 @@ table_factor1_part:
 (  (INNER_SYM | CROSS)? JOIN_SYM ^ table_atom (join_condition)?  )
 ;
 table_factor2_part:
-(  STRAIGHT_JOIN ^ table_atom (ON expression)?  )
+(  STRAIGHT_JOIN ^ table_atom (ON ^ expression)?  )
 ;
 table_factor3_part:
 (  (LEFT|RIGHT) (OUTER)? JOIN_SYM ^ table_factor4 join_condition  )
@@ -1374,7 +1389,7 @@ join_condition:
     (ON ^ expression) | (USING_SYM ^ column_list)
 ;
 index_hint_list:
-  index_hint (COMMA index_hint)*
+  index_hint (COMMA ^ index_hint)*
 ;
 index_options:
   (INDEX_SYM | KEY_SYM) (  FOR_SYM ((JOIN_SYM) | (ORDER_SYM BY_SYM) | (GROUP_SYM BY_SYM))  )?
@@ -1526,7 +1541,7 @@ where_clause:
 ;
 
 groupby_clause:
-  GROUP_SYM BY_SYM ^ groupby_item (COMMA ^ groupby_item)* (WITH ROLLUP_SYM)?
+  (GROUP_SYM BY_SYM) ^ groupby_item (COMMA ^ groupby_item)* (WITH ROLLUP_SYM)?
 ;
 groupby_item: column_spec | INTEGER_NUM | bit_expr ;
 
@@ -1535,7 +1550,7 @@ having_clause:
 ;
 
 orderby_clause:
-  ORDER_SYM BY_SYM ^ orderby_item (COMMA ^ orderby_item)*
+  (ORDER_SYM BY_SYM) ^ orderby_item (COMMA ^ orderby_item)*
 ;
 orderby_item: groupby_item (ASC | DESC)? ;
 
@@ -1551,19 +1566,19 @@ select_list:
 ;
 
 column_list:
-  LPAREN  column_spec (COMMA ^ column_spec)* RPAREN 
+  LPAREN ! column_spec (COMMA ^ column_spec)* RPAREN ! 
 ;
 
 subquery:
-  LPAREN ^ select_statement RPAREN 
+  LPAREN ! select_statement RPAREN !
 ;
 
 table_spec:
-  (( schema_name DOT )? table_name) ^
+  (( schema_name DOT ^)? table_name) ^
 ;
 
 displayed_column :
-  ( table_spec DOT ASTERISK )
+  ( table_spec DOT ^ ASTERISK )
   |
   ( column_spec (alias)? )
   | 
