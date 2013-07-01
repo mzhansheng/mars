@@ -19,6 +19,10 @@ import com.seekon.mars.context.ISharedModuleProvider;
 public class Activator implements BundleActivator {
 
 	public void start(BundleContext bundleContext) throws Exception {
+	  try {
+      org.apache.ibatis.io.VFS.addImplClass(BundleVFS.class);
+    } catch (Throwable e) {
+    }
 		initGlobaleGuiceInjector();
 	}
 
