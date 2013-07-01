@@ -4,6 +4,7 @@ import java.awt.Component;
 
 import com.seekon.mars.wf.client.panel.TemplateManager;
 import com.seekon.smartclient.module.AbstractResource;
+import com.seekon.smartclient.module.Action;
 import com.seekon.smartclient.module.ActionHelper;
 import com.seekon.smartclient.module.Resource;
 import com.seekon.smartclient.module.ResourceRegistry;
@@ -26,6 +27,7 @@ public class WFResourceRegistry implements ResourceRegistry{
     Resource item = new Resource(KEY_TEMPLATE_RESOURCE, "模板管理", true);
     item.addChild(ActionHelper.getImportAction());
     item.addChild(ActionHelper.getExportAction());
+    item.addChild(new Action("func.wf.template.designer", "模板设计"));
     return item;
   }
   

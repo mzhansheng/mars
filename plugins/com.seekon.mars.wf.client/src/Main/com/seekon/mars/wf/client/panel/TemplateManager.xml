@@ -7,6 +7,7 @@
   			<button id="add" text="新增" actionId="func.add"></button>
   			<button id="delete" text="删除" actionId="func.delete"></button>
   			<button id="save" text="保存" actionId="func.save"></button>
+  			<button id="wfDesigner" text="模板设计器" actionId="func.wf.template.designer"></button>
   		</toolbar>
   			  
   		<panel layout="BorderLayout">

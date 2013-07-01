@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dialog 
+	size="480,320" title="工作流模板资源编辑" Modal="true" id="editDialog">
+
+<MResourcePanel id="system.wf.template">
+  <panel layout="BorderLayout">
+  	<panel constraints="BorderLayout.NORTH">
+  		<layout type="MigLayout" layoutConstraints="align left"></layout>
+  		<label text="*模板代码" constraints="align right"/>
+  		<textfield id="codeField" constraints="w 4cm:6cm:"></textfield>
+  		<label text="*模板名称" constraints="align right"/>
+  		<textfield id="nameField" constraints="w 4cm:6cm:,wrap"></textfield>
+  	</panel>
+  	<panel layout="BorderLayout">
+  	  <scrollpane constraints="BorderLayout.CENTER">
+  		<table id="resourceTable">
+  			<MDefaultTableModel sqlid="getWorkflowTemplates" params="" lazy="true"
+  							columns="code,代码;name,名称"></MDefaultTableModel>
+  		</table>
+  	  </scrollpane>
+  	  <panel constraints="BorderLayout.EAST">
+  	  	<layout type="MigLayout" layoutConstraints="align left"></layout>
+  	  	<button id="addRecordButton" text="新增记录" constraints="align left,wrap"></button>
+  	  	<button id="delRecordButton" text="删除记录" constraints="align left,wrap"></button>
+  	  </panel>
+  	</panel>
+  	<panel constraints="BorderLayout.SOUTH">
+  		<button id="saveButton" text="保存"></button>
+  	</panel>		       
+  </panel>
+</MResourcePanel>
+</dialog> 
