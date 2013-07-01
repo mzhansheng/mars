@@ -27,10 +27,10 @@
 		<result property="status" 				column="STATUS" />		
 		<result property="parentInstanceId" 	column="PARENT_INSTANCE_ID" />		
 	</resultMap>
-	<resultMap type="InstanceModel" id="instancemap" extends="WFEngine.baseInstancemap">
+	<resultMap type="InstanceModel" id="instancemap" extends="baseInstancemap">
 		<result property="instanceId" 			column="INSTANCE_ID" />
 	</resultMap>
-	<resultMap type="InstanceHistoryModel" id="instancehistorymap" extends="WFEngine.baseInstancemap">
+	<resultMap type="InstanceHistoryModel" id="instancehistorymap" extends="baseInstancemap">
 		<result property="instanceId" 		column="INSTANCE_ID" />	
 		<result property="instanceTrace" 	column="INSTANCE_TRACE" jdbcType="CLOB" javaType = "java.lang.String"/>
 	</resultMap>
@@ -76,10 +76,10 @@
 		<result property="posiCode" 			column="posi_code" />	
 		<result property="nd" 					column="nd" />
 	</resultMap>
-	<resultMap type="ActionModel" id="actionmap" extends="WFEngine.baseactionmap">
+	<resultMap type="ActionModel" id="actionmap" extends="baseactionmap">
 		<result property="actionId" 			column="ACTION_ID" />
 	</resultMap>
-	<resultMap type="ActionHistoryModel" id="actionhistorymap" extends="WFEngine.baseactionmap">
+	<resultMap type="ActionHistoryModel" id="actionhistorymap" extends="baseactionmap">
 		<result property="actionId" 		column="ACTION_HISTORY_ID" />	
 	</resultMap>
 
