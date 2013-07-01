@@ -91,9 +91,9 @@ final class LoginDialog extends JBaseDialog {
 				public void actionPerformed(ActionEvent e) {
 
 					String userId = userIdTextField.getText();
-					if(userId == null || userId.trim().length() == 0){
-					  userId = "admin";
-					}
+					//if(userId == null || userId.trim().length() == 0){
+					//  userId = "admin";
+					//}
 					
 					String passwd = new String(passwordField.getPassword());
 					User usr = new User();
