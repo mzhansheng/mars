@@ -14,12 +14,12 @@ public class BDElementTableModel extends MDefaultTableModel{
     if(dataList == null){
       return;
     }
-    for(Map data : dataList){
-      Object code = data.get("code");
-      if(code != null && code.toString().trim().length() > 0){
-        data.put("is_used", true);
-      }
-    }
+//    for(Map data : dataList){
+//      Object code = data.get("code");
+//      if(code != null && code.toString().trim().length() > 0){
+//        data.put("is_used", true);
+//      }
+//    }
     super.setDataList(dataList);
   }
   

@@ -62,6 +62,7 @@ public class BDGeneralEditPage extends GuiEngine{
             mDataModel.addParam("name", nameField.getText());
             mDataModel.addParam("type", "1");
             mDataModel.addParam("physical_table", tableField.getText());
+            mDataModel.addParam("is_used", 1);
             return mDataModel.insert();
           }
 

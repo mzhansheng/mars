@@ -76,7 +76,7 @@ public class BDElementManager extends GuiEngine{
               }else{
                 model.setSqlid("insertBDElement");
                 data.put("id", UUID.randomUUID().toString());
-                data.put("type", 1);
+                data.put("type", 0);
                 model.addParam("data", data);
                 model.insert();
               }

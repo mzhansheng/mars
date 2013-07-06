@@ -10,7 +10,7 @@
   			  	   </panel>
   			  		<scrollpane constraints="BorderLayout.CENTER">
   						<tree id="basedataTree">
-  							<MDefaultTreeModel sqlid="getGeneralBDElements" params="" lazy="true" checkAndInitTreeNode="false">
+  							<MDefaultTreeModel sqlid="getGeneralBDElements" params="is_used=1" lazy="true" checkAndInitTreeNode="false">
   							</MDefaultTreeModel>
   						</tree>
   					</scrollpane>
