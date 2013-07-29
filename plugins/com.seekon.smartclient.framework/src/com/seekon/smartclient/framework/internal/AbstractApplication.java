@@ -36,7 +36,7 @@ public abstract class AbstractApplication implements Application {
   private String currentLookAndFeelClassName = UIManager
     .getCrossPlatformLookAndFeelClassName();
 
-  public AbstractApplication() {
+  public AbstractApplication() {    
     LookAndFeelUtil.removeAllSplitPaneBorders();
     
     setTitle(ResourceProvide.getResourceString("application.title"));

@@ -111,8 +111,10 @@ public class MainFrameImpl implements MainFrame {
       new Position());
     this.perspective.addComponent("homepage", new HomepageRegistry().getDefaultHomepage(), "首页",
       new Position());
-
-    this.menuManager.update();
+    
+    if(!(this.owner instanceof JApplet)){//JApplet不渲染菜单
+      this.menuManager.update();
+    }
     this.toolBarManager.update();
     this.statusBarManager.update();
 

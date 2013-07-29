@@ -3,6 +3,7 @@ package com.seekon.smartclient.framework.nav;
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import com.seekon.smartclient.module.AbstractResourceTree;
 
@@ -22,7 +23,7 @@ public class NavigationView extends JPanel {
 		resourceTree.addMouseListener(new NavigationItemDoubleClickedListener(resourceTree));
 		resourceTree.setRootVisible(false);
 		
-		this.add(resourceTree);
+		this.add(new JScrollPane(resourceTree));
 	}
 
 }
