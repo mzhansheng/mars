@@ -7,12 +7,12 @@ import javax.swing.SwingUtilities;
 import com.seekon.smartclient.login.LoginValidateor;
 import com.seekon.smartclient.splash.Splash;
 import com.seekon.smartclient.splash.SplashPlugin;
-import com.seekon.system.auth.model.User;
+import com.seekon.system.auth.model.LoginInfo;
 
 final class DefaultLoginValidateor implements LoginValidateor {
 
   @Override
-  public User login() {
+  public LoginInfo login() {
     LoginDialog loginDialog = new LoginDialog();
     loginDialog.setModalityType(ModalityType.APPLICATION_MODAL);
 

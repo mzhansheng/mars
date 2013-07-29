@@ -1,7 +1,7 @@
 package com.seekon.smartclient.login;
 
-import com.seekon.system.auth.model.User;
+import com.seekon.system.auth.model.LoginInfo;
 
 public interface LoginValidateor {
-  public User login();
+  public LoginInfo login();
 }

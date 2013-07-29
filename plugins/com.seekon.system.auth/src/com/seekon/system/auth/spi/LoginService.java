@@ -1,9 +1,9 @@
 package com.seekon.system.auth.spi;
 
-import com.seekon.system.auth.model.User;
+import com.seekon.system.auth.model.LoginInfo;
 
 public interface LoginService {
 
-  public User login(String userId, String passwd);
+  public LoginInfo login(String userId, String passwd);
 
 }

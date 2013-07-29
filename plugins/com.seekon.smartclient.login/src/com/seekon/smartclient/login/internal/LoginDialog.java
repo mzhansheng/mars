@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 import com.seekon.smartclient.framework.component.JBaseDialog;
+import com.seekon.system.auth.model.LoginInfo;
 import com.seekon.system.auth.model.User;
 import com.seekon.system.auth.spi.LoginService;
 
@@ -83,7 +84,7 @@ final class LoginDialog extends JBaseDialog {
 		}
 	};
 
-	private User retUser = null;
+	private LoginInfo retLoginInfo = null;
 
 	private final JButton okButton = new JButton() {
 		{
@@ -107,7 +108,7 @@ final class LoginDialog extends JBaseDialog {
 					// listener.logining(event);
 					// }
 
-					User user = null;
+					LoginInfo user = null;
 					try {
 						user = LoginPlugin.injector.getInstance(LoginService.class)
 								.login(userId, passwd);
@@ -120,7 +121,7 @@ final class LoginDialog extends JBaseDialog {
 					// .login(userId, passwd);
 
 					if (user != null) {
-						retUser = user;
+						retLoginInfo = user;
 						LoginDialog.this.setVisible(false);
 						// plugin.getPluginPreferences().setValue(LAST_LOGIN_USERNAME,
 						// userId);
@@ -137,7 +138,7 @@ final class LoginDialog extends JBaseDialog {
 						} else {
 							JOptionPane.showMessageDialog(null, "你没有登录本系统的权限！", "登录失败",
 									JOptionPane.ERROR_MESSAGE);
-							retUser = null;
+							retLoginInfo = null;
 							LoginDialog.this.setVisible(false);
 						}
 					}
@@ -157,7 +158,7 @@ final class LoginDialog extends JBaseDialog {
 			Action action = new AbstractAction("取消") {
 				public void actionPerformed(ActionEvent e) {
 					LoginDialog.this.setVisible(false);
-					retUser = null;
+					retLoginInfo = null;
 				}
 			};
 
@@ -220,10 +221,10 @@ final class LoginDialog extends JBaseDialog {
 				0));
 	}
 
-	public User execute() {
+	public LoginInfo execute() {
 		this.moveToScreenCenter();
 		this.toFront();
 		setVisible(true);
-		return retUser;
+		return retLoginInfo;
 	}
 }

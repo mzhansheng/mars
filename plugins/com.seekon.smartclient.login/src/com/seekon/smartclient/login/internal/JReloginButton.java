@@ -10,7 +10,7 @@ import org.osgi.framework.ServiceReference;
 import com.seekon.smartclient.framework.Application;
 import com.seekon.smartclient.framework.util.ToolBarButton;
 import com.seekon.smartclient.login.LoginValidateor;
-import com.seekon.system.auth.model.User;
+import com.seekon.system.auth.model.LoginInfo;
 
 public class JReloginButton extends ToolBarButton {
 
@@ -24,7 +24,7 @@ public class JReloginButton extends ToolBarButton {
       @Override
       public void actionPerformed(ActionEvent e) {
         LoginValidateor loginValidateor = new DefaultLoginValidateor();
-        User user = loginValidateor.login();
+        LoginInfo user = loginValidateor.login();
         if (user != null) {
           Startup.initApplicationContextSession(user);
         }
