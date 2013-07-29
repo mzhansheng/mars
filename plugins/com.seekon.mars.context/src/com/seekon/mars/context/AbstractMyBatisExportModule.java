@@ -58,6 +58,10 @@ public abstract class AbstractMyBatisExportModule extends AbstractExportModule {
     addAlias(type.getSimpleName()).to(type);
   }
 
+  protected final void addAlias(final String alias, final Class<?> type){
+    addAlias(alias).to(type);
+  }
+  
   protected final AliasBinder addAlias(final String alias) {
     checkArgument(alias != null && alias.length() > 0,
       "Empty or null 'alias' is not valid");
