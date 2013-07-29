@@ -9,18 +9,30 @@ public class SessionContext implements Serializable {
 
   public static final String KEY_LOGINED_CURRENT_USER = "sys.current.logined.user";
 
+  public static final String KEY_USER_ID = "svUserID";
+
   public static final String KEY_USER_CODE = "svUserCode";
 
   public static final String KEY_USER_NAME = "svUserName";
+
+  public static final String KEY_ENT_CODE = "svCoCode";
+
+  public static final String KEY_ENT_NAME = "svCoName";
+
+  public static final String KEY_DEPT_CODE = "svOrgCode";
+
+  public static final String KEY_DEPT_NAME = "svOrgName";
+
+  public static final String KEY_FISCAL_PERIOD = "svFiscalPeriod";
+
+  public static final String KEY_FISCAL_YEAR = "svFiscalYear";
+
+  public static final String KEY_ND = "svNd";
+
+  public static final String KEY_TRANS_DATE = "svTransDate";
+
+  public static final String KEY_SESSION_ID = "JSESSIONID";
   
-  public static final String KEY_ENT_CODE = "svEntCode";
-
-  public static final String KEY_ENT_NAME = "svEntName";
-  
-  public static final String KEY_DEPT_CODE = "svDeptCode";
-
-  public static final String KEY_DEPT_NAME = "svDeptName";
-
   private static final ThreadLocal<Map<String, Object>> currentSession = new ThreadLocal<Map<String, Object>>();
 
   private static boolean serverRunning = serverRunning();
