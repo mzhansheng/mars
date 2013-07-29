@@ -25,6 +25,10 @@
 		<filter-name>appletInvokeFilter</filter-name>
 		<url-pattern>/client/*</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>appletInvokeFilter</filter-name>
+		<url-pattern>/download/*</url-pattern>
+	</filter-mapping>
 	
 	<listener>
         <listener-class>com.seekon.mars.osgi.bridge.internal.StartupListener</listener-class>
