@@ -10,6 +10,8 @@ public abstract class AbstractResource implements Serializable, Cloneable {
 
 	protected String name;
 
+	protected boolean openNewWindow;
+	
 	protected AbstractResource parent;
 	
 	public AbstractResource() {
@@ -38,7 +40,15 @@ public abstract class AbstractResource implements Serializable, Cloneable {
 		this.name = name;
 	}
 
-	public AbstractResource getParent() {
+	public boolean isOpenNewWindow() {
+    return openNewWindow;
+  }
+
+  public void setOpenNewWindow(boolean openNewWindow) {
+    this.openNewWindow = openNewWindow;
+  }
+
+  public AbstractResource getParent() {
     return parent;
   }
 
