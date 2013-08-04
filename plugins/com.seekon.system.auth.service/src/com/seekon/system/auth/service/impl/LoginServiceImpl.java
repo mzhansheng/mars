@@ -71,7 +71,7 @@ public class LoginServiceImpl implements LoginService {
     Calendar calendar = Calendar.getInstance();
 
     session.put(SessionContext.KEY_FISCAL_YEAR, "" + calendar.get(Calendar.YEAR));
-    session.put(SessionContext.KEY_FISCAL_PERIOD, "" + calendar.get(Calendar.MONTH) + 1);
+    session.put(SessionContext.KEY_FISCAL_PERIOD, "" + (calendar.get(Calendar.MONTH) + 1));
     session.put(SessionContext.KEY_ND, "" + calendar.get(Calendar.YEAR));
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

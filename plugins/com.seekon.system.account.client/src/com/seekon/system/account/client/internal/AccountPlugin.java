@@ -20,7 +20,7 @@ public class AccountPlugin implements BundleActivator{
       new AbstractImportModule() {
         @Override
         protected void initialize() {
-          importService(UserService.class); 
+          importService(UserService.class);
         }
       });
   }

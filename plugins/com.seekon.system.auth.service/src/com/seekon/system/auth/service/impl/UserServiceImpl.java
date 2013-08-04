@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.mybatis.guice.transactional.Transactional;
 
 import com.google.inject.Inject;
+import com.seekon.mars.context.http.SessionContext;
 import com.seekon.system.auth.model.Role;
 import com.seekon.system.auth.model.User;
 import com.seekon.system.auth.service.mapper.UserMapper;
@@ -102,5 +103,10 @@ public class UserServiceImpl implements UserService {
     user.setId(userId);
     user.setPassword(pwd);
     userMapper.updatePassword(user);
+  }
+  
+  @Override
+  public void changeSession(Map<String, Object> session) {
+    SessionContext.setCurrentHttpSession(session);
   }
 }

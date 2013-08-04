@@ -7,6 +7,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: com.google.inject;version="1.3.0",
  com.seekon.mars.context,
  com.seekon.mars.context.http,
+ com.seekon.mars.osgi.util,
+ com.seekon.smartclient.framework.component,
  com.seekon.smartclient.framework.util,
  com.seekon.system.auth.model,
  com.seekon.system.auth.spi,

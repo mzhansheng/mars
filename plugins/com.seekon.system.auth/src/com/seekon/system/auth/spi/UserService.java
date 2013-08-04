@@ -1,6 +1,7 @@
 package com.seekon.system.auth.spi;
 
 import java.util.List;
+import java.util.Map;
 
 import com.seekon.system.auth.model.User;
 
@@ -21,4 +22,6 @@ public interface UserService {
   public User getUser(String userId);
   
   public void updatePassword(String userId, String pwd);
+  
+  public void changeSession(Map<String, Object> session);
 }
