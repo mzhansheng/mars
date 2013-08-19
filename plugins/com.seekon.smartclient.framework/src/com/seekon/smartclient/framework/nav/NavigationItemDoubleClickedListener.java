@@ -72,7 +72,7 @@ public class NavigationItemDoubleClickedListener extends MouseAdapter {
               window.add(new JPanelWrapper(path), BorderLayout.CENTER);
               
               Dimension d = Toolkit.getDefaultToolkit().getScreenSize(); 
-              window.setSize(d.width, d.height);
+              window.setSize(d.width, d.height - 25);
               window.setLocationRelativeTo(null);
               
               window.addWindowListener(new WindowAdapter() {
